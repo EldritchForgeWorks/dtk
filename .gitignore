@@ -1,0 +1,9 @@
+# AI tool local state
+.claude/settings.local.json
+.codex/
+.gemini/
+.opencode/
+.pi/
+
+# OS
+.DS_Store

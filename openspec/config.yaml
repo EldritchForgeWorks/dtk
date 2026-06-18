@@ -1,0 +1,141 @@
+schema: spec-driven
+
+context: |
+  Project: Demiurge's Toolkit (DTK)
+  Repository: dtk (this repo — hub module + ecosystem specs)
+
+  DTK is a Foundry VTT ecosystem that lets game designers build fully-featured
+  game systems with minimal TypeScript. The designer authors contracts (Ritus,
+  Codex, Forma, Modus, Exemplar); the toolkit modules handle all runtime,
+  UI, automation, and compendium compilation.
+
+  Design philosophies:
+  - Minimal coding — game designers, not developers, as primary authors
+  - Convention over configuration
+  - Compendium-sourced data (dtk-promptuarium)
+  - Compendium-sourced rules and rule application (dtk-lex + dtk-alea)
+
+  Architecture:
+  - NOT a monorepo — each module is an independent repo
+  - This repo (dtk) ships: the hub Foundry module + @dtk/types npm package
+  - Individual modules are separate repos, independently publishable/gatable
+
+  Module naming convention: dtk-{name} (Foundry module IDs)
+  npm package convention: @dtk/{name} (scoped, private registry)
+
+  Ecosystem modules and tiers:
+    FREE:
+    - dtk             Foundry hub/installer module (this repo)
+    - @dtk/types      Private npm package — shared contracts + runtime validators
+    - dtk-systema     Integration layer; provides defineSystem()
+    - dtk-alea        Cross-system dice resolution engine (six-stage pipeline)
+    - dtk-promptuarium Compendium compiler — YAML Exemplars → LevelDB packs
+
+    PREMIUM (candidates):
+    - dtk-opus        Character creation & advancement wizard engine
+    - dtk-lex         Rules DSL engine + condition evaluator + visual editor
+
+  Core contracts — what a game system implements per DTK module:
+    Ritus    → dtk-alea       (dice mechanics: pipeline stages, roll tables)
+    Codex    → dtk-lex        (vocabulary: attributes, skills, damage types, etc.)
+    Forma    → dtk-opus       (chargen wizard: steps, fields, conditions, output)
+    Modus    → dtk-systema    (system wiring: actors, items, schemas, settings)
+    Exemplar → dtk-promptuarium (YAML compendium content: species, classes, items)
+
+  All contracts are defined in @dtk/types. Every DTK module imports its
+  contract types from there — no cross-module circular dependencies.
+
+  Tech stack:
+  - TypeScript 5+
+  - Vite (module builds)
+  - FoundryVTT v12–v14; ApplicationV2 + HandlebarsApplicationMixin only
+  - Vitest (unit tests)
+  - Zod (runtime validation in @dtk/types; tree-shaken from module bundles)
+
+  Reference implementations (DO NOT copy code — use as design reference only):
+  - alea-core    → dtk-alea
+  - lexicon-core → dtk-lex
+  - charwizard-core (opus) → dtk-opus
+  - systema      → dtk-systema
+  - promptuarium → dtk-promptuarium
+
+  All specs live in this repo under openspec/. Individual module repos
+  implement the specs and import contract types from @dtk/types.
+
+  ── ARCHITECTURE STANDARDS (apply to all modules) ──────────────────────────
+
+  Hexagonal Architecture (Ports & Adapters):
+  Every DTK module (except @dtk/types) uses the following source layout:
+
+    src/
+    ├── domain/           Pure TypeScript — no Foundry globals, fully unit-testable
+    │   ├── entities/     Objects with identity (SequenceExecution, PendingDecision)
+    │   ├── value-objects/ Immutable data (RollContext, ResolvedTarget, RegistryEntry)
+    │   └── services/     Domain logic (ContextBuilder, VersionComparator, ExpressionParser)
+    ├── ports/            Interfaces the domain depends on (secondary ports)
+    │   └── *.ts          e.g. IDiceRoller, ICombatStateStore, ISocketRelay
+    └── adapters/
+        ├── foundry/      Foundry VTT implementations — excluded from unit tests
+        └── in-memory/    Test doubles implementing the same ports
+
+  Rule: domain/ and ports/ have zero imports from foundry/ or game/* globals.
+  Rule: adapters/foundry/ files are excluded from vitest coverage (require live Foundry).
+  Rule: adapters/in-memory/ files are the stubs used in unit tests.
+
+  @dtk/types is the DDD Shared Kernel — the ubiquitous language for all bounded
+  contexts. It has no hexagonal split; it is schemas, types, and guards only.
+
+  Domain-Driven Design conventions:
+  - Each DTK module is a Bounded Context with its own ubiquitous language
+  - The five contracts (Ritus, Codex, Forma, Modus, Exemplar) are the shared
+    ubiquitous language defined in the Shared Kernel (@dtk/types)
+  - Domain Events are named after the Foundry hooks they emit:
+      dtk-alea.await, dtk-alea.complete, dtk-systema.ready, dtk.ready
+  - Aggregates have a single root with identity; all state mutations go through it
+  - Value Objects are immutable; create new rather than mutating
+  - Anti-Corruption Layer: adapters/foundry/ translates Foundry document shapes
+    into domain value objects — domain never knows about Foundry Document internals
+
+  Test-Driven Development:
+  Tasks SHALL follow Red-Green-Refactor ordering for each feature unit:
+    1. [test]  Write failing Vitest test for the domain behaviour
+    2. [impl]  Implement domain entity/service to pass the test
+    3. [port]  Declare the port interface the domain needs
+    4. [stub]  Write in-memory adapter (test double) implementing the port
+    5. [adapt] Write Foundry adapter implementing the port
+    6. [wire]  Wire adapter into the module's init/register flow
+  Tasks labelled [test] ALWAYS precede their paired [impl] task.
+
+  VitestSuite Test Standards (from /vitest-suite skill):
+  - 4 test groups per domain service/entity method:
+      Boundary     edge cases, empty inputs, nulls, limits
+      Scenario     representative happy-path and variant cases
+      Failure      invalid inputs, port errors, domain rule violations
+      Combinatorial interactions between parameters
+  - Coverage target: 85%+ statements on src/domain/ and src/ports/
+  - src/adapters/foundry/ excluded from coverage (smoke-tested only)
+  - Test files live in tests/unit/ mirroring src/domain/ and src/ports/
+  - Each spec scenario (WHEN/THEN) maps 1:1 to a named test case
+
+rules:
+  proposal:
+    - Always state the module ID and npm package name (if applicable)
+    - Always declare the tier: FREE or PREMIUM
+    - Always include a Non-goals section
+    - Reference the relevant contract names (Ritus, Codex, etc.) where applicable
+  design:
+    - Prefer ASCII diagrams for architecture and data flow
+    - Call out inter-module dependencies explicitly
+    - Flag any deviation from prototype design with a "Change from prototype" note
+    - Include a Module Architecture section showing domain/ports/adapters breakdown
+    - Identify which domain services map to which spec capabilities
+  specs:
+    - Each scenario (WHEN/THEN) is a named test case — write it to be directly testable
+    - Domain behaviour scenarios test through ports (no Foundry globals in test setup)
+    - Foundry adapter behaviour is described as smoke-test scenarios, not unit scenarios
+  tasks:
+    - Scope tasks to a single module boundary
+    - "Mark tasks that touch @dtk/types as [types] so they are done first"
+    - "Follow Red-Green-Refactor ordering: [test] task before its paired [impl] task"
+    - "Label tasks by layer: [test] [impl] [port] [stub] [adapt] [wire] [smoke]"
+    - Group 0 scaffolds domain/ports/adapters directory structure before any feature work
