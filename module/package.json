@@ -1,0 +1,23 @@
+{
+  "name": "dtk-hub",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@dtk/types": "file:../packages/types",
+    "@league-of-foundry-developers/foundry-vtt-types": "^13.346.0-beta.20250812191140",
+    "@vitest/coverage-v8": "^2.0.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}

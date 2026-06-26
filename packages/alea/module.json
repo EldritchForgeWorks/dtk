@@ -1,0 +1,20 @@
+{
+  "id": "dtk-alea",
+  "title": "Demiurge's Toolkit — Alea (Dice Engine)",
+  "description": "Cross-system dice resolution engine: expression parsing, tier classification, and sequence execution.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ],
+    "optional": [
+      { "id": "dtk-lex", "type": "module", "reason": "Enables complex expression evaluation in pool formulas and conditions. Without it, only arithmetic expressions are supported." }
+    ]
+  },
+  "esmodules": ["dtk-alea.js"],
+  "flags": {}
+}

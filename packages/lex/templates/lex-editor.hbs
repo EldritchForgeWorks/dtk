@@ -1,0 +1,24 @@
+<div class="dtk-lex-editor-content">
+  <div class="expression-row">
+    <label for="dtk-expression">{{title}}</label>
+    <input type="text" id="dtk-expression" name="expression" value="{{expression}}" autocomplete="off" />
+  </div>
+  {{#if previewResult}}
+  <div class="preview result">= {{previewResult}}</div>
+  {{/if}}
+  {{#if previewError}}
+  <div class="preview error">{{previewError}}</div>
+  {{/if}}
+  {{#if suggestions.length}}
+  <div class="suggestions">
+    <span class="suggestions-label">Available slugs:</span>
+    {{#each suggestions}}
+    <button type="button" data-action="suggest" data-slug="{{this}}" class="suggestion-chip">@{{this}}</button>
+    {{/each}}
+  </div>
+  {{/if}}
+  <div class="form-footer">
+    <button type="button" data-action="cancel">Cancel</button>
+    <button type="button" data-action="confirm" class="default">Confirm</button>
+  </div>
+</div>

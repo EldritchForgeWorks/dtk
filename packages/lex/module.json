@@ -1,0 +1,17 @@
+{
+  "id": "dtk-lex",
+  "title": "Demiurge's Toolkit — Lex (Rules DSL)",
+  "description": "Rules DSL engine: expression evaluator, condition evaluator, codex registry, and visual expression editor.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ]
+  },
+  "esmodules": ["dtk-lex.js"],
+  "flags": {}
+}

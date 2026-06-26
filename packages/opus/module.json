@@ -1,0 +1,21 @@
+{
+  "id": "dtk-opus",
+  "title": "Demiurge's Toolkit — Opus (Character Wizard)",
+  "description": "Character creation and advancement wizard engine: forma-driven multi-step wizard and paradigm tracking.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ],
+    "optional": [
+      { "id": "dtk-lex", "type": "module", "reason": "Enables complex prerequisite expressions in advancement gates. Without it, only simple has()/step.x==y prerequisites are evaluated." },
+      { "id": "dtk-promptuarium", "type": "module", "reason": "Enables exemplar-grid fields in the creation wizard, populating species/archetype/vocation card grids from compiled compendiums. Without it, exemplar-grid fields render empty." }
+    ]
+  },
+  "esmodules": ["dtk-opus.js"],
+  "flags": {}
+}

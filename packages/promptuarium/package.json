@@ -1,0 +1,25 @@
+{
+  "name": "@dtk/promptuarium",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "bin": { "promptuarium": "./dist/cli/index.js" },
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --project tsconfig.build.json && vite build"
+  },
+  "dependencies": {
+    "classic-level": "^1.4.1",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@dtk/types": "file:../../packages/types",
+    "@types/js-yaml": "^4.0.9",
+    "@vitest/coverage-v8": "^2.0.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}

@@ -1,0 +1,32 @@
+<div class="dtk-installer">
+  <div class="dtk-installer__header">
+    <h1>DTK Module Manager</h1>
+    <button class="dtk-installer__refresh" {{#if refreshing}}disabled{{/if}}>
+      {{#if refreshing}}<i class="fa fa-spinner fa-spin"></i>{{else}}Refresh{{/if}}
+    </button>
+  </div>
+  {{#if cacheNotice}}<p class="dtk-installer__notice">{{cacheNotice}}</p>{{/if}}
+  <section class="dtk-installer__section">
+    <h2>Free Modules</h2>
+    {{#each freeModules}}
+    <div class="dtk-installer__entry">
+      <div class="dtk-installer__entry-name">{{name}}</div>
+      <div class="dtk-installer__entry-versions">{{versionLabel}}</div>
+      <span class="dtk-installer__tier dtk-installer__tier--free">FREE</span>
+      <p>{{description}}</p>
+      <button class="dtk-installer__action" data-module-id="{{id}}" data-action="install" {{#if upToDate}}disabled{{/if}}>{{actionLabel}}</button>
+    </div>
+    {{/each}}
+  </section>
+  <section class="dtk-installer__section">
+    <h2>Premium Modules</h2>
+    {{#each premiumModules}}
+    <div class="dtk-installer__entry">
+      <div class="dtk-installer__entry-name">{{name}}</div>
+      <span class="dtk-installer__tier dtk-installer__tier--premium">PREMIUM</span>
+      <p>{{description}}</p>
+      <button class="dtk-installer__action" data-module-id="{{id}}" data-action="install-premium">Get Premium</button>
+    </div>
+    {{/each}}
+  </section>
+</div>

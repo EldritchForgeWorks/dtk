@@ -1,0 +1,21 @@
+{
+  "id": "dtk",
+  "title": "Demiurge's Toolkit — Hub",
+  "description": "Central hub for the DTK ecosystem: module discovery, coordination, and installer.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "esmodules": ["dtk.js"],
+  "flags": {},
+  "relationships": {
+    "optional": [
+      { "id": "dtk-alea", "type": "module" },
+      { "id": "dtk-lex", "type": "module" },
+      { "id": "dtk-opus", "type": "module" },
+      { "id": "dtk-promptuarium", "type": "module" },
+      { "id": "dtk-systema", "type": "module" }
+    ]
+  }
+}

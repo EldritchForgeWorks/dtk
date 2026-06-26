@@ -1,0 +1,17 @@
+{
+  "id": "dtk-promptuarium",
+  "title": "Demiurge's Toolkit — Promptuarium (Compendium Compiler)",
+  "description": "Compendium compiler: YAML Exemplar source to Foundry LevelDB packs with NL description generation.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ]
+  },
+  "esmodules": ["dtk-promptuarium.js"],
+  "flags": {}
+}

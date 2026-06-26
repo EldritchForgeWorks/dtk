@@ -1,0 +1,31 @@
+{
+  "name": "@dtk/types",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "DTK shared kernel — Zod schemas, TypeScript types, and type guards for all DTK contracts",
+  "files": ["dist"],
+  "exports": {
+    ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" },
+    "./ritus": { "import": "./dist/ritus/index.js", "types": "./dist/ritus/index.d.ts" },
+    "./codex": { "import": "./dist/codex/index.js", "types": "./dist/codex/index.d.ts" },
+    "./forma": { "import": "./dist/forma/index.js", "types": "./dist/forma/index.d.ts" },
+    "./modus": { "import": "./dist/modus/index.js", "types": "./dist/modus/index.d.ts" },
+    "./exemplar": { "import": "./dist/exemplar/index.js", "types": "./dist/exemplar/index.d.ts" },
+    "./apis": { "import": "./dist/apis/index.js", "types": "./dist/apis/index.d.ts" }
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}

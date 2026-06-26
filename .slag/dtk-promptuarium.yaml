@@ -1,0 +1,62 @@
+repoPath: /Users/jcmurray/projects/games/foundry/modules/dtk-promptuarium
+externalArtifactRoot: /Users/jcmurray/.local/state/dark-factory/runs
+
+projectProfileGlobs:
+  - "openspec/config.yaml"
+  - "package.json"
+  - "tsconfig.json"
+
+agentCandidates:
+  planner:
+    primary:
+      adapterId: claude-code
+      model: claude-sonnet-4-6
+      options:
+        kind: claude
+        model: claude-sonnet-4-6
+  test_author:
+    primary:
+      adapterId: claude-code
+      model: claude-sonnet-4-6
+      options:
+        kind: claude
+        model: claude-sonnet-4-6
+  implementer:
+    primary:
+      adapterId: claude-code
+      model: claude-sonnet-4-6
+      options:
+        kind: claude
+        model: claude-sonnet-4-6
+  review:
+    primary:
+      adapterId: claude-code
+      model: claude-sonnet-4-6
+      options:
+        kind: claude
+        model: claude-sonnet-4-6
+
+validationCommands:
+  - name: install
+    command: [npm, install]
+    timeoutMs: 120000
+  - name: typecheck
+    command: [npx, tsc, --noEmit]
+    timeoutMs: 60000
+  - name: test
+    command: [npm, test]
+    timeoutMs: 180000
+
+maxAttempts:
+  planner: 3
+  test_author: 3
+  implementer: 5
+  review: 2
+
+finalization:
+  mode: keep
+  autoApprove: true
+
+git:
+  authorName: SLAG Factory
+  authorEmail: slag@dtk.local

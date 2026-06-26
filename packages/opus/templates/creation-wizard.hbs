@@ -1,0 +1,67 @@
+<div class="dtk-creation-wizard-content">
+  <div class="progress-bar">
+    <span>Step {{stepNumber}} of {{totalSteps}}: {{stepTitle}}</span>
+    {{#if stepHint}}<p class="step-hint">{{stepHint}}</p>{{/if}}
+  </div>
+  <div class="step-fields">
+    {{#each stepFields}}
+    <div class="field field-{{this.type}}">
+      <label>{{this.label}}</label>
+
+      {{!-- Plain text input --}}
+      {{#if (eq this.type "text")}}
+      <input type="text" name="{{this.id}}" value="{{this.value}}" />
+
+      {{!-- Number input --}}
+      {{else if (eq this.type "number")}}
+      <input type="number" name="{{this.id}}" value="{{this.value}}"
+        {{#if this.min}}min="{{this.min}}"{{/if}}
+        {{#if this.max}}max="{{this.max}}"{{/if}} />
+
+      {{!-- Static select --}}
+      {{else if (eq this.type "select")}}
+      <select name="{{this.id}}">
+        {{#each this.options}}<option value="{{this.value}}">{{this.label}}</option>{{/each}}
+      </select>
+
+      {{!-- Exemplar card grid (species, archetype, discipline, vocation, …) --}}
+      {{else if (eq this.type "exemplar-grid")}}
+      <div class="exemplar-grid" data-field-id="{{this.id}}">
+        {{#if this.candidates.length}}
+          {{#each this.candidates}}
+          <button type="button"
+            class="exemplar-card {{#if this.selected}}exemplar-card--selected{{/if}}"
+            data-action="select-exemplar"
+            data-field-id="{{../id}}"
+            data-exemplar-id="{{this.id}}"
+            aria-pressed="{{this.selected}}">
+            <div class="exemplar-card__name">{{this.name}}</div>
+            {{#if this.description}}
+            <div class="exemplar-card__description">{{this.description}}</div>
+            {{/if}}
+            {{#if this.tags.length}}
+            <ul class="exemplar-card__tags">
+              {{#each this.tags}}<li>{{this}}</li>{{/each}}
+            </ul>
+            {{/if}}
+          </button>
+          {{/each}}
+        {{else}}
+          <p class="exemplar-grid__empty">No options available.</p>
+        {{/if}}
+      </div>
+
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  <div class="form-footer">
+    <button type="button" data-action="cancel">Cancel</button>
+    {{#unless isFirst}}<button type="button" data-action="back">Back</button>{{/unless}}
+    {{#if isLast}}
+    <button type="button" data-action="finish" class="default" {{#unless canFinish}}disabled{{/unless}}>Finish</button>
+    {{else}}
+    <button type="button" data-action="next" class="default">Next</button>
+    {{/if}}
+  </div>
+</div>

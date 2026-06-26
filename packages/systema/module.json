@@ -1,0 +1,20 @@
+{
+  "id": "dtk-systema",
+  "title": "Demiurge's Toolkit — Systema (Foundry Integration)",
+  "description": "Foundry integration layer: targeting, await coordination, condition evaluation, and actor management.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ],
+    "optional": [
+      { "id": "dtk-alea", "type": "module", "reason": "Enables action execution and sequence running from the action menu. Without it, the action menu opens and actions can be selected, but execution will not fire." }
+    ]
+  },
+  "esmodules": ["dtk-systema.js"],
+  "flags": {}
+}

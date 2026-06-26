@@ -1,0 +1,15 @@
+<div class="dtk-action-menu-content">
+  {{#if actions.length}}
+  <ul class="action-list">
+    {{#each actions}}
+    <li>
+      <button type="button" data-action="select" data-action-id="{{this.id}}">
+        {{this.label}}
+      </button>
+    </li>
+    {{/each}}
+  </ul>
+  {{else}}
+  <p class="empty">{{localize "DTK.ActionMenu.NoActions"}}</p>
+  {{/if}}
+</div>

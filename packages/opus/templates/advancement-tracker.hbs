@@ -1,0 +1,17 @@
+<div class="dtk-advancement-tracker-content">
+  <header class="actor-header">
+    <h2>{{actorName}}</h2>
+    <span class="paradigm-badge">{{paradigm}}</span>
+    {{#if (eq paradigm "xp")}}
+    <span class="xp-total">XP: {{currentXp}}</span>
+    {{/if}}
+  </header>
+  <ul class="step-list">
+    {{#each allSteps}}
+    <li class="step {{#if this.unlocked}}unlocked{{else}}locked{{/if}}">
+      <span class="step-icon">{{#if this.unlocked}}✓{{else}}○{{/if}}</span>
+      <span class="step-title">{{this.title}}</span>
+    </li>
+    {{/each}}
+  </ul>
+</div>

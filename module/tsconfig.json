@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["@league-of-foundry-developers/foundry-vtt-types"],
+    "paths": {
+      "@dtk/types": ["../packages/types/src/index.ts"],
+      "@dtk/types/*": ["../packages/types/src/*/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
+}

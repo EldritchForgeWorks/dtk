@@ -1,0 +1,10 @@
+<div class="dtk-decision-dialog-content">
+  <p class="prompt">{{prompt}}</p>
+  <div class="choices">
+    {{#each choices}}
+    <button type="button" data-action="choose" data-choice-id="{{this.id}}">
+      <span class="choice-label">{{this.label}}</span>
+    </button>
+    {{/each}}
+  </div>
+</div>

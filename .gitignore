@@ -7,3 +7,14 @@
 
 # OS
 .DS_Store
+
+# Dependencies & lockfiles
+node_modules/
+package-lock.json
+
+# Build & coverage
+dist/
+coverage/
+
+# Foundry databases
+*.db
