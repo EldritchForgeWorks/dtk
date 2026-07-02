@@ -9,7 +9,7 @@
 - [x] 2.2 Build step: `npm ci && npm run build` in the module directory (plus `npm run build:packs` for `dtk-shadowrun`) *(lockfiles are currently gitignored, so the workflow falls back to `npm install` when no `package-lock.json` is present; `packages/types` is built first since module builds bundle `@dtk/types` from its `dist/`. Shadowrun packs are rebuilt from `src/packs` in CI per this task — committed packs are not trusted for release artifacts.)*
 - [x] 2.3 Publish step: `gh release create <module-id>-v<semver>` with `<module-id>.zip` + `module.json`
 - [x] 2.4 Moving-tag step: recreate `<module-id>-latest` release with the same two assets *(delete `--cleanup-tag` + recreate at `$GITHUB_SHA`, `--latest=false`)*
-- [ ] 2.5 [smoke] Tag `dtk-fascia-v0.1.0`; confirm both releases exist and `releases/download/dtk-fascia-latest/module.json` returns the stamped manifest *(blocked: requires first push to github.com/EldritchForgeWorks/dtk)*
+- [x] 2.5 [smoke] Tag `dtk-fascia-v0.1.0`; confirm both releases exist and `releases/download/dtk-fascia-latest/module.json` returns the stamped manifest *(blocked: requires first push to github.com/EldritchForgeWorks/dtk)* *(verified 2026-07-02: all 8 module runs green; manifests+zips 200; registry updated)*
 
 ## 3. Module manifests
 
@@ -24,6 +24,6 @@
 
 ## 5. Rollout
 
-- [ ] 5.1 Tag and release all eight modules once (initial versions from current `module.json` files) *(blocked: requires first push; all eight are at 0.1.0 → tags `dtk-v0.1.0`, `dtk-alea-v0.1.0`, `dtk-lex-v0.1.0`, `dtk-systema-v0.1.0`, `dtk-opus-v0.1.0`, `dtk-fascia-v0.1.0`, `dtk-promptuarium-v0.1.0`, `dtk-shadowrun-v0.1.0`)*
+- [x] 5.1 Tag and release all eight modules once (initial versions from current `module.json` files) *(blocked: requires first push; all eight are at 0.1.0 → tags `dtk-v0.1.0`, `dtk-alea-v0.1.0`, `dtk-lex-v0.1.0`, `dtk-systema-v0.1.0`, `dtk-opus-v0.1.0`, `dtk-fascia-v0.1.0`, `dtk-promptuarium-v0.1.0`, `dtk-shadowrun-v0.1.0`)* *(verified 2026-07-02: all 8 module runs green; manifests+zips 200; registry updated)*
 - [ ] 5.2 [smoke] In Foundry v13+: install a test module whose `relationships.requires` lists `dtk-alea` by `manifest` URL; confirm auto-install prompt resolves and installs *(blocked on 5.1)*
 - [ ] 5.3 Notify Officina (init-m0-delivery-skeleton) that U1 is unblocked with the final manifestUrl list *(blocked on 5.1)*
