@@ -9,11 +9,22 @@
     "directory": "packages/promptuarium"
   },
   "homepage": "https://github.com/EldritchForgeWorks/dtk#readme",
-  "bugs": { "url": "https://github.com/EldritchForgeWorks/dtk/issues" },
-  "engines": { "node": ">=20" },
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
-  "bin": { "promptuarium": "./dist/cli/index.js" },
-  "files": ["dist"],
+  "bugs": {
+    "url": "https://github.com/EldritchForgeWorks/dtk/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bin": {
+    "promptuarium": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "exports": {
     "./package.json": "./package.json"
   },
@@ -34,5 +45,6 @@
     "typescript": "^5.4.0",
     "vite": "^5.0.0",
     "vitest": "^2.0.0"
-  }
+  },
+  "license": "MIT"
 }
