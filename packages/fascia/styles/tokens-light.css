@@ -1,0 +1,73 @@
+/* DTK Fascia — design tokens, light theme */
+
+:root {
+  /* ── Space (4px base) ─────────────────────────────── */
+  --dtk-space-1:   4px;
+  --dtk-space-2:   8px;
+  --dtk-space-3:  12px;
+  --dtk-space-4:  16px;
+  --dtk-space-5:  20px;
+  --dtk-space-6:  24px;
+  --dtk-space-8:  32px;
+  --dtk-space-12: 48px;
+  --dtk-space-16: 64px;
+
+  /* ── Typography ───────────────────────────────────── */
+  --dtk-font-family:  ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --dtk-font-mono:    ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", monospace;
+
+  --dtk-font-xs:  0.6875rem;   /* 11px */
+  --dtk-font-sm:  0.8125rem;   /* 13px */
+  --dtk-font-md:  0.9375rem;   /* 15px */
+  --dtk-font-lg:  1.0625rem;   /* 17px */
+  --dtk-font-xl:  1.25rem;     /* 20px */
+
+  --dtk-font-weight-normal:  400;
+  --dtk-font-weight-medium:  500;
+  --dtk-font-weight-bold:    600;
+
+  --dtk-line-height:          1.5;
+  --dtk-letter-spacing-tight: -0.01em;
+  --dtk-letter-spacing-wide:   0.05em;
+
+  /* ── Radius ───────────────────────────────────────── */
+  --dtk-radius-sm:   4px;
+  --dtk-radius-md:   6px;
+  --dtk-radius-lg:  10px;
+  --dtk-radius-full: 9999px;
+
+  /* ── Transitions ──────────────────────────────────── */
+  --dtk-transition: 120ms ease;
+
+  /* ── Shadows (light) ──────────────────────────────── */
+  --dtk-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --dtk-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --dtk-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --dtk-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --dtk-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* ── Surfaces (light) ─────────────────────────────── */
+  --dtk-color-surface:          #f8f8f7;
+  --dtk-color-surface-raised:   #f1f0ef;
+  --dtk-color-surface-inset:    #eae9e8;
+  --dtk-color-surface-overlay:  rgba(0, 0, 0, 0.06);
+  --dtk-color-on-surface:       #1a1a1c;
+  --dtk-color-on-surface-muted: #6e6d75;
+  --dtk-color-border:           #e5e4e2;
+  --dtk-color-border-strong:    #cac9c7;
+
+  /* ── Accent — warm amber (fantasy DNA, modern form) ─ */
+  --dtk-color-accent:        #b45309;
+  --dtk-color-accent-subtle: #fef3c7;
+  --dtk-color-accent-on:     #ffffff;
+
+  /* ── Semantic — success ───────────────────────────── */
+  --dtk-color-success:        #15803d;
+  --dtk-color-success-subtle: #dcfce7;
+  --dtk-color-success-on:     #ffffff;
+
+  /* ── Semantic — danger ────────────────────────────── */
+  --dtk-color-danger:        #dc2626;
+  --dtk-color-danger-subtle: #fee2e2;
+  --dtk-color-danger-on:     #ffffff;
+}

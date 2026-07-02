@@ -1,0 +1,186 @@
+<div class="sr-sheet">
+
+  {{!-- ── Header ─────────────────────────────────────────────── --}}
+  <div class="sr-sheet__header">
+    <div class="sr-sheet__identity">
+      <input type="text" name="name" value="{{name}}"
+             class="sr-sheet__name" placeholder="Character Name">
+      <div class="sr-sheet__sub-row">
+        <input type="text" name="system.streetName" value="{{streetName}}"
+               class="sr-sheet__street-name" placeholder="Street Name">
+        <input type="text" name="system.archetype" value="{{archetype}}"
+               class="sr-sheet__archetype" placeholder="Archetype">
+        <select name="system.metatype" class="sr-sheet__metatype">
+          {{#each metatypes as |m|}}
+          <option value="{{m.value}}" {{#if m.selected}}selected{{/if}}>{{m.value}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="sr-sheet__derived">
+      <div class="sr-derived-stat">
+        <span class="sr-derived-stat__label">INIT</span>
+        <span class="sr-derived-stat__value">{{initiative}}</span>
+      </div>
+      <div class="sr-derived-stat">
+        <span class="sr-derived-stat__label">COMP</span>
+        <span class="sr-derived-stat__value">{{composure}}</span>
+      </div>
+      <div class="sr-derived-stat">
+        <span class="sr-derived-stat__label">JUDGE</span>
+        <span class="sr-derived-stat__value">{{judgeIntentions}}</span>
+      </div>
+    </div>
+  </div>
+
+  {{!-- ── Body — 3 columns ──────────────────────────────────── --}}
+  <div class="sr-sheet__body">
+
+    {{!-- Left: Attributes + Specials + Monitors --}}
+    <div class="sr-sheet__col sr-sheet__col--attrs">
+
+      <section class="sr-section">
+        <h3 class="sr-section__title">ATTRIBUTES</h3>
+        <div class="sr-attrs">
+          {{#each attrs as |attr|}}
+          <div class="sr-attr">
+            <button class="sr-attr__roll"
+                    data-action="rollAttr"
+                    data-attr="{{attr.key}}"
+                    data-label="{{attr.label}}">
+              <span class="sr-attr__label">{{attr.label}}</span>
+              <span class="sr-attr__value">{{attr.value}}</span>
+            </button>
+            <input type="number" name="system.{{attr.key}}"
+                   value="{{attr.value}}" class="sr-attr__input" min="1" max="12">
+          </div>
+          {{/each}}
+        </div>
+      </section>
+
+      <section class="sr-section">
+        <h3 class="sr-section__title">COMBAT</h3>
+        <div class="sr-specials">
+          <div class="sr-special">
+            <span class="sr-special__label">AR</span>
+            <input type="number" name="system.ar" value="{{ar}}"
+                   class="sr-special__max" min="0" max="20">
+          </div>
+          <div class="sr-special">
+            <span class="sr-special__label">DR</span>
+            <input type="number" name="system.dr" value="{{dr}}"
+                   class="sr-special__max" min="0" max="20">
+          </div>
+        </div>
+      </section>
+
+      <section class="sr-section">
+        <h3 class="sr-section__title">SPECIAL</h3>
+        <div class="sr-specials">
+          <div class="sr-special">
+            <span class="sr-special__label">EDGE</span>
+            <input type="number" name="system.edgeCurrent" value="{{edgeCurrent}}"
+                   class="sr-special__current" min="0" max="7">
+            <span class="sr-special__sep">/</span>
+            <input type="number" name="system.edge" value="{{edge}}"
+                   class="sr-special__max" min="1" max="7">
+          </div>
+          <div class="sr-special">
+            <span class="sr-special__label">ESS</span>
+            <input type="number" name="system.essence" value="{{essence}}"
+                   class="sr-special__max" min="0" max="6" step="0.1">
+          </div>
+          {{#if magic}}
+          <div class="sr-special">
+            <span class="sr-special__label">MAG</span>
+            <input type="number" name="system.magic" value="{{magic}}"
+                   class="sr-special__max" min="0" max="12">
+          </div>
+          {{/if}}
+          {{#if resonance}}
+          <div class="sr-special">
+            <span class="sr-special__label">RES</span>
+            <input type="number" name="system.resonance" value="{{resonance}}"
+                   class="sr-special__max" min="0" max="12">
+          </div>
+          {{/if}}
+        </div>
+      </section>
+
+      <section class="sr-section">
+        <h3 class="sr-section__title">CONDITION MONITORS</h3>
+        <div class="sr-monitor">
+          <div class="sr-monitor__header">
+            <span class="sr-monitor__label">PHYSICAL</span>
+            <span class="sr-monitor__stat">{{physDamage}} / {{physMonitor}}</span>
+          </div>
+          <div class="sr-monitor__track">
+            {{#each physBoxes as |box|}}
+            <button class="sr-box {{#if box.filled}}sr-box--filled{{/if}}"
+                    data-action="togglePhysBox" data-index="{{box.index}}"></button>
+            {{/each}}
+          </div>
+        </div>
+        <div class="sr-monitor">
+          <div class="sr-monitor__header">
+            <span class="sr-monitor__label">STUN</span>
+            <span class="sr-monitor__stat">{{stunDamage}} / {{stunMonitor}}</span>
+          </div>
+          <div class="sr-monitor__track">
+            {{#each stunBoxes as |box|}}
+            <button class="sr-box {{#if box.filled}}sr-box--filled{{/if}}"
+                    data-action="toggleStunBox" data-index="{{box.index}}"></button>
+            {{/each}}
+          </div>
+        </div>
+      </section>
+
+    </div>{{!-- /col-attrs --}}
+
+    {{!-- Centre: Skills ─────────────────────────────────────── --}}
+    <div class="sr-sheet__col sr-sheet__col--skills">
+      <section class="sr-section sr-section--skills">
+        <h3 class="sr-section__title">SKILLS</h3>
+        <div class="sr-skills">
+          {{#each skillRows as |skill|}}
+          <div class="sr-skill-row">
+            <button class="sr-skill__roll"
+                    data-action="rollSkill"
+                    data-skill="{{skill.key}}">
+              <span class="sr-skill__name">{{skill.label}}</span>
+              <span class="sr-skill__formula">{{skill.attrAbbr}}{{skill.attrVal}}+{{skill.rank}}</span>
+            </button>
+            <input type="number"
+                   name="system.skills.{{skill.key}}"
+                   value="{{skill.rank}}"
+                   class="sr-skill__rank" min="0" max="12">
+          </div>
+          {{/each}}
+        </div>
+      </section>
+    </div>{{!-- /col-skills --}}
+
+    {{!-- Right: Sequences ────────────────────────────────────── --}}
+    <div class="sr-sheet__col sr-sheet__col--sequences">
+      <section class="sr-section sr-section--sequences">
+        <h3 class="sr-section__title">SEQUENCES</h3>
+        <p class="sr-seq__hint">Target a token before running combat sequences.</p>
+
+        {{#each seqGroups as |group|}}
+        <div class="sr-seq-group">
+          <span class="sr-seq-group__label">{{group.label}}</span>
+          {{#each group.sequences as |seq|}}
+          <button class="sr-seq-btn {{#if seq.needsTarget}}sr-seq-btn--targeted{{/if}}"
+                  data-action="runSequence"
+                  data-sequence="{{seq.id}}">
+            {{seq.label}}
+          </button>
+          {{/each}}
+        </div>
+        {{/each}}
+      </section>
+    </div>{{!-- /col-sequences --}}
+
+  </div>{{!-- /body --}}
+
+</div>{{!-- /sr-sheet --}}

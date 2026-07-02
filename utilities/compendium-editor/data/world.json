@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "systemId": "veilrunner",
+    "name": "Veilrunner",
+    "description": "",
+    "version": "0.1.0"
+  },
+  "plugin": {
+    "compatibility": {
+      "minimum": "12",
+      "verified": "14"
+    }
+  },
+  "dice": [
+    {
+      "id": "",
+      "name": "",
+      "mechanic": "single-die",
+      "sides": 20,
+      "threshold": 5,
+      "comparison": "gte",
+      "explodes": false,
+      "keepMode": null,
+      "degrees": [],
+      "description": ""
+    },
+    {
+      "id": "",
+      "name": "To Hit",
+      "mechanic": "single-die",
+      "sides": 20,
+      "threshold": 5,
+      "comparison": "gte",
+      "explodes": false,
+      "keepMode": null,
+      "degrees": [
+        {
+          "id": "",
+          "label": "",
+          "min": 0
+        },
+        {
+          "id": "",
+          "label": "",
+          "min": 0
+        },
+        {
+          "id": "",
+          "label": "",
+          "min": 0
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "attributes": [],
+  "skills": [],
+  "derived": [],
+  "resources": [],
+  "currencies": [],
+  "contentTypes": [
+    {
+      "id": "species",
+      "label": "Species",
+      "documentType": "Item",
+      "fields": [
+        {
+          "id": "name",
+          "label": "Name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "archtype",
+      "label": "Archtype",
+      "documentType": "Item",
+      "fields": [
+        {
+          "id": "name",
+          "label": "Name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "discipline",
+      "label": "Discipline",
+      "documentType": "Item",
+      "fields": [
+        {
+          "id": "archtype_id",
+          "label": "Archtype",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "vocation",
+      "label": "Vocation",
+      "documentType": "Item",
+      "fields": [
+        {
+          "id": "discipline_id",
+          "label": "Discipline",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "creation": {
+    "id": "",
+    "mode": "steps",
+    "steps": [],
+    "advancementTracks": []
+  },
+  "content": []
+}

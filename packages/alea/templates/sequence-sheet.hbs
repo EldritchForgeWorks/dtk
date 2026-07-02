@@ -1,0 +1,26 @@
+<form class="sequence-sheet sheet" autocomplete="off">
+  <header class="sheet-header">
+    <h1 class="document-name">{{name}}</h1>
+    <div class="sheet-uuid" title="UUID">{{uuid}}</div>
+  </header>
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>System ID</label>
+      <span class="field-value">{{systemId}}</span>
+    </div>
+    <div class="form-group steps">
+      <label>Steps</label>
+      <ol class="steps-list">
+        {{#each steps}}
+        <li class="step step-{{type}}">
+          <span class="step-index">{{index}}</span>
+          <span class="step-type">{{type}}</span>
+          <span class="step-id">{{id}}</span>
+          {{#if pool}}<span class="step-pool">pool: {{pool}}</span>{{/if}}
+          {{#if ritus}}<span class="step-ritus" title="Ritus UUID">ritus: {{ritus}}</span>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+</form>

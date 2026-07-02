@@ -1,0 +1,45 @@
+{
+  "id": "dtk-shadowrun",
+  "title": "DTK Shadowrun — Example System",
+  "description": "Shadowrun 6th Edition example built on the Demiurge's Toolkit: dice engine integration, character sheets, and a cyberpunk theme.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" },
+      { "id": "dtk-fascia", "type": "module" }
+    ],
+    "optional": [
+      { "id": "dtk-alea", "type": "module", "reason": "Enables sequence-driven roll execution. Falls back to direct Foundry dice if absent." }
+    ]
+  },
+  "documentTypes": {
+    "Actor": {
+      "shadowrunCharacter": {}
+    }
+  },
+  "esmodules": ["dist/dtk-shadowrun.js"],
+  "styles": ["dist/style.css"],
+  "packs": [
+    {
+      "name": "sr-ritus",
+      "label": "SR: Dice Mechanics",
+      "path": "packs/sr-ritus",
+      "type": "Item",
+      "system": "veilrunner",
+      "flags": {}
+    },
+    {
+      "name": "sr-sequences",
+      "label": "SR: Sequences",
+      "path": "packs/sr-sequences",
+      "type": "Item",
+      "system": "veilrunner",
+      "flags": {}
+    }
+  ],
+  "flags": {}
+}

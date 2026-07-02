@@ -6,7 +6,18 @@ import { AdvancementEngine } from '../../domain/AdvancementEngine'
 import { PrerequisiteEvaluator } from '../../domain/PrerequisiteEvaluator'
 import { LexDelegateAdapter } from './LexDelegateAdapter'
 
-export class AdvancementTrackerApp extends ApplicationV2 {
+// Foundry globals only exist after init — do not evaluate at module scope.
+let _AdvancementTrackerAppClass: any
+
+export function getAdvancementTrackerAppClass() {
+  if (!_AdvancementTrackerAppClass) {
+    _AdvancementTrackerAppClass = makeClass()
+  }
+  return _AdvancementTrackerAppClass
+}
+
+function makeClass() {
+  return class AdvancementTrackerApp extends ApplicationV2 {
   static override DEFAULT_OPTIONS = {
     id: 'dtk-opus-advancement-tracker',
     classes: ['dtk-opus', 'advancement-tracker'],
@@ -78,4 +89,5 @@ export class AdvancementTrackerApp extends ApplicationV2 {
       })
     })
   }
+}
 }

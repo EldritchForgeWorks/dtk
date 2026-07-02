@@ -1,0 +1,24 @@
+{
+  "_id": "SRSeqConTest0001",
+  "name": "Con",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.con",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "con",
+        "pool": "@initiator.system.skills.con + @initiator.system.charisma",
+        "opposed": "@target.system.intuition + @target.system.charisma",
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 },
+        "on_tier": {
+          "hit":         { "message": "They buy it." },
+          "strong":      { "message": "Convincing performance." },
+          "exceptional": { "message": "Oscar-worthy. Target fully believes." }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

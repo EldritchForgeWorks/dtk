@@ -1,0 +1,81 @@
+/* DTK Fascia — chat card scope */
+
+.dtk-chat *,
+.dtk-chat *::before,
+.dtk-chat *::after {
+  box-sizing: border-box;
+}
+
+.dtk-chat {
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+  line-height: var(--dtk-line-height);
+  color: var(--dtk-color-on-surface);
+}
+
+/* Tier heading — highest specificity to beat Foundry h3/h4 rules */
+.dtk-chat .dtk-chat__tier {
+  margin: 0 0 var(--dtk-space-2);
+  font-size: var(--dtk-font-md);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-tight);
+  color: var(--dtk-color-on-surface);
+}
+
+.dtk-chat .dtk-chat__result {
+  margin: 0;
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+}
+
+.dtk-chat .dtk-chat__result strong {
+  color: var(--dtk-color-on-surface);
+  font-weight: var(--dtk-font-weight-bold);
+}
+
+.dtk-chat .dtk-chat__message {
+  margin: var(--dtk-space-2) 0 0;
+  font-size: var(--dtk-font-xs);
+  font-style: italic;
+  color: var(--dtk-color-on-surface-muted);
+}
+
+/* ── Tier accent bar ──────────────────────────────────────────── */
+
+.dtk-chat {
+  border-left: 3px solid var(--dtk-color-border-strong);
+  padding-left: var(--dtk-space-3);
+}
+
+/* ── Dice faces ───────────────────────────────────────────────── */
+
+.dtk-dice-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dtk-space-1);
+  margin: var(--dtk-space-2) 0;
+}
+
+.dtk-face {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--dtk-radius-sm);
+  background: var(--dtk-color-surface-inset);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface-muted);
+  font-family: var(--dtk-font-mono);
+  font-weight: var(--dtk-font-weight-bold);
+  font-size: var(--dtk-font-xs);
+  letter-spacing: 0;
+  box-shadow: var(--dtk-shadow-inset);
+}
+
+.dtk-face--hit {
+  background: var(--dtk-color-success);
+  border-color: var(--dtk-color-success);
+  color: var(--dtk-color-success-on);
+  box-shadow: none;
+}

@@ -1,0 +1,246 @@
+/* ── Shadowrun Roll Card ─────────────────────────────────────────────
+   Minimal chrome — sits inside Foundry's own chat card which provides
+   padding, borders, and background.
+   ──────────────────────────────────────────────────────────────────── */
+
+.sr-roll {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ── Attack card: weapon name ──────────────────────────────────────── */
+
+.sr-roll__weapon {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+/* ── Two-column stat panel ─────────────────────────────────────────── */
+
+.sr-roll__sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.sr-roll__side-name {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  border-bottom: 1px solid var(--dtk-color-border, rgba(255,255,255,0.15));
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.sr-roll__side--attack .sr-roll__side-name {
+  color: var(--dtk-color-accent, #00d8ff);
+}
+
+.sr-roll__side--defense .sr-roll__side-name {
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.5));
+}
+
+.sr-roll__stats {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sr-roll__stats td {
+  padding: 1px 0;
+  font-size: 11px;
+}
+
+.sr-roll__stats td:first-child {
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.5));
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sr-roll__stats td:last-child {
+  text-align: right;
+  font-family: var(--dtk-font-mono, monospace);
+  font-weight: bold;
+}
+
+/* ── Simple header for non-attack cards ───────────────────────────── */
+
+.sr-roll__header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.sr-roll__label {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sr-roll__combatants {
+  font-size: 11px;
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.5));
+}
+
+.sr-roll__vs {
+  margin: 0 2px;
+  opacity: 0.6;
+}
+
+/* ── Dice faces ────────────────────────────────────────────────────── */
+
+.sr-roll__dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.sr-face {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid transparent;
+}
+
+.sr-face--glitch {
+  background: rgba(255,34,68,0.12);
+  border-color: var(--dtk-color-danger, #ff2244);
+  color: var(--dtk-color-danger, #ff2244);
+}
+
+.sr-face--miss {
+  background: var(--dtk-color-surface-inset, rgba(0,0,0,0.2));
+  border-color: var(--dtk-color-border, rgba(255,255,255,0.1));
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.4));
+}
+
+.sr-face--hit {
+  background: rgba(0,208,96,0.12);
+  border-color: var(--dtk-color-success, #00d060);
+  color: var(--dtk-color-success, #00d060);
+}
+
+/* ── Result bar ────────────────────────────────────────────────────── */
+
+.sr-roll__result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 5px;
+  border-top: 1px solid var(--dtk-color-border, rgba(255,255,255,0.1));
+}
+
+.sr-roll__hits {
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.sr-roll__glitch {
+  font-size: 11px;
+  font-weight: bold;
+  color: #ff9600;
+}
+
+.sr-roll__tier {
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+
+.sr-roll__tier--miss         { color: var(--dtk-color-on-surface-muted); border-color: var(--dtk-color-border-strong, rgba(255,255,255,0.25)); }
+.sr-roll__tier--hit          { background: var(--dtk-color-accent-subtle, rgba(0,216,255,0.1)); border-color: var(--dtk-color-accent, #00d8ff); color: var(--dtk-color-accent, #00d8ff); }
+.sr-roll__tier--strong       { background: rgba(0,208,96,0.1); border-color: var(--dtk-color-success, #00d060); color: var(--dtk-color-success, #00d060); }
+.sr-roll__tier--exceptional  { background: rgba(0,208,96,0.1); border-color: var(--dtk-color-success, #00d060); color: var(--dtk-color-success, #00d060); }
+.sr-roll__tier--partial      { background: rgba(255,150,0,0.1); border-color: #ff9600; color: #ff9600; }
+.sr-roll__tier--full         { background: rgba(0,208,96,0.1); border-color: var(--dtk-color-success, #00d060); color: var(--dtk-color-success, #00d060); }
+.sr-roll__tier--crit-glitch  { background: var(--dtk-color-danger-subtle, rgba(255,34,68,0.12)); border-color: var(--dtk-color-danger, #ff2244); color: var(--dtk-color-danger, #ff2244); }
+
+.sr-roll__damage {
+  margin-left: auto;
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--dtk-color-danger, #ff2244);
+}
+
+/* ── Message / effect ──────────────────────────────────────────────── */
+
+.sr-roll__message {
+  margin-top: 5px;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.5));
+}
+
+.sr-roll__effect {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.sr-roll__effect-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--dtk-color-on-surface-muted, rgba(255,255,255,0.5));
+}
+
+.sr-roll__effect-value {
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dtk-color-accent, #00d8ff);
+}
+
+/* ── Await action button ───────────────────────────────────────────── */
+
+.sr-roll__action {
+  margin-top: 7px;
+}
+
+.sr-card__await-btn {
+  width: 100%;
+  padding: 4px 8px;
+  background: var(--dtk-color-accent-subtle, rgba(0,200,255,0.08));
+  border: 1px solid var(--dtk-color-accent, #00c8ff);
+  border-radius: 3px;
+  color: var(--dtk-color-accent, #00c8ff);
+  font-family: var(--dtk-font-mono, monospace);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.sr-card__await-btn:hover {
+  background: var(--dtk-color-accent, #00c8ff);
+  color: #000;
+}
+
+.sr-card__await-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

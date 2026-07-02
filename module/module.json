@@ -7,11 +7,18 @@
     "minimum": "12",
     "verified": "14"
   },
-  "esmodules": ["dtk.js"],
+  "esmodules": ["dist/dtk.js"],
+  "documentTypes": {
+    "Item": {
+      "ritus": {},
+      "sequence": {}
+    }
+  },
   "flags": {},
   "relationships": {
     "optional": [
       { "id": "dtk-alea", "type": "module" },
+      { "id": "dtk-fascia", "type": "module" },
       { "id": "dtk-lex", "type": "module" },
       { "id": "dtk-opus", "type": "module" },
       { "id": "dtk-promptuarium", "type": "module" },

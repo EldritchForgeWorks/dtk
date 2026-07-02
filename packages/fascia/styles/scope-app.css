@@ -1,0 +1,260 @@
+/* DTK Fascia — application window scope */
+
+/* ── All ApplicationV2 windows ────────────────────────────────── */
+
+.application {
+  background: var(--dtk-color-surface);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-lg);
+  box-shadow: var(--dtk-shadow-lg);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+}
+
+.window-header {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+  padding: var(--dtk-space-2) var(--dtk-space-3);
+}
+
+.window-title {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-tight);
+}
+
+.window-header button,
+.window-header .header-control {
+  color: var(--dtk-color-on-surface-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--dtk-radius-md);
+  transition: color var(--dtk-transition), background var(--dtk-transition);
+  cursor: pointer;
+}
+
+.window-header button:hover,
+.window-header .header-control:hover {
+  color: var(--dtk-color-on-surface);
+  background: var(--dtk-color-surface-overlay);
+}
+
+.window-header .close {
+  color: var(--dtk-color-on-surface-muted);
+}
+
+.window-header .close:hover {
+  color: var(--dtk-color-danger);
+  background: var(--dtk-color-danger-subtle);
+}
+
+.window-content {
+  background: var(--dtk-color-surface);
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+}
+
+/* ── Form elements inside any app ─────────────────────────────── */
+
+.application label,
+.application .form-group label {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-medium);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.application input[type="text"],
+.application input[type="number"],
+.application input[type="password"],
+.application input[type="email"],
+.application input[type="search"],
+.application select,
+.application textarea {
+  background: var(--dtk-color-surface-inset);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+  box-shadow: var(--dtk-shadow-inset);
+  transition: border-color var(--dtk-transition), box-shadow var(--dtk-transition);
+}
+
+.application input:focus,
+.application select:focus,
+.application textarea:focus {
+  outline: none;
+  border-color: var(--dtk-color-accent);
+  box-shadow: 0 0 0 2px var(--dtk-color-accent-subtle);
+}
+
+.application input::placeholder,
+.application textarea::placeholder {
+  color: var(--dtk-color-on-surface-muted);
+}
+
+/* ── Buttons inside apps ──────────────────────────────────────── */
+
+.application .window-content button,
+.application .window-footer button,
+.application footer button {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+  cursor: pointer;
+  transition: background var(--dtk-transition), border-color var(--dtk-transition), color var(--dtk-transition);
+}
+
+.application .window-content button:hover,
+.application .window-footer button:hover,
+.application footer button:hover {
+  background: var(--dtk-color-accent-subtle);
+  border-color: var(--dtk-color-accent);
+  color: var(--dtk-color-accent);
+}
+
+/* Primary action button */
+.application button[type="submit"],
+.application button.default,
+.application footer .submit {
+  background: var(--dtk-color-accent);
+  border-color: var(--dtk-color-accent);
+  color: var(--dtk-color-accent-on);
+}
+
+.application button[type="submit"]:hover,
+.application button.default:hover {
+  opacity: 0.88;
+}
+
+/* ── App footer / action bar ──────────────────────────────────── */
+
+.application footer,
+.application .window-footer,
+.application .form-footer {
+  background: var(--dtk-color-surface-raised);
+  border-top: 1px solid var(--dtk-color-border);
+  gap: var(--dtk-space-2);
+}
+
+/* ── Tabs inside apps ─────────────────────────────────────────── */
+
+.application nav.tabs {
+  border-bottom: 1px solid var(--dtk-color-border);
+  background: var(--dtk-color-surface-raised);
+}
+
+.application nav.tabs .item,
+.application nav.tabs a {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-medium);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dtk-transition), border-color var(--dtk-transition);
+}
+
+.application nav.tabs .item.active,
+.application nav.tabs a.active {
+  color: var(--dtk-color-accent);
+  border-bottom-color: var(--dtk-color-accent);
+}
+
+.application nav.tabs .item:hover,
+.application nav.tabs a:hover {
+  color: var(--dtk-color-on-surface);
+}
+
+/* ── Section headers inside apps ──────────────────────────────── */
+
+.application .form-group {
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+.application hr,
+.application .divider {
+  border: none;
+  border-top: 1px solid var(--dtk-color-border);
+}
+
+/* ── dtk-built apps (full treatment) ─────────────────────────── */
+
+.dtk-app {
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+  line-height: var(--dtk-line-height);
+  color: var(--dtk-color-on-surface);
+}
+
+.dtk-app h1 {
+  font-size: var(--dtk-font-xl);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-tight);
+  color: var(--dtk-color-on-surface);
+  margin: 0 0 var(--dtk-space-4);
+}
+
+.dtk-app h2 {
+  font-size: var(--dtk-font-lg);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-tight);
+  color: var(--dtk-color-on-surface);
+  margin: 0 0 var(--dtk-space-3);
+}
+
+.dtk-app h3 {
+  font-size: var(--dtk-font-md);
+  font-weight: var(--dtk-font-weight-bold);
+  color: var(--dtk-color-on-surface);
+  margin: 0 0 var(--dtk-space-2);
+}
+
+.dtk-app p {
+  color: var(--dtk-color-on-surface);
+  margin: 0 0 var(--dtk-space-2);
+}
+
+.dtk-app hr {
+  border: none;
+  border-top: 1px solid var(--dtk-color-border);
+  margin: var(--dtk-space-4) 0;
+}
+
+/* ── Module/settings config panels ────────────────────────────── */
+
+#module-management,
+#configure-settings {
+  background: var(--dtk-color-surface);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+}
+
+#module-management .package-title,
+#configure-settings .category-label {
+  color: var(--dtk-color-on-surface);
+  font-weight: var(--dtk-font-weight-bold);
+}
+
+/* ── Notifications / toasts ───────────────────────────────────── */
+
+#notifications {
+  font-family: var(--dtk-font-family);
+}
+
+.notification {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  box-shadow: var(--dtk-shadow-md);
+}

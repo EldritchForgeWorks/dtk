@@ -1,0 +1,22 @@
+<form class="codex-entry-sheet sheet" autocomplete="off">
+  <header class="sheet-header">
+    <h1 class="document-name">{{name}}</h1>
+    {{#if category}}<div class="sheet-category">{{category}}</div>{{/if}}
+  </header>
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>Slug</label>
+      <span class="field-value slug-value">{{slug}}</span>
+    </div>
+    {{#if description}}
+    <div class="form-group description">
+      <label>Description</label>
+      <div class="editor-content">{{{description}}}</div>
+    </div>
+    {{/if}}
+    <div class="form-group">
+      <label>UUID</label>
+      <span class="field-value uuid-value" title="{{uuid}}">{{uuid}}</span>
+    </div>
+  </section>
+</form>

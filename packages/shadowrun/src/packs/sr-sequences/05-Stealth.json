@@ -1,0 +1,24 @@
+{
+  "_id": "SRSeqStealth0001",
+  "name": "Stealth",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.stealth",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "sneak",
+        "pool": "@initiator.system.skills.stealth + @initiator.system.agility",
+        "opposed": "@target.system.skills.perception + @target.system.intuition",
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 },
+        "on_tier": {
+          "hit":         { "message": "Slips by unnoticed." },
+          "strong":      { "message": "Shadow ghost." },
+          "exceptional": { "message": "Invisible in plain sight." }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

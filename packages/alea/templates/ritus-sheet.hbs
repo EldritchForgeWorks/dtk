@@ -1,0 +1,24 @@
+<form class="ritus-sheet sheet" autocomplete="off">
+  <header class="sheet-header">
+    <h1 class="document-name">{{name}}</h1>
+    <div class="sheet-uuid" title="UUID">{{uuid}}</div>
+  </header>
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>Mechanic</label>
+      <span class="field-value">{{mechanic}}</span>
+    </div>
+    <div class="form-group">
+      <label>Threshold</label>
+      <span class="field-value">{{threshold}}+</span>
+    </div>
+    <div class="form-group tiers">
+      <label>Tiers</label>
+      <ul class="tiers-list">
+        {{#each tiers}}
+        <li><strong>{{name}}</strong>: ≥{{min}} net hits</li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
+</form>

@@ -1,0 +1,23 @@
+{
+  "_id": "SRSeqPrcption001",
+  "name": "Perception",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.perception",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "perceive",
+        "pool": "@initiator.system.skills.perception + @initiator.system.intuition",
+        "tiers": { "miss": 0, "notice": 1, "detail": 3, "pinpoint": 5 },
+        "on_tier": {
+          "notice":   { "message": "Something seems off." },
+          "detail":   { "message": "Clear reading of the situation." },
+          "pinpoint": { "message": "Nothing escapes notice." }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

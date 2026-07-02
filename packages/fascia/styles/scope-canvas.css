@@ -1,0 +1,183 @@
+/* DTK Fascia — canvas UI scope */
+
+/* ── Scene tool controls (left column) ────────────────────────── */
+
+#controls {
+  background: var(--dtk-color-surface);
+  border-right: 1px solid var(--dtk-color-border);
+  box-shadow: var(--dtk-shadow-sm);
+}
+
+#controls .scene-controls {
+  background: var(--dtk-color-surface);
+  gap: 2px;
+}
+
+#controls .scene-control,
+#controls .control-tool {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--dtk-radius-md);
+  transition: background var(--dtk-transition), border-color var(--dtk-transition), color var(--dtk-transition);
+}
+
+#controls .scene-control:hover,
+#controls .control-tool:hover {
+  background: var(--dtk-color-surface-raised);
+  border-color: var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+}
+
+#controls .scene-control.active,
+#controls .control-tool.active {
+  background: var(--dtk-color-accent-subtle);
+  border-color: var(--dtk-color-accent);
+  color: var(--dtk-color-accent);
+}
+
+/* Tool tooltip */
+#controls .control-tool[data-tooltip]::after {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  border-radius: var(--dtk-radius-md);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-xs);
+  box-shadow: var(--dtk-shadow-md);
+}
+
+/* ── Scene navigation (top bar) ────────────────────────────────── */
+
+#navigation {
+  background: var(--dtk-color-surface);
+  border-bottom: 1px solid var(--dtk-color-border);
+  box-shadow: var(--dtk-shadow-xs);
+  font-family: var(--dtk-font-family);
+}
+
+#nav-toggle {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface-muted);
+  transition: color var(--dtk-transition);
+}
+
+#nav-toggle:hover {
+  color: var(--dtk-color-on-surface);
+}
+
+#scene-list .scene-item {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-medium);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  transition: background var(--dtk-transition), border-color var(--dtk-transition), color var(--dtk-transition);
+}
+
+#scene-list .scene-item:hover {
+  border-color: var(--dtk-color-border-strong);
+  color: var(--dtk-color-on-surface);
+}
+
+#scene-list .scene-item.view,
+#scene-list .scene-item.active {
+  background: var(--dtk-color-accent-subtle);
+  border-color: var(--dtk-color-accent);
+  color: var(--dtk-color-accent);
+}
+
+/* ── Macro hotbar (bottom bar) ─────────────────────────────────── */
+
+#ui-bottom {
+  font-family: var(--dtk-font-family);
+}
+
+#hotbar {
+  background: var(--dtk-color-surface);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-lg);
+  box-shadow: var(--dtk-shadow-md);
+  overflow: hidden;
+}
+
+#hotbar .bar-controls {
+  background: var(--dtk-color-surface-raised);
+  border-right: 1px solid var(--dtk-color-border);
+}
+
+#hotbar .bar-controls .bar-control {
+  color: var(--dtk-color-on-surface-muted);
+  background: transparent;
+  border: none;
+  transition: color var(--dtk-transition);
+}
+
+#hotbar .bar-controls .bar-control:hover {
+  color: var(--dtk-color-on-surface);
+}
+
+#hotbar .macro {
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  transition: background var(--dtk-transition);
+}
+
+#hotbar .macro:hover {
+  background: var(--dtk-color-surface-raised);
+}
+
+#hotbar .macro-name {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: 9px;
+  font-weight: var(--dtk-font-weight-medium);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* ── Players list ─────────────────────────────────────────────── */
+
+#players {
+  background: var(--dtk-color-surface);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-lg);
+  box-shadow: var(--dtk-shadow-sm);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-xs);
+  overflow: hidden;
+}
+
+#players h4 {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+#players .player-name {
+  color: var(--dtk-color-on-surface);
+  font-weight: var(--dtk-font-weight-medium);
+}
+
+/* ── Global tooltip override ──────────────────────────────────── */
+/* Foundry V13 uses JS TooltipManager — style the rendered .tooltip element only. */
+/* Never target [data-tooltip]::before — that pseudo-element is used by FA for icons. */
+
+.tooltip {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-xs);
+  border-radius: var(--dtk-radius-md);
+  box-shadow: var(--dtk-shadow-md);
+}

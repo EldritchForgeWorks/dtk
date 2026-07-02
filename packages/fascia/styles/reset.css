@@ -1,0 +1,52 @@
+/* DTK Fascia — base reset and font injection */
+/* Font propagation is handled via --font-primary in tokens-foundry.css. */
+/* Do NOT set body { font-family } here — it cascades into Font Awesome. */
+
+/* Scoped reset for dtk-built apps */
+.dtk-app *,
+.dtk-app *::before,
+.dtk-app *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.dtk-app {
+  font-family: var(--dtk-font-family);
+  line-height: var(--dtk-line-height);
+}
+
+.dtk-app input,
+.dtk-app button,
+.dtk-app select,
+.dtk-app textarea {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.dtk-app button {
+  cursor: pointer;
+}
+
+.dtk-app img,
+.dtk-app svg {
+  display: block;
+  max-width: 100%;
+}
+
+.dtk-app ul,
+.dtk-app ol {
+  list-style: none;
+}
+
+.dtk-app a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dtk-app table {
+  border-collapse: collapse;
+}

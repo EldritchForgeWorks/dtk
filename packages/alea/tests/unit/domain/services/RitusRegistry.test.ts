@@ -146,6 +146,51 @@ describe('RitusRegistry — Failure', () => {
 });
 
 // ---------------------------------------------------------------------------
+// UUID Methods
+// ---------------------------------------------------------------------------
+
+describe('RitusRegistry — UUID Methods', () => {
+  it('registerByUUID then getByUUID returns the stored config', () => {
+    const registry = new RitusRegistry();
+    registry.registerByUUID('Compendium.my-system.ritus.abc', makeSr5eRitus());
+    const config = registry.getByUUID('Compendium.my-system.ritus.abc');
+    expect(config).not.toBeNull();
+    expect(config!.id).toBe('sr5e');
+    expect(config!.threshold).toBe(5);
+  });
+
+  it('duplicate UUID warns and overwrites', () => {
+    const registry = new RitusRegistry();
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    registry.registerByUUID('uuid-1', makeSr5eRitus({ threshold: 5 }));
+    registry.registerByUUID('uuid-1', makeSr5eRitus({ threshold: 4 }));
+    expect(warnSpy).toHaveBeenCalledOnce();
+    expect(registry.getByUUID('uuid-1')!.threshold).toBe(4);
+    warnSpy.mockRestore();
+  });
+
+  it('getByUUID returns null for unknown UUID', () => {
+    const registry = new RitusRegistry();
+    expect(registry.getByUUID('not-registered')).toBeNull();
+  });
+
+  it('registerByUUID does not affect the systemId store', () => {
+    const registry = new RitusRegistry();
+    registry.registerByUUID('uuid-1', makeSr5eRitus());
+    // systemId 'sr5e' was NOT registered via register()
+    expect(registry.get('sr5e')).toBeNull();
+  });
+
+  it('getByUUID and get() are independent stores', () => {
+    const registry = new RitusRegistry();
+    registry.register(makeSr5eRitus({ threshold: 5 }));
+    registry.registerByUUID('uuid-1', makeSr5eRitus({ threshold: 3 }));
+    expect(registry.get('sr5e')!.threshold).toBe(5);
+    expect(registry.getByUUID('uuid-1')!.threshold).toBe(3);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Combinatorial
 // ---------------------------------------------------------------------------
 

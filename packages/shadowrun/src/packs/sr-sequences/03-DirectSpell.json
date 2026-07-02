@@ -1,0 +1,34 @@
+{
+  "_id": "SRSeqDrctSpell01",
+  "name": "Direct Spell",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.direct-spell",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "cast",
+        "pool": "@initiator.system.skills.sorcery + @initiator.system.magic",
+        "opposed": "@target.system.willpower",
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 },
+        "on_tier": {
+          "hit":         { "message": "Spell strikes.",     "damage": "@steps.cast.netHits + 6" },
+          "strong":      { "message": "Powerful spell.",    "damage": "@steps.cast.netHits + 6" },
+          "exceptional": { "message": "Devastating spell!", "damage": "@steps.cast.netHits + 6" }
+        }
+      },
+      {
+        "type": "rule",
+        "id": "drain",
+        "pool": "@initiator.system.willpower",
+        "tiers": { "miss": 0, "partial": 2, "full": 4 },
+        "on_tier": {
+          "miss":    { "damage": "3", "effect": "drain-stun" },
+          "partial": { "damage": "1", "effect": "drain-stun" }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

@@ -4,7 +4,7 @@ import type { Forma } from '../../domain/Forma'
 import type { CharacterBuild } from '../../domain/CharacterBuild'
 import type { CreationEngine } from '../../domain/CreationEngine'
 import type { IActorBuildStore } from '../../ports/IActorBuildStore'
-import { CreationWizardApp } from './CreationWizardApp'
+import { getCreationWizardAppClass } from './CreationWizardApp'
 
 export class FoundryWizardRenderer implements IWizardRenderer {
   constructor(private store: IActorBuildStore) {}
@@ -14,7 +14,8 @@ export class FoundryWizardRenderer implements IWizardRenderer {
     forma: Forma,
     engine: CreationEngine
   ): Promise<CharacterBuild | null> {
-    const app = new CreationWizardApp(forma, engine)
+    const AppClass = getCreationWizardAppClass()
+    const app = new AppClass(forma, engine)
     const build = await app.open()
     if (build) {
       await this.store.set(actor.id, build)

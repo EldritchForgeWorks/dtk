@@ -1,0 +1,35 @@
+{
+  "_id": "SRSeqCloseCmbt01",
+  "name": "Close Combat",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.close-combat",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "attack",
+        "pool": "@initiator.system.skills.closeCombat + @initiator.system.agility",
+        "opposed": "@target.system.reaction + @target.system.intuition",
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 },
+        "on_tier": {
+          "hit":         { "message": "Strike lands." },
+          "strong":      { "message": "Heavy blow." },
+          "exceptional": { "message": "Devastating strike!" }
+        }
+      },
+      {
+        "type": "rule",
+        "id": "soak",
+        "pool": "@target.system.body",
+        "condition": { "field": "@steps.attack.netHits", "op": "gt", "value": 0 },
+        "tiers": { "miss": 0, "partial": 1, "full": 6 },
+        "on_tier": {
+          "miss":    { "damage": "@steps.attack.netHits + 7" },
+          "partial": { "damage": "@steps.attack.netHits + 7 - @steps.soak.hits" }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

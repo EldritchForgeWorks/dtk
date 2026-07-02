@@ -3,7 +3,18 @@ import type { Forma } from '../../domain/Forma'
 import type { CharacterBuild } from '../../domain/CharacterBuild'
 import type { CreationEngine } from '../../domain/CreationEngine'
 
-export class CreationWizardApp extends HandlebarsApplicationMixin(ApplicationV2) {
+// Foundry globals only exist after init — do not evaluate at module scope.
+let _CreationWizardAppClass: any
+
+export function getCreationWizardAppClass() {
+  if (!_CreationWizardAppClass) {
+    _CreationWizardAppClass = makeClass()
+  }
+  return _CreationWizardAppClass
+}
+
+function makeClass() {
+  return class CreationWizardApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static override DEFAULT_OPTIONS = {
     id: 'dtk-opus-creation-wizard',
     classes: ['dtk-opus', 'creation-wizard'],
@@ -147,4 +158,5 @@ export class CreationWizardApp extends HandlebarsApplicationMixin(ApplicationV2)
     }
     return super.close(options)
   }
+}
 }

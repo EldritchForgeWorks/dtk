@@ -1,0 +1,76 @@
+<div class="sr-roll sr-roll--{{stepId}}">
+
+  {{!-- ── Attack card: weapon + two-column context panel ── --}}
+  {{#if isAttackStep}}
+  <div class="sr-roll__context">
+    <div class="sr-roll__weapon">{{label}}</div>
+    <div class="sr-roll__sides">
+
+      <div class="sr-roll__side sr-roll__side--attack">
+        <div class="sr-roll__side-name">{{initiatorName}}</div>
+        <table class="sr-roll__stats">
+          {{#if ar}}<tr><td>AR</td><td>{{ar}}</td></tr>{{/if}}
+          <tr><td>Attack</td><td>{{pool}}d6</td></tr>
+        </table>
+      </div>
+
+      <div class="sr-roll__side sr-roll__side--defense">
+        <div class="sr-roll__side-name">{{targetName}}</div>
+        <table class="sr-roll__stats">
+          {{#if dr}}<tr><td>DR</td><td>{{dr}}</td></tr>{{/if}}
+          {{#if defensePool}}<tr><td>Defense</td><td>{{defensePool}}d6</td></tr>{{/if}}
+          {{#if soakPool}}<tr><td>Soak</td><td>{{soakPool}}d6</td></tr>{{/if}}
+        </table>
+      </div>
+
+    </div>
+  </div>
+  {{else}}
+  {{!-- ── Other cards: simple label + combatant header ── --}}
+  <div class="sr-roll__header">
+    <span class="sr-roll__label">{{label}}</span>
+    <span class="sr-roll__combatants">
+      {{rollerName}}{{#if opposingName}} <span class="sr-roll__vs">vs</span> {{opposingName}}{{/if}}
+    </span>
+  </div>
+  {{/if}}
+
+  {{!-- ── Dice faces ── --}}
+  <div class="sr-roll__dice">
+    {{#each faces as |face|}}
+    <span class="sr-face sr-face--{{face.cssClass}}">{{face.value}}</span>
+    {{/each}}
+  </div>
+
+  {{!-- ── Result bar ── --}}
+  <div class="sr-roll__result">
+    <span class="sr-roll__hits">{{hitsLabel}}</span>
+
+    {{#if isCritGlitch}}
+    <span class="sr-roll__tier sr-roll__tier--crit-glitch">⚠ CRITICAL GLITCH</span>
+    {{else}}
+      {{#if isGlitch}}<span class="sr-roll__glitch">⚠ GLITCH</span>{{/if}}
+      <span class="sr-roll__tier sr-roll__tier--{{tier}}">{{tierLabel}}</span>
+    {{/if}}
+
+    {{#if hasDamage}}<span class="sr-roll__damage">{{damage}} DMG</span>{{/if}}
+  </div>
+
+  {{#if message}}<div class="sr-roll__message">{{message}}</div>{{/if}}
+
+  {{#if effect}}
+  <div class="sr-roll__effect">
+    <span class="sr-roll__effect-label">EFFECT</span>
+    <span class="sr-roll__effect-value">{{effect}}</span>
+  </div>
+  {{/if}}
+
+  {{#if hasAwait}}
+  <div class="sr-roll__action">
+    <button class="sr-card__await-btn"
+            data-sequence-id="{{awaitSequenceId}}"
+            data-choice="{{awaitChoice}}">{{awaitLabel}}</button>
+  </div>
+  {{/if}}
+
+</div>

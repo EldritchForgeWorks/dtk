@@ -12,6 +12,8 @@ function makeApi(): AleaApi {
   return {
     registerRitus: vi.fn(),
     execute: vi.fn().mockResolvedValue(undefined),
+    executeByRef: vi.fn().mockResolvedValue(undefined),
+    executeBySystemId: vi.fn().mockResolvedValue(undefined),
     resume: vi.fn().mockResolvedValue(undefined),
     isReady: vi.fn().mockReturnValue(true),
   };
@@ -207,10 +209,10 @@ describe('Combat Integration — Combinatorial', () => {
     expect(emitter.calls).toHaveLength(0);
   });
 
-  it('DeterministicDiceRoller queues and dequeues in order', () => {
+  it('DeterministicDiceRoller queues and dequeues in order', async () => {
     const roller = new DeterministicDiceRoller([[5, 6], [1, 2, 3]]);
-    expect(roller.roll(2, 6)).toEqual([5, 6]);
-    expect(roller.roll(3, 6)).toEqual([1, 2, 3]);
+    expect((await roller.roll(2, 6)).faces).toEqual([5, 6]);
+    expect((await roller.roll(3, 6)).faces).toEqual([1, 2, 3]);
   });
 
   it('NullExpressionDelegate always returns null', () => {

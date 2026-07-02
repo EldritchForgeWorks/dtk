@@ -1,0 +1,367 @@
+/* DTK Fascia — sidebar scope */
+
+/* ── Outer container ──────────────────────────────────────────── */
+
+#sidebar {
+  background: var(--dtk-color-surface);
+  border-left: 1px solid var(--dtk-color-border);
+}
+
+/* ── Icon nav strip ───────────────────────────────────────────── */
+
+#sidebar-tabs {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+#sidebar-tabs button {
+  color: var(--dtk-color-on-surface-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--dtk-radius-md);
+  transition: color var(--dtk-transition), background var(--dtk-transition);
+  position: relative;
+}
+
+#sidebar-tabs button:hover {
+  color: var(--dtk-color-on-surface);
+  background: var(--dtk-color-surface-overlay);
+}
+
+#sidebar-tabs button[aria-pressed="true"] {
+  color: var(--dtk-color-accent);
+  background: var(--dtk-color-accent-subtle);
+}
+
+/* ── Sidebar content ──────────────────────────────────────────── */
+
+#sidebar-content {
+  background: var(--dtk-color-surface);
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+}
+
+/* ── Directory panels ─────────────────────────────────────────── */
+
+.directory-header {
+  background: var(--dtk-color-surface);
+  border-bottom: 1px solid var(--dtk-color-border);
+  padding: var(--dtk-space-2) var(--dtk-space-3);
+  gap: var(--dtk-space-2);
+}
+
+.directory-header .action-buttons button,
+.directory-header .action-buttons a.button {
+  background: var(--dtk-color-accent);
+  color: var(--dtk-color-accent-on);
+  border: none;
+  border-radius: var(--dtk-radius-md);
+  padding: var(--dtk-space-1) var(--dtk-space-3);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-medium);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity var(--dtk-transition);
+}
+
+.directory-header .action-buttons button:hover {
+  opacity: 0.85;
+}
+
+.directory-header input[type="search"],
+.directory-header search input {
+  background: var(--dtk-color-surface-inset);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  border-radius: var(--dtk-radius-md);
+  font-size: var(--dtk-font-sm);
+  padding: var(--dtk-space-1) var(--dtk-space-2);
+  transition: border-color var(--dtk-transition);
+}
+
+.directory-header input[type="search"]:focus,
+.directory-header search input:focus {
+  outline: none;
+  border-color: var(--dtk-color-accent);
+}
+
+.directory-header input::placeholder {
+  color: var(--dtk-color-on-surface-muted);
+}
+
+.directory-header .ui-control {
+  color: var(--dtk-color-on-surface-muted);
+  background: transparent;
+  border: none;
+  transition: color var(--dtk-transition);
+}
+
+.directory-header .ui-control:hover {
+  color: var(--dtk-color-on-surface);
+}
+
+/* Directory items */
+.directory-list {
+  background: var(--dtk-color-surface);
+}
+
+.directory-list .directory-item {
+  color: var(--dtk-color-on-surface);
+  border-bottom: 1px solid var(--dtk-color-border);
+  transition: background var(--dtk-transition);
+}
+
+.directory-list .directory-item:hover {
+  background: var(--dtk-color-surface-raised);
+}
+
+.directory-list .directory-item:last-child {
+  border-bottom: none;
+}
+
+.directory-list .entry-name {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+}
+
+.directory-list .folder-header {
+  background: var(--dtk-color-surface-raised);
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+.directory-list .folder-name {
+  color: var(--dtk-color-on-surface);
+}
+
+/* ── Chat tab ─────────────────────────────────────────────────── */
+
+.chat-scroll {
+  background: var(--dtk-color-surface);
+}
+
+.chat-log {
+  background: var(--dtk-color-surface);
+  gap: var(--dtk-space-1);
+}
+
+.chat-message {
+  background: var(--dtk-color-surface);
+  border: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md);
+  color: var(--dtk-color-on-surface);
+  box-shadow: var(--dtk-shadow-xs);
+  transition: border-color var(--dtk-transition), box-shadow var(--dtk-transition);
+}
+
+.chat-message:hover {
+  border-color: var(--dtk-color-border-strong);
+  box-shadow: var(--dtk-shadow-sm);
+}
+
+.message-header {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+  border-radius: var(--dtk-radius-md) var(--dtk-radius-md) 0 0;
+  padding: var(--dtk-space-1) var(--dtk-space-2);
+}
+
+.message-header .message-sender {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.message-header .message-timestamp {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+}
+
+.message-delete {
+  color: var(--dtk-color-on-surface-muted);
+  transition: color var(--dtk-transition);
+}
+
+.message-delete:hover {
+  color: var(--dtk-color-danger);
+}
+
+.message-content {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  line-height: var(--dtk-line-height);
+  padding: var(--dtk-space-2) var(--dtk-space-3);
+}
+
+/* Chat input area */
+.chat-form {
+  background: var(--dtk-color-surface-raised);
+  border-top: 1px solid var(--dtk-color-border);
+}
+
+#chat-controls {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+#chat-controls .ui-control {
+  color: var(--dtk-color-on-surface-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--dtk-radius-md);
+  transition: color var(--dtk-transition), background var(--dtk-transition);
+}
+
+#chat-controls .ui-control[aria-pressed="true"] {
+  color: var(--dtk-color-accent);
+  background: var(--dtk-color-accent-subtle);
+}
+
+#chat-controls .ui-control:hover {
+  color: var(--dtk-color-on-surface);
+  background: var(--dtk-color-surface-overlay);
+}
+
+#chat-message.chat-input {
+  background: var(--dtk-color-surface-inset);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  border-radius: var(--dtk-radius-md);
+  font-family: var(--dtk-font-family);
+  font-size: var(--dtk-font-sm);
+  resize: none;
+  transition: border-color var(--dtk-transition);
+}
+
+#chat-message.chat-input:focus {
+  outline: none;
+  border-color: var(--dtk-color-accent);
+}
+
+#chat-message.chat-input::placeholder {
+  color: var(--dtk-color-on-surface-muted);
+}
+
+/* ── Combat tab ───────────────────────────────────────────────── */
+
+.combat-sidebar {
+  background: var(--dtk-color-surface);
+  color: var(--dtk-color-on-surface);
+}
+
+.combat-tracker-header {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+.combat-tracker-header button {
+  background: var(--dtk-color-accent);
+  color: var(--dtk-color-accent-on);
+  border: none;
+  border-radius: var(--dtk-radius-md);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+  cursor: pointer;
+  transition: opacity var(--dtk-transition);
+}
+
+.combat-tracker-header button:hover {
+  opacity: 0.85;
+}
+
+/* ── Settings tab ─────────────────────────────────────────────── */
+
+.settings-sidebar {
+  background: var(--dtk-color-surface);
+  color: var(--dtk-color-on-surface);
+}
+
+.settings-sidebar .info {
+  background: var(--dtk-color-surface-raised);
+  border-bottom: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+}
+
+.settings-sidebar .title {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-lg);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-tight);
+}
+
+.settings-sidebar .subtitle {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--dtk-letter-spacing-wide);
+}
+
+.settings-sidebar label,
+.settings-sidebar .label {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--dtk-letter-spacing-wide);
+}
+
+.settings-sidebar .value {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+}
+
+.settings-sidebar .divider {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  font-weight: var(--dtk-font-weight-bold);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 1px solid var(--dtk-color-border);
+}
+
+.settings-sidebar button,
+.settings-sidebar a.button {
+  background: var(--dtk-color-surface-raised);
+  border: 1px solid var(--dtk-color-border);
+  color: var(--dtk-color-on-surface);
+  border-radius: var(--dtk-radius-md);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+  text-align: left;
+  transition: background var(--dtk-transition), border-color var(--dtk-transition), color var(--dtk-transition);
+}
+
+.settings-sidebar button:hover,
+.settings-sidebar a.button:hover {
+  background: var(--dtk-color-accent-subtle);
+  border-color: var(--dtk-color-accent);
+  color: var(--dtk-color-accent);
+}
+
+/* ── Compendium tab ───────────────────────────────────────────── */
+
+.compendium-sidebar {
+  background: var(--dtk-color-surface);
+}
+
+.compendium-name {
+  color: var(--dtk-color-on-surface);
+  font-size: var(--dtk-font-sm);
+  font-weight: var(--dtk-font-weight-medium);
+}
+
+.compendium-footer {
+  color: var(--dtk-color-on-surface-muted);
+  font-size: var(--dtk-font-xs);
+  letter-spacing: var(--dtk-letter-spacing-wide);
+  text-transform: uppercase;
+}

@@ -32,7 +32,9 @@ function evalCondition(
   ctx: EvaluationContext,
 ): boolean {
   const lhs = parser.resolveAny(cond.field, ctx);
-  const rhs = cond.value;
+  const rhs = typeof cond.value === 'string' && cond.value.startsWith('@')
+    ? parser.resolveAny(cond.value, ctx)
+    : cond.value;
   switch (cond.op) {
     case 'eq':  return lhs === rhs;
     case 'neq': return lhs !== rhs;
@@ -42,6 +44,16 @@ function evalCondition(
     case 'lte': return typeof lhs === 'number' && lhs <= (rhs as number);
     default:    return false;
   }
+}
+
+function awaitButtonLabel(stepId: string, choice: string): string {
+  const labels: Record<string, string> = {
+    'await-defense': 'Roll Defense',
+    'await-soak':    'Roll Soak',
+    'await-drain':   'Roll Drain',
+    'await-resist':  'Roll Resist',
+  };
+  return labels[stepId] ?? choice.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 // ---------------------------------------------------------------------------
@@ -119,13 +131,18 @@ export class SequenceExecutor {
 
       // Rule step
       if (step.type === 'rule') {
-        const ritusConfig = this.registry.resolve(execution.context.systemId, {
-          ...(step.threshold !== undefined ? { threshold: step.threshold } : {}),
-          ...(step.tiers !== undefined ? { tiers: step.tiers } : {}),
-        });
+        // If the step names a specific ritus by UUID, RollResolver handles the
+        // lookup. Only call resolve() for the system-default fallback path.
+        const stepRitusUUID = (step as Record<string, unknown>).ritus as string | undefined;
+        const ritusConfig = stepRitusUUID
+          ? null
+          : this.registry.resolve(execution.context.systemId, {
+              ...(step.threshold !== undefined ? { threshold: step.threshold } : {}),
+              ...(step.tiers !== undefined ? { tiers: step.tiers } : {}),
+            });
 
-        const rollResult = this.resolver.resolve(
-          { type: 'rule', id: step.id, pool: step.pool, opposed: step.opposed },
+        const rollResult = await this.resolver.resolve(
+          { type: 'rule', id: step.id, pool: step.pool, opposed: step.opposed, ritus: stepRitusUUID },
           ctx,
           ritusConfig,
         );
@@ -145,7 +162,7 @@ export class SequenceExecutor {
           }
           if (consequence.chain) {
             const updatedCtx = buildEvalContext(execution);
-            const chainResult = this.resolver.resolve(
+            const chainResult = await this.resolver.resolve(
               { type: 'rule', id: `${step.id}.chain`, pool: consequence.chain.pool },
               updatedCtx,
               ritusConfig,
@@ -156,14 +173,53 @@ export class SequenceExecutor {
           message = consequence.message;
         }
 
+        // Peek at next step — if it's a conditional await, embed button or on_skip message
+        const nextStep = steps[execution.stepIndex + 1];
+        let awaitMeta: Record<string, unknown> = {};
+        if (nextStep?.type === 'await') {
+          const peekCtx = buildEvalContext(execution);
+          const awaitPasses = !nextStep.condition || evalCondition(nextStep.condition, this.parser, peekCtx);
+          if (awaitPasses) {
+            awaitMeta = {
+              hasAwait:       true,
+              awaitSequenceId: execution.sequenceId,
+              awaitChoice:    nextStep.choices[0],
+              awaitLabel:     awaitButtonLabel(nextStep.id, nextStep.choices[0] ?? 'continue'),
+            };
+          } else {
+            const onSkip = (nextStep as Record<string, unknown>).on_skip as Record<string, unknown> | undefined;
+            if (onSkip?.message && !message) message = onSkip.message as string;
+          }
+        }
+
+        const _target = execution.context.targets[0];
+        const _ar          = (execution.context.initiator.system['ar'] as number) || 0;
+        const _dr          = _target ? ((_target.system['dr'] as number) || 0) : 0;
+        const _defensePool = _target
+          ? ((_target.system['reaction'] as number) || 0) + ((_target.system['intuition'] as number) || 0)
+          : 0;
+        const _soakPool = _target ? ((_target.system['body'] as number) || 0) : 0;
+
         this.emitter.emit('dtk-alea.step', {
-          sequenceId: execution.sequenceId,
-          stepId: step.id,
-          tier: rollResult.tier,
-          netHits: rollResult.netHits,
+          sequenceId:    execution.sequenceId,
+          stepId:        step.id,
+          initiatorName: execution.context.initiator.name,
+          targetName:    execution.context.targets[0]?.name ?? null,
+          ar:            _ar,
+          dr:            _dr,
+          defensePool:   _defensePool,
+          soakPool:      _soakPool,
+          tier:          rollResult.tier,
+          mechanic:      rollResult.mechanic,
+          netHits:       rollResult.netHits,
+          hits:          rollResult.hits,
+          faces:         rollResult.faces,
+          pool:          rollResult.pool,
+          rolls:         rollResult.rolls,
           ...(damage !== undefined ? { damage } : {}),
           ...(effect !== undefined ? { effect } : {}),
           ...(message !== undefined ? { message } : {}),
+          ...awaitMeta,
         });
 
         execution.advance();

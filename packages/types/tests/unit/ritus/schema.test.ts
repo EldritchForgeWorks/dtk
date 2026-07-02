@@ -6,6 +6,7 @@ const validRitus = {
   id: 'sr6-standard',
   name: 'Shadowrun 6E Standard',
   mechanic: 'pool-count' as const,
+  sides: 6,
   threshold: 5,
   tiers: { hit: 1 },
 }
@@ -87,25 +88,57 @@ describe('Scenario', () => {
     expect(result.success).toBe(true)
   })
 
-  it('all mechanic values are accepted: pool-count', () => {
-    expect(RitusSchema.safeParse({ ...validRitus, mechanic: 'pool-count' }).success).toBe(true)
+  it.each([
+    'standard', 'pool-count', 'pool-sum', 'exploding', 'step-die',
+    'roll-under', 'target-number', 'drama-die', 'custom',
+  ])('mechanic "%s" is accepted', (mechanic) => {
+    expect(RitusSchema.safeParse({ ...validRitus, mechanic }).success).toBe(true)
   })
 
-  it('all mechanic values are accepted: pool-sum', () => {
-    expect(RitusSchema.safeParse({ ...validRitus, mechanic: 'pool-sum' }).success).toBe(true)
+  it('advantage-disadvantage with keepMode is accepted', () => {
+    expect(RitusSchema.safeParse({
+      ...validRitus, mechanic: 'advantage-disadvantage', keepMode: 'highest',
+    }).success).toBe(true)
   })
 
-  it('all mechanic values are accepted: single-die', () => {
-    expect(RitusSchema.safeParse({ ...validRitus, mechanic: 'single-die' }).success).toBe(true)
-  })
-
-  it('all mechanic values are accepted: roll-under', () => {
-    expect(RitusSchema.safeParse({ ...validRitus, mechanic: 'roll-under' }).success).toBe(true)
+  it('advantage-disadvantage without keepMode is rejected', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, mechanic: 'advantage-disadvantage' })
+    expect(result.success).toBe(false)
   })
 
   it('invalid mechanic string is rejected', () => {
     const result = RitusSchema.safeParse({ ...validRitus, mechanic: 'exploding-dice' })
     expect(result.success).toBe(false)
+  })
+
+  it('sides of 6 is accepted', () => {
+    expect(RitusSchema.safeParse({ ...validRitus, sides: 6 }).success).toBe(true)
+  })
+
+  it('sides of 2 (minimum) is accepted', () => {
+    expect(RitusSchema.safeParse({ ...validRitus, sides: 2 }).success).toBe(true)
+  })
+
+  it('sides of 1 is rejected', () => {
+    expect(RitusSchema.safeParse({ ...validRitus, sides: 1 }).success).toBe(false)
+  })
+
+  it('exploding mechanic without explicit explodes defaults explodes to true', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, mechanic: 'exploding' })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.explodes).toBe(true)
+  })
+
+  it('pool-count mechanic without explicit explodes defaults explodes to false', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, mechanic: 'pool-count' })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.explodes).toBe(false)
+  })
+
+  it('exploding mechanic with explicit explodes: false overrides the default', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, mechanic: 'exploding', explodes: false })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.explodes).toBe(false)
   })
 
   it('Ritus without tiers.hit is rejected', () => {
@@ -235,8 +268,11 @@ describe('Failure', () => {
 
 // ─── Combinatorial ────────────────────────────────────────────────────────────
 describe('Combinatorial', () => {
-  it('all four mechanics × threshold 1 each produce valid Ritus objects', () => {
-    const mechanics = ['pool-count', 'pool-sum', 'single-die', 'roll-under'] as const
+  it('all non-advantage mechanics × threshold 1 each produce valid Ritus objects', () => {
+    const mechanics = [
+      'standard', 'pool-count', 'pool-sum', 'exploding',
+      'step-die', 'roll-under', 'target-number', 'drama-die', 'custom',
+    ] as const
     for (const mechanic of mechanics) {
       const result = RitusSchema.safeParse({ ...validRitus, mechanic, threshold: 1 })
       expect(result.success, `mechanic ${mechanic} should be valid`).toBe(true)
@@ -275,8 +311,8 @@ describe('Combinatorial', () => {
     }
   })
 
-  it('Ritus with various valid thresholds and all mechanics produces correct inferred data', () => {
-    const mechanics = ['pool-count', 'pool-sum', 'single-die', 'roll-under'] as const
+  it('Ritus with various valid thresholds and mechanics produces correct inferred data', () => {
+    const mechanics = ['pool-count', 'pool-sum', 'exploding', 'roll-under'] as const
     const thresholds = [1, 3, 6, 10]
     for (const mechanic of mechanics) {
       for (const threshold of thresholds) {

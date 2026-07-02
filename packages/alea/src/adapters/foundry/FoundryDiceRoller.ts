@@ -2,19 +2,19 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const Roll: any;
 
-import type { IDiceRoller } from '../../ports/IDiceRoller.js';
+import type { IDiceRoller, DiceResult } from '../../ports/IDiceRoller.js';
 
 export class FoundryDiceRoller implements IDiceRoller {
-  roll(count: number, sides: number): number[] {
-    const r = new Roll(`${count}d${sides}`);
-    // evaluateSync is available in Foundry v12+
-    if (typeof r.evaluateSync === 'function') {
-      r.evaluateSync({ minimize: false, maximize: false });
-    } else {
-      // Fallback: synchronous via _evaluate (internal, Foundry v11 and earlier)
-      r._evaluate({ minimize: false, maximize: false });
-    }
+  async roll(count: number, sides: number, opts?: import('../../ports/IDiceRoller.js').RollOpts): Promise<DiceResult> {
+    let formula = `${count}d${sides}`;
+    if (opts?.explodes) formula += 'x';
+    // kh1 = keep highest 1; kl1 = keep lowest 1 (advantage-disadvantage mechanic)
+    if (opts?.keepMode === 'highest') formula += 'kh1';
+    else if (opts?.keepMode === 'lowest') formula += 'kl1';
+    const r = new Roll(formula);
+    await r.evaluate({ minimize: false, maximize: false });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (r.terms[0] as any).results.map((res: any) => res.result as number);
+    const faces = (r.terms[0] as any).results.map((res: any) => res.result as number);
+    return { faces, raw: r };
   }
 }

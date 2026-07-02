@@ -16,6 +16,6 @@
       { "id": "dtk-promptuarium", "type": "module", "reason": "Enables exemplar-grid fields in the creation wizard, populating species/archetype/vocation card grids from compiled compendiums. Without it, exemplar-grid fields render empty." }
     ]
   },
-  "esmodules": ["dtk-opus.js"],
+  "esmodules": ["dist/dtk-opus.js"],
   "flags": {}
 }

@@ -8,7 +8,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --project tsconfig.build.json && vite build"
+    "build": "vite build"
   },
   "dependencies": {
     "classic-level": "^1.4.1",

@@ -1,0 +1,92 @@
+/* DTK Fascia — dark theme overrides */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dtk-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --dtk-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4);
+    --dtk-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+    --dtk-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.5);
+    --dtk-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+
+    --dtk-color-surface:          #0d0d0f;
+    --dtk-color-surface-raised:   #161618;
+    --dtk-color-surface-inset:    #0a0a0b;
+    --dtk-color-surface-overlay:  rgba(0, 0, 0, 0.5);
+    --dtk-color-on-surface:       #f4f4f5;
+    --dtk-color-on-surface-muted: #a1a1aa;
+    --dtk-color-border:           #27272a;
+    --dtk-color-border-strong:    #3f3f46;
+
+    --dtk-color-accent:        #c8922a;
+    --dtk-color-accent-subtle: rgba(200, 146, 42, 0.10);
+    --dtk-color-accent-on:     #ffffff;
+
+    --dtk-color-success:        #22c55e;
+    --dtk-color-success-subtle: rgba(34, 197, 94, 0.12);
+    --dtk-color-success-on:     #000000;
+
+    --dtk-color-danger:        #f87171;
+    --dtk-color-danger-subtle: rgba(248, 113, 113, 0.12);
+    --dtk-color-danger-on:     #000000;
+  }
+}
+
+/* ── Explicit overrides (applied by JS theme detector) ─────────── */
+
+.dtk-theme-dark {
+  --dtk-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --dtk-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --dtk-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --dtk-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.5);
+  --dtk-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+
+  --dtk-color-surface:          #0d0d0f;
+  --dtk-color-surface-raised:   #161618;
+  --dtk-color-surface-inset:    #0a0a0b;
+  --dtk-color-surface-overlay:  rgba(0, 0, 0, 0.5);
+  --dtk-color-on-surface:       #f4f4f5;
+  --dtk-color-on-surface-muted: #a1a1aa;
+  --dtk-color-border:           #27272a;
+  --dtk-color-border-strong:    #3f3f46;
+
+  --dtk-color-accent:        #c8922a;
+  --dtk-color-accent-subtle: rgba(200, 146, 42, 0.10);
+  --dtk-color-accent-on:     #ffffff;
+
+  --dtk-color-success:        #22c55e;
+  --dtk-color-success-subtle: rgba(34, 197, 94, 0.12);
+  --dtk-color-success-on:     #000000;
+
+  --dtk-color-danger:        #f87171;
+  --dtk-color-danger-subtle: rgba(248, 113, 113, 0.12);
+  --dtk-color-danger-on:     #000000;
+}
+
+.dtk-theme-light {
+  --dtk-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --dtk-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --dtk-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --dtk-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --dtk-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  --dtk-color-surface:          #f8f8f7;
+  --dtk-color-surface-raised:   #f1f0ef;
+  --dtk-color-surface-inset:    #eae9e8;
+  --dtk-color-surface-overlay:  rgba(0, 0, 0, 0.06);
+  --dtk-color-on-surface:       #1a1a1c;
+  --dtk-color-on-surface-muted: #6e6d75;
+  --dtk-color-border:           #e5e4e2;
+  --dtk-color-border-strong:    #cac9c7;
+
+  --dtk-color-accent:        #b45309;
+  --dtk-color-accent-subtle: #fef3c7;
+  --dtk-color-accent-on:     #ffffff;
+
+  --dtk-color-success:        #15803d;
+  --dtk-color-success-subtle: #dcfce7;
+  --dtk-color-success-on:     #ffffff;
+
+  --dtk-color-danger:        #dc2626;
+  --dtk-color-danger-subtle: #fee2e2;
+  --dtk-color-danger-on:     #ffffff;
+}

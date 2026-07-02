@@ -1,0 +1,145 @@
+/* ── DTK Shadowrun — Cyberpunk Theme ──────────────────────────────
+   Scoped to html.dtk-theme-shadowrun (specificity 0,1,1).
+   Beats fascia's .dtk-theme-dark (0,1,0) at every property.
+   Palette: deep-space black · cold steel text · neon cyan accent
+   ─────────────────────────────────────────────────────────────── */
+
+html.dtk-theme-shadowrun {
+
+  /* Surfaces — near-black with faint blue cast */
+  --dtk-color-surface:         #020308;
+  --dtk-color-surface-raised:  #06080f;
+  --dtk-color-surface-inset:   #010205;
+  --dtk-color-surface-overlay: rgba(0, 180, 220, 0.04);
+
+  /* Text — terminal blue-white, not harsh pure-white */
+  --dtk-color-on-surface:       #8ab4cc;
+  --dtk-color-on-surface-muted: #304860;
+
+  /* Borders — barely visible dark blue grid lines */
+  --dtk-color-border:        #0b1828;
+  --dtk-color-border-strong: #162438;
+
+  /* Accent — neon cyan (mirrorshades glint) */
+  --dtk-color-accent:        #00b8d4;
+  --dtk-color-accent-subtle: rgba(0, 184, 212, 0.08);
+  --dtk-color-accent-on:     #000000;
+
+  /* Status */
+  --dtk-color-success:        #00d060;
+  --dtk-color-success-subtle: rgba(0, 208, 96, 0.10);
+  --dtk-color-success-on:     #000000;
+  --dtk-color-danger:         #ff2244;
+  --dtk-color-danger-subtle:  rgba(255, 34, 68, 0.10);
+  --dtk-color-danger-on:      #ffffff;
+
+  /* Shadows — deeper, heavier than default dark */
+  --dtk-shadow-xs:     0 1px 2px rgba(0, 0, 0, 0.8);
+  --dtk-shadow-sm:     0 2px 6px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.7);
+  --dtk-shadow-md:     0 4px 16px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.7);
+  --dtk-shadow-lg:     0 8px 32px rgba(0, 0, 0, 1.0), 0 4px 16px rgba(0, 0, 0, 0.8);
+  --dtk-shadow-inset:  inset 0 1px 3px rgba(0, 0, 0, 0.8);
+
+  /* Accent glow — used on active/focused elements */
+  --sr-glow-accent:  0 0 0 1px var(--dtk-color-accent), 0 0 12px rgba(0, 184, 212, 0.20);
+  --sr-glow-success: 0 0 8px rgba(0, 208, 96, 0.30);
+  --sr-glow-danger:  0 0 8px rgba(255, 34, 68, 0.30);
+
+  /* Mono font for data readouts */
+  --dtk-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+}
+
+/* ── Sidebar tabs — neon active indicator ──────────────────────── */
+
+html.dtk-theme-shadowrun #sidebar-tabs button[aria-pressed="true"] {
+  box-shadow: var(--sr-glow-accent);
+}
+
+/* ── Canvas controls — glowing active state ────────────────────── */
+
+html.dtk-theme-shadowrun #controls .scene-control.active,
+html.dtk-theme-shadowrun #controls .control-tool.active {
+  box-shadow: var(--sr-glow-accent);
+}
+
+/* ── Chat messages — tighter, more terminal-like ───────────────── */
+
+html.dtk-theme-shadowrun .chat-message {
+  border-left: 2px solid var(--dtk-color-border-strong);
+}
+
+html.dtk-theme-shadowrun .chat-message:hover {
+  border-left-color: var(--dtk-color-accent);
+}
+
+html.dtk-theme-shadowrun .message-header {
+  background: var(--dtk-color-surface-inset);
+  border-bottom-color: var(--dtk-color-border);
+}
+
+html.dtk-theme-shadowrun .message-header .message-sender {
+  color: var(--dtk-color-accent);
+  font-family: var(--dtk-font-mono);
+  letter-spacing: 0.12em;
+}
+
+/* ── App windows — sharper, corporate feel ─────────────────────── */
+
+html.dtk-theme-shadowrun .application {
+  border-color: var(--dtk-color-border-strong);
+  box-shadow: var(--dtk-shadow-lg), var(--sr-glow-accent);
+}
+
+html.dtk-theme-shadowrun .window-header {
+  background: var(--dtk-color-surface-inset);
+  border-bottom-color: var(--dtk-color-border-strong);
+}
+
+html.dtk-theme-shadowrun .window-title {
+  color: var(--dtk-color-accent);
+  font-family: var(--dtk-font-mono);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-size: var(--dtk-font-xs);
+}
+
+/* ── Inputs — terminal inset feel ─────────────────────────────── */
+
+html.dtk-theme-shadowrun .application input:focus,
+html.dtk-theme-shadowrun .application select:focus,
+html.dtk-theme-shadowrun .application textarea:focus {
+  box-shadow: var(--sr-glow-accent);
+}
+
+/* ── Scene navigation — flat black strip ──────────────────────── */
+
+html.dtk-theme-shadowrun #navigation {
+  background: var(--dtk-color-surface-inset);
+  border-bottom: 1px solid var(--dtk-color-border);
+  box-shadow: none;
+}
+
+html.dtk-theme-shadowrun #scene-list .scene-item.view,
+html.dtk-theme-shadowrun #scene-list .scene-item.active {
+  box-shadow: var(--sr-glow-accent);
+}
+
+/* ── Hotbar — subtle glow on active ────────────────────────────── */
+
+html.dtk-theme-shadowrun #hotbar {
+  box-shadow: var(--dtk-shadow-md);
+  border-color: var(--dtk-color-border-strong);
+}
+
+/* ── Players panel — minimal ───────────────────────────────────── */
+
+html.dtk-theme-shadowrun #players {
+  border-color: var(--dtk-color-border-strong);
+  box-shadow: none;
+}
+
+html.dtk-theme-shadowrun #players h4 {
+  color: var(--dtk-color-accent);
+  font-family: var(--dtk-font-mono);
+  letter-spacing: 0.12em;
+}

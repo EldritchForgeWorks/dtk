@@ -3,6 +3,9 @@ import type { RitusConfig } from '../value-objects/RitusConfig.js';
 export interface Ritus {
   id: string;
   mechanic: string;
+  sides?: number;
+  explodes?: boolean;
+  keepMode?: 'highest' | 'lowest';
   threshold: number;
   tiers: Record<string, number>;
 }
@@ -24,6 +27,7 @@ function validate(ritus: unknown): asserts ritus is Ritus {
 
 export class RitusRegistry {
   private readonly store = new Map<string, RitusConfig>();
+  private readonly uuidStore = new Map<string, RitusConfig>();
 
   register(ritus: Ritus): void {
     validate(ritus);
@@ -37,6 +41,9 @@ export class RitusRegistry {
     this.store.set(ritus.id, {
       id: ritus.id,
       mechanic: ritus.mechanic,
+      sides: ritus.sides ?? 6,
+      explodes: ritus.explodes ?? (ritus.mechanic === 'exploding'),
+      keepMode: ritus.keepMode,
       threshold: ritus.threshold,
       tiers: { ...ritus.tiers },
     });
@@ -44,6 +51,26 @@ export class RitusRegistry {
 
   get(systemId: string): RitusConfig | null {
     return this.store.get(systemId) ?? null;
+  }
+
+  registerByUUID(uuid: string, ritus: Ritus): void {
+    validate(ritus);
+    if (this.uuidStore.has(uuid)) {
+      console.warn(`RitusRegistry: duplicate UUID "${uuid}" — overwriting.`);
+    }
+    this.uuidStore.set(uuid, {
+      id: ritus.id,
+      mechanic: ritus.mechanic,
+      sides: ritus.sides ?? 6,
+      explodes: ritus.explodes ?? (ritus.mechanic === 'exploding'),
+      keepMode: ritus.keepMode,
+      threshold: ritus.threshold,
+      tiers: { ...ritus.tiers },
+    });
+  }
+
+  getByUUID(uuid: string): RitusConfig | null {
+    return this.uuidStore.get(uuid) ?? null;
   }
 
   resolve(

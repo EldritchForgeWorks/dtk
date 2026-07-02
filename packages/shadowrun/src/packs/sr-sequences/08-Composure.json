@@ -1,0 +1,23 @@
+{
+  "_id": "SRSeqCompsure001",
+  "name": "Composure",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.composure",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "compose",
+        "pool": "@initiator.system.willpower + @initiator.system.charisma",
+        "tiers": { "miss": 0, "shaken": 1, "steady": 3, "unflappable": 5 },
+        "on_tier": {
+          "shaken":      { "message": "Visibly rattled but holding." },
+          "steady":      { "message": "Cool under fire." },
+          "unflappable": { "message": "Nerves of chrome." }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

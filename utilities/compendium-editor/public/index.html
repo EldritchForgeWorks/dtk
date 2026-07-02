@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Compendium Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <span class="app-title">System Compendium Editor</span>
+    <span id="status-msg"></span>
+    <button class="btn btn-save" id="btn-save">Save</button>
+  </header>
+  <div class="layout">
+    <nav id="sidebar">
+      <ul id="nav-list">
+        <li class="nav-group">System</li>
+        <li data-section="system">System Info</li>
+        <li data-section="dice">Dice Mechanics</li>
+        <li class="nav-group">Stats</li>
+        <li data-section="attributes">Attributes</li>
+        <li data-section="skills">Skills</li>
+        <li data-section="derived">Derived Stats</li>
+        <li data-section="resources">Resources</li>
+        <li class="nav-group">Content</li>
+        <li data-section="content-types">Types</li>
+        <li data-section="content">Compendium</li>
+        <li class="nav-group">Character</li>
+        <li data-section="creation">Creation</li>
+        <li data-section="advancement">Advancement</li>
+        <li class="nav-divider"></li>
+        <li data-section="preview">Preview</li>
+        <li data-section="export">Export</li>
+      </ul>
+    </nav>
+    <main id="content">
+      <p style="padding:32px;color:#888">Loading…</p>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+<script src="ui-core.js"></script>
+<script src="ui-forma.js"></script>
+<script src="ui-types.js"></script>
+<script src="ui-content.js"></script>
+<script src="preview.js"></script>
+</body>
+</html>

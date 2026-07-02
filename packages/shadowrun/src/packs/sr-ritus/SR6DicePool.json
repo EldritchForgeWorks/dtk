@@ -1,0 +1,20 @@
+{
+  "_id": "SRRitusDicePool1",
+  "name": "Shadowrun Dice Pool",
+  "type": "dtk.ritus",
+  "system": {
+    "id": "shadowrun.dice-pool",
+    "mechanic": "pool-count",
+    "sides": 6,
+    "explodes": false,
+    "keepMode": "",
+    "threshold": 5,
+    "tiers": {
+      "miss": 0,
+      "hit": 1,
+      "strong": 4,
+      "exceptional": 6
+    }
+  },
+  "flags": {}
+}

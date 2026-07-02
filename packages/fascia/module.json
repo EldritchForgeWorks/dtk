@@ -1,0 +1,18 @@
+{
+  "id": "dtk-fascia",
+  "title": "DTK Fascia — UI Foundation",
+  "description": "UI foundation layer for the Demiurge's Toolkit ecosystem: CSS reset, design tokens, FasciaApp base class, withFascia mixin, and Handlebars partials.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "dtk", "type": "module" }
+    ]
+  },
+  "esmodules": ["dist/dtk-fascia.js"],
+  "styles": ["dist/style.css"],
+  "flags": {}
+}

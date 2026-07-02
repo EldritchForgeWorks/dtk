@@ -1,0 +1,25 @@
+{
+  "_id": "SRSeqHackCrack01",
+  "name": "Hack Device",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.hacking-crack",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "crack",
+        "pool": "@initiator.system.skills.cracking + @initiator.system.logic",
+        "opposed": "3",
+        "tiers": { "miss": 0, "hit": 1, "clean": 4, "invisible": 6 },
+        "on_tier": {
+          "miss":      { "effect": "trigger-alert",  "message": "Intrusion countermeasures alert!" },
+          "hit":       { "effect": "access-basic",   "message": "Partial access granted." },
+          "clean":     { "effect": "access-admin",   "message": "Clean hack. System admin unaware." },
+          "invisible": { "effect": "access-root",    "message": "Ghost mode. No trace." }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

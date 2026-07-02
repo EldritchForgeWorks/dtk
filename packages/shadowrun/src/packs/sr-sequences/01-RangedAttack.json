@@ -1,0 +1,49 @@
+{
+  "_id": "SRSeqRangedAtt01",
+  "name": "Ranged Attack",
+  "type": "dtk.sequence",
+  "system": {
+    "id": "sr.ranged-attack",
+    "systemId": "shadowrun.dice-pool",
+    "steps": [
+      {
+        "type": "rule",
+        "id": "attack",
+        "pool": "@initiator.system.skills.firearms + @initiator.system.agility",
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 }
+      },
+      {
+        "type": "await",
+        "id": "await-defense",
+        "choices": ["roll-defense"],
+        "condition": { "field": "@steps.attack.tier", "op": "neq", "value": "miss" }
+      },
+      {
+        "type": "rule",
+        "id": "defense",
+        "pool": "@target.system.reaction + @target.system.intuition",
+        "condition": { "field": "@steps.attack.tier", "op": "neq", "value": "miss" },
+        "tiers": { "miss": 0, "hit": 1, "strong": 4, "exceptional": 6 }
+      },
+      {
+        "type": "await",
+        "id": "await-soak",
+        "choices": ["roll-soak"],
+        "condition": { "field": "@steps.attack.hits", "op": "gt", "value": "@steps.defense.hits" },
+        "on_skip": { "message": "Shot deflected." }
+      },
+      {
+        "type": "rule",
+        "id": "soak",
+        "pool": "@target.system.body",
+        "condition": { "field": "@steps.attack.hits", "op": "gt", "value": "@steps.defense.hits" },
+        "tiers": { "miss": 0, "partial": 1, "full": 6 },
+        "on_tier": {
+          "miss":    { "damage": "@steps.attack.hits - @steps.defense.hits + 8" },
+          "partial": { "damage": "@steps.attack.hits - @steps.defense.hits + 8 - @steps.soak.hits" }
+        }
+      }
+    ]
+  },
+  "flags": {}
+}

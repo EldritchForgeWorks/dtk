@@ -15,6 +15,6 @@
       { "id": "dtk-lex", "type": "module", "reason": "Enables complex expression evaluation in pool formulas and conditions. Without it, only arithmetic expressions are supported." }
     ]
   },
-  "esmodules": ["dtk-alea.js"],
+  "esmodules": ["dist/dtk-alea.js"],
   "flags": {}
 }

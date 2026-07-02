@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "systemId": "shadowrun-6e",
+    "name": "Shadowrun 6th Edition",
+    "description": "Cyberpunk meets fantasy. Assemble dice pools of d6s; every 5 or 6 is a hit. More hits = better outcome.",
+    "version": "6.0.0"
+  },
+  "dice": [
+    {
+      "id": "dice-pool",
+      "name": "Dice Pool",
+      "mechanic": "pool-count",
+      "sides": 6,
+      "threshold": 5,
+      "comparison": "gte",
+      "explodes": false,
+      "keepMode": null,
+      "degrees": [
+        { "id": "success", "label": "Success", "min": 1 },
+        { "id": "glitch", "label": "Glitch", "min": -1 }
+      ],
+      "description": "Assemble a pool of d6s equal to attribute + skill. Count dice showing 5 or 6 as hits. More hits = better outcome. A glitch occurs when more than half your dice show 1s."
+    }
+  ],
+  "attributes": [
+    { "id": "body", "label": "Body", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures physical toughness, resistance to damage, and the ability to endure hardship." },
+    { "id": "agility", "label": "Agility", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures physical coordination, fine motor control, and ranged combat ability." },
+    { "id": "reaction", "label": "Reaction", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures reflexes and the ability to respond quickly to changing situations." },
+    { "id": "strength", "label": "Strength", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures raw physical power and melee combat prowess." },
+    { "id": "willpower", "label": "Willpower", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Represents force of personality and resistance to mental and magical manipulation." },
+    { "id": "logic", "label": "Logic", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures analytical ability, rational thought, and technical know-how." },
+    { "id": "intuition", "label": "Intuition", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Represents awareness, gut feelings, and the ability to read situations." },
+    { "id": "charisma", "label": "Charisma", "type": "integer", "min": 1, "max": 6, "default": 1, "formula": "", "description": "Measures force of personality, social grace, and ability to lead or persuade." },
+    { "id": "edge", "label": "Edge", "type": "integer", "min": 1, "max": 7, "default": 1, "formula": "", "description": "Luck and street smarts. Spent to gain advantages; refreshes between sessions." },
+    { "id": "essence", "label": "Essence", "type": "rating", "min": 0, "max": 6, "default": 6, "formula": "", "description": "Measures how much of your soul remains. Reduced by cyberware. Affects Magic and Resonance." },
+    { "id": "magic", "label": "Magic", "type": "integer", "min": 0, "max": 6, "default": 0, "formula": "", "description": "Required to cast spells or perform adept powers. Limited by Essence." },
+    { "id": "resonance", "label": "Resonance", "type": "integer", "min": 0, "max": 6, "default": 0, "formula": "", "description": "Required to interact with the Matrix as a Technomancer. Limited by Essence." }
+  ],
+  "skills": [
+    { "id": "athletics", "label": "Athletics", "linkedAttributes": ["agility"], "description": "Climbing, running, swimming, and jumping. The catch-all for physical challenges." },
+    { "id": "stealth", "label": "Stealth", "linkedAttributes": ["agility"], "description": "Moving silently, hiding, and avoiding detection." },
+    { "id": "firearms", "label": "Firearms", "linkedAttributes": ["agility"], "description": "Using pistols, rifles, shotguns, and other conventional projectile weapons." },
+    { "id": "close-combat", "label": "Close Combat", "linkedAttributes": ["agility"], "description": "Melee fighting with blades, clubs, and unarmed techniques." },
+    { "id": "cracking", "label": "Cracking", "linkedAttributes": ["logic"], "description": "Hacking, defeating IC, and intruding into hosts. The decker's core offensive skill." },
+    { "id": "electronics", "label": "Electronics", "linkedAttributes": ["logic"], "description": "Repairing and operating electronic devices; includes hardware and software knowledge." },
+    { "id": "engineering", "label": "Engineering", "linkedAttributes": ["logic"], "description": "Building, repairing, and modifying mechanical and structural items." },
+    { "id": "piloting", "label": "Piloting", "linkedAttributes": ["reaction"], "description": "Operating ground vehicles, aircraft, and watercraft." },
+    { "id": "perception", "label": "Perception", "linkedAttributes": ["intuition"], "description": "Noticing things in your environment; the most commonly tested skill in the game." },
+    { "id": "con", "label": "Con", "linkedAttributes": ["charisma"], "description": "Deceiving people, running scams, and impersonation." },
+    { "id": "negotiation", "label": "Negotiation", "linkedAttributes": ["charisma"], "description": "Making deals, haggling prices, and reaching agreements." },
+    { "id": "intimidation", "label": "Intimidation", "linkedAttributes": ["charisma", "strength"], "description": "Coercing others through threat of harm or personal menace." }
+  ],
+  "derived": [
+    { "id": "initiative", "label": "Initiative", "formula": "@reaction + @intuition", "description": "Base initiative score (plus 1d6 standard, more dice with cyberware/drugs/magic)." },
+    { "id": "composure", "label": "Composure", "formula": "@willpower + @charisma", "description": "Threshold to resist fear, shock, and emotional manipulation." },
+    { "id": "judge-intentions", "label": "Judge Intentions", "formula": "@intuition + @charisma", "description": "Used to sense if someone is lying or has hostile intent." },
+    { "id": "memory", "label": "Memory", "formula": "@logic + @willpower", "description": "How much detail a character can recall under stress." },
+    { "id": "lift-carry", "label": "Lift / Carry", "formula": "@body + @strength", "description": "Threshold for lifting heavy objects or carrying loads across distances." }
+  ],
+  "resources": [
+    { "id": "physical-monitor", "label": "Physical Monitor", "formula": "8 + ceil(@body / 2)", "recoverable": true, "description": "Boxes of physical damage. Fill all of them and you're incapacitated (or dead)." },
+    { "id": "stun-monitor", "label": "Stun Monitor", "formula": "8 + ceil(@willpower / 2)", "recoverable": true, "description": "Boxes of stun damage. Fill these and you're knocked out." },
+    { "id": "edge-pool", "label": "Edge Pool", "formula": "@edge", "recoverable": true, "description": "Current Edge available to spend. Refreshes at defined intervals." }
+  ],
+  "currencies": ["nuyen"],
+  "contentTypes": [
+    {
+      "id": "quality",
+      "label": "Quality",
+      "fields": [
+        { "id": "quality-type", "label": "Type", "type": "select", "required": true, "options": [
+          { "value": "positive", "label": "Positive" },
+          { "value": "negative", "label": "Negative" }
+        ]},
+        { "id": "karma-cost", "label": "Karma Cost", "type": "number", "required": true, "min": 0 },
+        { "id": "limit", "label": "Level Limit", "type": "number", "required": false, "min": 1 },
+        { "id": "effect", "label": "Effect", "type": "textarea", "required": true }
+      ]
+    },
+    {
+      "id": "gear",
+      "label": "Gear",
+      "fields": [
+        { "id": "category", "label": "Category", "type": "select", "required": true, "options": [
+          { "value": "weapons", "label": "Weapons" },
+          { "value": "armor", "label": "Armor" },
+          { "value": "electronics", "label": "Electronics" },
+          { "value": "cyberware", "label": "Cyberware" },
+          { "value": "bioware", "label": "Bioware" },
+          { "value": "vehicles", "label": "Vehicles" },
+          { "value": "misc", "label": "Miscellaneous" }
+        ]},
+        { "id": "availability", "label": "Availability", "type": "text", "required": false },
+        { "id": "cost", "label": "Cost (¥)", "type": "text", "required": false },
+        { "id": "effect", "label": "Effect / Notes", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "weapon",
+      "label": "Weapon",
+      "fields": [
+        { "id": "weapon-type", "label": "Type", "type": "select", "required": true, "options": [
+          { "value": "melee", "label": "Melee" },
+          { "value": "ranged", "label": "Ranged" },
+          { "value": "thrown", "label": "Thrown" }
+        ]},
+        { "id": "damage", "label": "Damage", "type": "text", "required": true },
+        { "id": "ap", "label": "Armor Penetration", "type": "number", "required": false },
+        { "id": "modes", "label": "Fire Modes", "type": "tags", "required": false },
+        { "id": "availability", "label": "Availability", "type": "text", "required": false },
+        { "id": "cost", "label": "Cost (¥)", "type": "text", "required": false }
+      ]
+    },
+    {
+      "id": "cyberware",
+      "label": "Cyberware",
+      "fields": [
+        { "id": "essence-cost", "label": "Essence Cost", "type": "number", "required": true, "min": 0 },
+        { "id": "grade", "label": "Grade", "type": "select", "required": true, "options": [
+          { "value": "standard", "label": "Standard" },
+          { "value": "alpha", "label": "Alpha" },
+          { "value": "beta", "label": "Beta" },
+          { "value": "delta", "label": "Delta" },
+          { "value": "used", "label": "Used" }
+        ]},
+        { "id": "cost", "label": "Cost (¥)", "type": "text", "required": false },
+        { "id": "availability", "label": "Availability", "type": "text", "required": false },
+        { "id": "effect", "label": "Effect", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "adept-power",
+      "label": "Adept Power",
+      "fields": [
+        { "id": "power-point-cost", "label": "Power Point Cost", "type": "number", "required": true, "min": 0 },
+        { "id": "levels", "label": "Has Levels", "type": "boolean", "required": false },
+        { "id": "effect", "label": "Effect", "type": "textarea", "required": true }
+      ]
+    }
+  ],
+  "creation": {
+    "id": "shadowrun-6e-creation",
+    "mode": "steps",
+    "steps": [
+      {
+        "id": "concept",
+        "label": "Concept & Metatype",
+        "hint": "Who is your runner? Human, elf, dwarf, ork, or troll — each has different attribute maximums.",
+        "fields": [
+          { "type": "text", "id": "archetype", "label": "Runner Archetype (e.g. Street Samurai, Decker, Mage)" },
+          { "type": "select", "id": "metatype", "label": "Metatype", "options": [
+            { "value": "human", "label": "Human" },
+            { "value": "elf", "label": "Elf" },
+            { "value": "dwarf", "label": "Dwarf" },
+            { "value": "ork", "label": "Ork" },
+            { "value": "troll", "label": "Troll" }
+          ]}
+        ]
+      },
+      {
+        "id": "priority",
+        "label": "Priority Selection",
+        "hint": "Assign priorities A through E to the five categories. Priority A = highest investment.",
+        "fields": [
+          { "type": "priority-matrix", "id": "priorities", "label": "Priorities",
+            "priorities": ["A", "B", "C", "D", "E"],
+            "choices": ["metatype", "attributes", "skills", "magic-resonance", "resources"] }
+        ]
+      },
+      {
+        "id": "attributes",
+        "label": "Allocate Attributes",
+        "hint": "Distribute your attribute points based on your priority selection.",
+        "fields": [
+          { "type": "allocation", "id": "attr-points", "label": "Attribute Points",
+            "pool": "20",
+            "targets": ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "edge"] }
+        ]
+      },
+      {
+        "id": "skills",
+        "label": "Allocate Skills",
+        "hint": "Distribute skill points based on your priority selection. Skill cap is typically 9 at character creation.",
+        "fields": [
+          { "type": "number", "id": "skill-points", "label": "Skill Points to Distribute", "min": 0, "max": 48 }
+        ]
+      },
+      {
+        "id": "gear",
+        "label": "Purchase Starting Gear",
+        "hint": "Spend your starting nuyen on weapons, armor, cyberware, and other equipment.",
+        "fields": [
+          { "type": "number", "id": "starting-nuyen", "label": "Starting Nuyen", "min": 0 }
+        ]
+      }
+    ],
+    "advancementTracks": [
+      {
+        "id": "karma",
+        "label": "Karma Advancement",
+        "xpTable": [],
+        "advancements": [
+          { "id": "raise-attribute", "label": "Raise Attribute", "cost": 5, "prerequisite": "" },
+          { "id": "raise-skill", "label": "Raise Skill", "cost": 2, "prerequisite": "" },
+          { "id": "new-skill", "label": "New Skill (Rating 1)", "cost": 2, "prerequisite": "" },
+          { "id": "buy-quality", "label": "Buy Positive Quality", "cost": 0, "prerequisite": "Quality karma cost varies" }
+        ]
+      }
+    ]
+  },
+  "content": []
+}

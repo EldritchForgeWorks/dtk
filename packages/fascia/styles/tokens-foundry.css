@@ -1,0 +1,24 @@
+/* DTK Fascia — Foundry V13 variable bridge */
+/* Pushes dtk tokens into Foundry's built-in CSS variable names so  */
+/* native Foundry elements inherit the design system automatically.  */
+
+:root {
+  /* Core surfaces */
+  --color-bg:           var(--dtk-color-surface);
+  --color-bg-alt:       var(--dtk-color-surface-raised);
+  --color-bg-btn:       var(--dtk-color-surface-raised);
+  --color-bg-option:    var(--dtk-color-surface-overlay);
+
+  /* Text */
+  --color-text-primary:   var(--dtk-color-on-surface);
+  --color-text-secondary: var(--dtk-color-on-surface-muted);
+  --color-text-hyperlink: var(--dtk-color-accent);
+
+  /* Borders */
+  --color-border-light: var(--dtk-color-border);
+  --color-border-dark:  var(--dtk-color-border-strong);
+
+  /* Shadows */
+  --color-shadow-primary:   var(--dtk-shadow-md);
+  --color-shadow-highlight: rgba(255, 255, 255, 0.04);
+}

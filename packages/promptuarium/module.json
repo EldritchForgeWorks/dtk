@@ -12,6 +12,6 @@
       { "id": "dtk", "type": "module" }
     ]
   },
-  "esmodules": ["dtk-promptuarium.js"],
+  "esmodules": ["dist/dtk-promptuarium.js"],
   "flags": {}
 }

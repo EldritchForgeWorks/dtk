@@ -12,6 +12,6 @@
       { "id": "dtk", "type": "module" }
     ]
   },
-  "esmodules": ["dtk-lex.js"],
+  "esmodules": ["dist/dtk-lex.js"],
   "flags": {}
 }

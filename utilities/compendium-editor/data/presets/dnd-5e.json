@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "systemId": "dnd-5e",
+    "name": "Dungeons & Dragons 5th Edition",
+    "description": "The world's most popular tabletop roleplaying game. Roll a d20, add your modifier, beat the DC.",
+    "version": "5.0.0"
+  },
+  "dice": [
+    {
+      "id": "d20",
+      "name": "d20 Check",
+      "mechanic": "single-die",
+      "sides": 20,
+      "threshold": 10,
+      "comparison": "gte",
+      "explodes": false,
+      "keepMode": null,
+      "degrees": [
+        { "id": "crit-success", "label": "Critical Success", "min": 20 },
+        { "id": "success", "label": "Success", "min": 10 },
+        { "id": "failure", "label": "Failure", "min": 2 },
+        { "id": "crit-fail", "label": "Critical Failure", "min": 1 }
+      ],
+      "description": "Roll 1d20 + modifier against a Difficulty Class (DC). Natural 20 = critical success, natural 1 = critical failure."
+    }
+  ],
+  "attributes": [
+    { "id": "str", "label": "Strength", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Measures bodily power, athletic training, and the extent to which you can exert raw physical force." },
+    { "id": "dex", "label": "Dexterity", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Measures agility, reflexes, and balance." },
+    { "id": "con", "label": "Constitution", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Measures health, stamina, and vital force." },
+    { "id": "int", "label": "Intelligence", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Measures mental acuity, accuracy of recall, and the ability to reason." },
+    { "id": "wis", "label": "Wisdom", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Reflects how attuned you are to the world around you and represents perceptiveness and intuition." },
+    { "id": "cha", "label": "Charisma", "type": "integer", "min": 1, "max": 30, "default": 10, "formula": "", "description": "Measures your ability to interact effectively with others; confidence and eloquence." }
+  ],
+  "skills": [
+    { "id": "athletics", "label": "Athletics", "linkedAttributes": ["str"], "description": "Covers difficult situations in climbing, jumping, or swimming." },
+    { "id": "acrobatics", "label": "Acrobatics", "linkedAttributes": ["dex"], "description": "Covers attempts to stay on your feet in tricky situations." },
+    { "id": "sleight-of-hand", "label": "Sleight of Hand", "linkedAttributes": ["dex"], "description": "Covers pickpocketing and concealing items on your person." },
+    { "id": "stealth", "label": "Stealth", "linkedAttributes": ["dex"], "description": "Covers attempts to conceal yourself from enemies." },
+    { "id": "arcana", "label": "Arcana", "linkedAttributes": ["int"], "description": "Measures ability to recall lore about spells, magic items, and magical traditions." },
+    { "id": "history", "label": "History", "linkedAttributes": ["int"], "description": "Measures ability to recall lore about historical events, legendary people, and ancient kingdoms." },
+    { "id": "investigation", "label": "Investigation", "linkedAttributes": ["int"], "description": "Covers looking around for clues and making deductions." },
+    { "id": "nature", "label": "Nature", "linkedAttributes": ["int"], "description": "Measures ability to recall lore about terrain, plants, animals, and weather." },
+    { "id": "religion", "label": "Religion", "linkedAttributes": ["int"], "description": "Measures ability to recall lore about deities, rites, and religious hierarchies." },
+    { "id": "animal-handling", "label": "Animal Handling", "linkedAttributes": ["wis"], "description": "Covers calming domesticated animals, keeping a mount from panicking, and intuiting an animal's intentions." },
+    { "id": "insight", "label": "Insight", "linkedAttributes": ["wis"], "description": "Covers determining the true intentions of a creature." },
+    { "id": "medicine", "label": "Medicine", "linkedAttributes": ["wis"], "description": "Covers stabilizing a dying companion or diagnosing an illness." },
+    { "id": "perception", "label": "Perception", "linkedAttributes": ["wis"], "description": "Covers spotting, hearing, or otherwise detecting the presence of something." },
+    { "id": "survival", "label": "Survival", "linkedAttributes": ["wis"], "description": "Covers following tracks, hunting, navigating, and predicting weather." },
+    { "id": "deception", "label": "Deception", "linkedAttributes": ["cha"], "description": "Covers convincingly hiding the truth through statement, action, or disguise." },
+    { "id": "intimidation", "label": "Intimidation", "linkedAttributes": ["cha"], "description": "Covers influencing someone through overt threats or hostile actions." },
+    { "id": "performance", "label": "Performance", "linkedAttributes": ["cha"], "description": "Covers delighting an audience with music, dance, acting, storytelling, or other entertainment." },
+    { "id": "persuasion", "label": "Persuasion", "linkedAttributes": ["cha"], "description": "Covers influencing someone or a group of people with tact, social graces, or good nature." }
+  ],
+  "derived": [
+    { "id": "passive-perception", "label": "Passive Perception", "formula": "10 + @perception", "description": "Used when not actively searching; determines what you notice without trying." },
+    { "id": "initiative", "label": "Initiative Bonus", "formula": "@dex_mod", "description": "Added to initiative rolls at the start of combat." },
+    { "id": "proficiency-bonus", "label": "Proficiency Bonus", "formula": "ceil(@level / 4) + 1", "description": "Added to attack rolls, saving throws, and skill checks where proficient." }
+  ],
+  "resources": [
+    { "id": "hit-points", "label": "Hit Points", "formula": "@hit-dice + (@con_mod * @level)", "recoverable": true, "description": "Represents a combination of physical and mental durability, the will to live, and luck." },
+    { "id": "hit-dice", "label": "Hit Dice", "formula": "@level", "recoverable": true, "description": "Spent during short rests to recover hit points." },
+    { "id": "spell-slots-1", "label": "Spell Slots (1st)", "formula": "", "recoverable": true, "description": "Resources spent to cast 1st-level spells." }
+  ],
+  "currencies": ["cp", "sp", "ep", "gp", "pp"],
+  "contentTypes": [
+    {
+      "id": "spell",
+      "label": "Spell",
+      "fields": [
+        { "id": "level", "label": "Spell Level", "type": "number", "required": true, "min": 0, "max": 9 },
+        { "id": "school", "label": "School", "type": "select", "required": true, "options": [
+          { "value": "abjuration", "label": "Abjuration" },
+          { "value": "conjuration", "label": "Conjuration" },
+          { "value": "divination", "label": "Divination" },
+          { "value": "enchantment", "label": "Enchantment" },
+          { "value": "evocation", "label": "Evocation" },
+          { "value": "illusion", "label": "Illusion" },
+          { "value": "necromancy", "label": "Necromancy" },
+          { "value": "transmutation", "label": "Transmutation" }
+        ]},
+        { "id": "casting-time", "label": "Casting Time", "type": "text", "required": true },
+        { "id": "range", "label": "Range", "type": "text", "required": true },
+        { "id": "components", "label": "Components", "type": "tags", "required": false },
+        { "id": "duration", "label": "Duration", "type": "text", "required": true },
+        { "id": "concentration", "label": "Concentration", "type": "boolean", "required": false },
+        { "id": "damage", "label": "Damage / Effect", "type": "text", "required": false },
+        { "id": "saving-throw", "label": "Saving Throw", "type": "text", "required": false }
+      ]
+    },
+    {
+      "id": "monster",
+      "label": "Monster",
+      "fields": [
+        { "id": "cr", "label": "Challenge Rating", "type": "text", "required": true },
+        { "id": "monster-type", "label": "Type", "type": "select", "required": true, "options": [
+          { "value": "aberration", "label": "Aberration" },
+          { "value": "beast", "label": "Beast" },
+          { "value": "celestial", "label": "Celestial" },
+          { "value": "construct", "label": "Construct" },
+          { "value": "dragon", "label": "Dragon" },
+          { "value": "elemental", "label": "Elemental" },
+          { "value": "fey", "label": "Fey" },
+          { "value": "fiend", "label": "Fiend" },
+          { "value": "giant", "label": "Giant" },
+          { "value": "humanoid", "label": "Humanoid" },
+          { "value": "monstrosity", "label": "Monstrosity" },
+          { "value": "ooze", "label": "Ooze" },
+          { "value": "plant", "label": "Plant" },
+          { "value": "undead", "label": "Undead" }
+        ]},
+        { "id": "size", "label": "Size", "type": "select", "required": true, "options": [
+          { "value": "tiny", "label": "Tiny" },
+          { "value": "small", "label": "Small" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "large", "label": "Large" },
+          { "value": "huge", "label": "Huge" },
+          { "value": "gargantuan", "label": "Gargantuan" }
+        ]},
+        { "id": "ac", "label": "Armor Class", "type": "number", "required": true, "min": 0, "max": 30 },
+        { "id": "hp", "label": "Hit Points", "type": "text", "required": true },
+        { "id": "speed", "label": "Speed", "type": "text", "required": true },
+        { "id": "m-str", "label": "STR", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "m-dex", "label": "DEX", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "m-con", "label": "CON", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "m-int", "label": "INT", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "m-wis", "label": "WIS", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "m-cha", "label": "CHA", "type": "number", "required": false, "min": 1, "max": 30 },
+        { "id": "actions", "label": "Actions", "type": "textarea", "required": false },
+        { "id": "legendary-actions", "label": "Legendary Actions", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "item",
+      "label": "Item",
+      "fields": [
+        { "id": "item-type", "label": "Item Type", "type": "select", "required": true, "options": [
+          { "value": "weapon", "label": "Weapon" },
+          { "value": "armor", "label": "Armor" },
+          { "value": "adventuring-gear", "label": "Adventuring Gear" },
+          { "value": "tool", "label": "Tool" },
+          { "value": "magic-item", "label": "Magic Item" }
+        ]},
+        { "id": "weight", "label": "Weight (lbs)", "type": "number", "required": false, "min": 0 },
+        { "id": "cost", "label": "Cost", "type": "text", "required": false },
+        { "id": "damage", "label": "Damage", "type": "text", "required": false },
+        { "id": "ac", "label": "Armor Class", "type": "number", "required": false, "min": 0, "max": 30 },
+        { "id": "properties", "label": "Properties", "type": "tags", "required": false },
+        { "id": "attunement", "label": "Requires Attunement", "type": "boolean", "required": false }
+      ]
+    },
+    {
+      "id": "feat",
+      "label": "Feat",
+      "fields": [
+        { "id": "prerequisite", "label": "Prerequisite", "type": "text", "required": false },
+        { "id": "benefit", "label": "Benefit", "type": "textarea", "required": true }
+      ]
+    },
+    {
+      "id": "background",
+      "label": "Background",
+      "fields": [
+        { "id": "skill-proficiencies", "label": "Skill Proficiencies", "type": "tags", "required": true },
+        { "id": "tool-proficiencies", "label": "Tool Proficiencies", "type": "tags", "required": false },
+        { "id": "languages", "label": "Languages", "type": "tags", "required": false },
+        { "id": "equipment", "label": "Starting Equipment", "type": "textarea", "required": false },
+        { "id": "feature", "label": "Background Feature", "type": "textarea", "required": true }
+      ]
+    }
+  ],
+  "creation": {
+    "id": "dnd-5e-creation",
+    "mode": "steps",
+    "steps": [
+      {
+        "id": "race",
+        "label": "Choose a Race",
+        "hint": "Your character's race grants racial traits, ability score increases, and other features.",
+        "fields": [
+          { "type": "content-grid", "id": "race-choice", "label": "Race", "contentTypeId": "race", "required": true }
+        ]
+      },
+      {
+        "id": "class",
+        "label": "Choose a Class",
+        "hint": "Your class is the primary definition of what your character can do.",
+        "fields": [
+          { "type": "content-grid", "id": "class-choice", "label": "Class", "contentTypeId": "class", "required": true }
+        ]
+      },
+      {
+        "id": "ability-scores",
+        "label": "Determine Ability Scores",
+        "hint": "Assign your six ability scores using the Standard Array, Point Buy, or rolling.",
+        "fields": [
+          { "type": "allocation", "id": "ability-allocation", "label": "Point Buy", "pool": "27", "targets": ["str", "dex", "con", "int", "wis", "cha"] }
+        ]
+      },
+      {
+        "id": "background",
+        "label": "Choose a Background",
+        "hint": "Your background provides proficiencies, languages, equipment, and a background feature.",
+        "fields": [
+          { "type": "content-grid", "id": "background-choice", "label": "Background", "contentTypeId": "background", "required": true }
+        ]
+      }
+    ],
+    "advancementTracks": [
+      {
+        "id": "standard",
+        "label": "Standard Advancement",
+        "xpTable": [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000],
+        "advancements": [
+          { "id": "asi", "label": "Ability Score Improvement", "cost": 0, "unlockStep": "" }
+        ]
+      }
+    ]
+  },
+  "content": []
+}
