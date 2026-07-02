@@ -13,24 +13,32 @@ export const RitusMechanicSchema = z.enum([
   'custom',
 ])
 
-export const RitusTiersSchema = z.object({
-  critical: z.number().int().nonnegative().optional(),
-  hit: z.number().int().nonnegative(),
-  glancing: z.number().int().nonnegative().optional(),
-}).superRefine((tiers, ctx) => {
-  if (tiers.critical !== undefined && tiers.critical <= tiers.hit) {
+const TIER_NAME_PATTERN = /^[a-z][a-z0-9-]*$/
+
+export const RitusTiersSchema = z.record(
+  z.string().regex(TIER_NAME_PATTERN, 'tier names must be lowercase slugs matching /^[a-z][a-z0-9-]*$/'),
+  z.number().int().nonnegative('tier thresholds must be nonnegative integers'),
+).superRefine((tiers, ctx) => {
+  const entries = Object.entries(tiers)
+  if (entries.length === 0) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: `tiers.critical (${tiers.critical}) must be greater than tiers.hit (${tiers.hit})`,
-      path: ['critical'],
+      message: 'tiers must declare at least one entry',
     })
+    return
   }
-  if (tiers.glancing !== undefined && tiers.glancing >= tiers.hit) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: `tiers.glancing (${tiers.glancing}) must be less than tiers.hit (${tiers.hit})`,
-      path: ['glancing'],
-    })
+  const seen = new Map<number, string>()
+  for (const [name, threshold] of entries) {
+    const prior = seen.get(threshold)
+    if (prior !== undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `tiers "${prior}" and "${name}" share threshold ${threshold} — tier thresholds must be unique so a hit count resolves to exactly one tier`,
+        path: [name],
+      })
+    } else {
+      seen.set(threshold, name)
+    }
   }
 })
 
@@ -43,7 +51,7 @@ export const RitusSchema = z.object({
   keepMode: z.enum(['highest', 'lowest']).optional(),
   threshold: z.number().int().positive('threshold must be a positive integer'),
   tiers: RitusTiersSchema,
-}).superRefine((data, ctx) => {
+}).strict().superRefine((data, ctx) => {
   if (data.mechanic === 'advantage-disadvantage' && data.keepMode === undefined) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
@@ -57,5 +65,5 @@ export const RitusSchema = z.object({
 }))
 
 export type RitusMechanic = z.infer<typeof RitusMechanicSchema>
-export type RitusTiers = z.infer<typeof RitusTiersSchema>
+export type RitusTiers = Readonly<Record<string, number>>
 export type Ritus = z.infer<typeof RitusSchema>

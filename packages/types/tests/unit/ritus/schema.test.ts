@@ -50,26 +50,41 @@ describe('Boundary', () => {
     expect(RitusSchema.safeParse({ ...validRitus, tiers: { hit: 0 } }).success).toBe(true)
   })
 
-  it('tiers.critical exactly one above hit (critical = hit + 1) is accepted', () => {
-    expect(
-      RitusSchema.safeParse({ ...validRitus, tiers: { critical: 2, hit: 1 } }).success,
-    ).toBe(true)
+  it('single-entry tiers vocabulary is accepted', () => {
+    expect(RitusSchema.safeParse({ ...validRitus, tiers: { success: 1 } }).success).toBe(true)
   })
 
-  it('tiers.critical equal to hit is rejected', () => {
-    const result = RitusSchema.safeParse({ ...validRitus, tiers: { critical: 1, hit: 1 } })
+  it('empty tiers object is rejected (at least one entry required)', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, tiers: {} })
     expect(result.success).toBe(false)
   })
 
-  it('tiers.glancing exactly one below hit (glancing = hit - 1) is accepted', () => {
-    expect(
-      RitusSchema.safeParse({ ...validRitus, tiers: { hit: 2, glancing: 1 } }).success,
-    ).toBe(true)
+  it('tier name of a single lowercase letter is accepted', () => {
+    expect(RitusTiersSchema.safeParse({ x: 1 }).success).toBe(true)
   })
 
-  it('tiers.glancing equal to hit is rejected', () => {
-    const result = RitusSchema.safeParse({ ...validRitus, tiers: { hit: 1, glancing: 1 } })
-    expect(result.success).toBe(false)
+  it('tier name with digits and hyphens is accepted', () => {
+    expect(RitusTiersSchema.safeParse({ 'strong-hit-2': 3, hit: 1 }).success).toBe(true)
+  })
+
+  it('tier name starting with a digit is rejected', () => {
+    expect(RitusTiersSchema.safeParse({ '2hit': 1 }).success).toBe(false)
+  })
+
+  it('tier name starting with a hyphen is rejected', () => {
+    expect(RitusTiersSchema.safeParse({ '-hit': 1 }).success).toBe(false)
+  })
+
+  it('tier name with uppercase letters is rejected', () => {
+    expect(RitusTiersSchema.safeParse({ Critical: 4, hit: 1 }).success).toBe(false)
+  })
+
+  it('tier name with spaces is rejected', () => {
+    expect(RitusTiersSchema.safeParse({ 'strong hit': 4, hit: 1 }).success).toBe(false)
+  })
+
+  it('two tiers exactly one threshold apart are accepted', () => {
+    expect(RitusTiersSchema.safeParse({ hit: 1, strong: 2 }).success).toBe(true)
   })
 })
 
@@ -141,27 +156,35 @@ describe('Scenario', () => {
     if (result.success) expect(result.data.explodes).toBe(false)
   })
 
-  it('Ritus without tiers.hit is rejected', () => {
-    const result = RitusSchema.safeParse({ ...validRitus, tiers: { critical: 4 } })
+  it('shadowrun vocabulary {miss:0,hit:1,strong:4,exceptional:6} round-trips WITHOUT loss', () => {
+    // Regression for Officina finding 2: the old fixed-triple schema silently
+    // stripped custom tier names. The full vocabulary must survive parsing.
+    const tiers = { miss: 0, hit: 1, strong: 4, exceptional: 6 }
+    const result = RitusSchema.safeParse({ ...validRitus, tiers })
+    expect(result.success).toBe(true)
+    if (result.success) {
+      expect(result.data.tiers).toEqual(tiers)
+    }
+  })
+
+  it('duplicate threshold values are rejected (ambiguous tier resolution)', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, tiers: { hit: 1, strong: 1 } })
     expect(result.success).toBe(false)
   })
 
-  it('critical less than hit is rejected', () => {
-    const result = RitusSchema.safeParse({ ...validRitus, tiers: { critical: 1, hit: 3 } })
+  it('unknown top-level Ritus key is rejected loudly (strict object)', () => {
+    const result = RitusSchema.safeParse({ ...validRitus, bonusDice: 2 })
     expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.code === 'unrecognized_keys')).toBe(true)
+    }
   })
 
-  it('glancing greater than hit is rejected', () => {
-    const result = RitusSchema.safeParse({ ...validRitus, tiers: { hit: 2, glancing: 3 } })
-    expect(result.success).toBe(false)
-  })
-
-  it('tiers with only hit is accepted (optional critical and glancing absent)', () => {
+  it('tiers with a single hit entry is accepted', () => {
     const result = RitusSchema.safeParse({ ...validRitus, tiers: { hit: 2 } })
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.tiers.critical).toBeUndefined()
-      expect(result.data.tiers.glancing).toBeUndefined()
+      expect(result.data.tiers).toEqual({ hit: 2 })
     }
   })
 
@@ -229,22 +252,27 @@ describe('Failure', () => {
     }
   })
 
-  it('critical equal to hit reports error path as ["critical"]', () => {
-    const result = RitusTiersSchema.safeParse({ critical: 2, hit: 2 })
+  it('duplicate threshold reports error path at the second duplicate tier name', () => {
+    const result = RitusTiersSchema.safeParse({ hit: 2, strong: 2 })
     expect(result.success).toBe(false)
     if (!result.success) {
       const paths = result.error.issues.map((i) => i.path[0])
-      expect(paths).toContain('critical')
+      expect(paths).toContain('strong')
+      expect(result.error.issues[0]!.message).toContain('unique')
     }
   })
 
-  it('glancing equal to hit reports error path as ["glancing"]', () => {
-    const result = RitusTiersSchema.safeParse({ hit: 2, glancing: 2 })
+  it('empty tiers produces an at-least-one-entry error', () => {
+    const result = RitusTiersSchema.safeParse({})
     expect(result.success).toBe(false)
     if (!result.success) {
-      const paths = result.error.issues.map((i) => i.path[0])
-      expect(paths).toContain('glancing')
+      expect(result.error.issues[0]!.message).toContain('at least one')
     }
+  })
+
+  it('non-slug tier name reports a key validation error', () => {
+    const result = RitusTiersSchema.safeParse({ CRIT: 4 })
+    expect(result.success).toBe(false)
   })
 
   it('non-integer tiers.hit is rejected', () => {
@@ -279,7 +307,7 @@ describe('Combinatorial', () => {
     }
   })
 
-  it('all three tiers present with valid ordering (critical > hit > glancing) is accepted', () => {
+  it('classic triple vocabulary (critical/hit/glancing) with distinct thresholds is accepted', () => {
     for (const [critical, hit, glancing] of [
       [5, 3, 1],
       [10, 5, 0],
@@ -291,23 +319,30 @@ describe('Combinatorial', () => {
     }
   })
 
-  it('critical <= hit with any hit value is rejected', () => {
-    for (const hit of [1, 2, 5, 10]) {
-      for (const critical of [0, 1, hit - 1, hit].filter((v) => v >= 0)) {
-        const result = RitusTiersSchema.safeParse({ critical, hit })
-        if (critical <= hit) {
-          expect(result.success, `critical=${critical} hit=${hit} should fail`).toBe(false)
-        }
-      }
+  it('arbitrary vocabularies with unique thresholds are accepted', () => {
+    const vocabularies: Record<string, number>[] = [
+      { miss: 0, hit: 1, strong: 4, exceptional: 6 },
+      { miss: 0, notice: 1, detail: 3, pinpoint: 5 },
+      { miss: 0, partial: 2, full: 4 },
+      { miss: 0, shaken: 1, steady: 3, unflappable: 5 },
+      { fail: 0, 'near-miss': 1, success: 2, 'crit-2': 5 },
+    ]
+    for (const tiers of vocabularies) {
+      const result = RitusTiersSchema.safeParse(tiers)
+      expect(result.success, `vocabulary ${JSON.stringify(tiers)} should be valid`).toBe(true)
+      if (result.success) expect(result.data).toEqual(tiers)
     }
   })
 
-  it('glancing >= hit with any hit value is rejected', () => {
-    for (const hit of [1, 2, 5]) {
-      for (const glancing of [hit, hit + 1, hit + 5]) {
-        const result = RitusTiersSchema.safeParse({ hit, glancing })
-        expect(result.success, `glancing=${glancing} hit=${hit} should fail`).toBe(false)
-      }
+  it('any vocabulary containing duplicate threshold values is rejected', () => {
+    const vocabularies: Record<string, number>[] = [
+      { hit: 1, strong: 1 },
+      { miss: 0, hit: 2, strong: 2, exceptional: 6 },
+      { a: 3, b: 3, c: 3 },
+    ]
+    for (const tiers of vocabularies) {
+      const result = RitusTiersSchema.safeParse(tiers)
+      expect(result.success, `vocabulary ${JSON.stringify(tiers)} should fail`).toBe(false)
     }
   })
 
@@ -327,8 +362,8 @@ describe('Combinatorial', () => {
     }
   })
 
-  it('both critical and glancing violations together produce two issues', () => {
-    // critical = hit (violation) and glancing = hit (violation) simultaneously
+  it('three tiers sharing one threshold produce one issue per duplicate', () => {
+    // hit and glancing both duplicate critical's threshold — two duplicate issues
     const result = RitusTiersSchema.safeParse({ critical: 2, hit: 2, glancing: 2 })
     expect(result.success).toBe(false)
     if (!result.success) {

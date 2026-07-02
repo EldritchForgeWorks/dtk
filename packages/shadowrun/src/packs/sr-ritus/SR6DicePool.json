@@ -7,7 +7,6 @@
     "mechanic": "pool-count",
     "sides": 6,
     "explodes": false,
-    "keepMode": "",
     "threshold": 5,
     "tiers": {
       "miss": 0,
