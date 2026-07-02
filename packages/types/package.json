@@ -2,17 +2,27 @@
   "name": "@dtk/types",
   "version": "0.1.0",
   "type": "module",
-  "private": true,
   "description": "DTK shared kernel — Zod schemas, TypeScript types, and type guards for all DTK contracts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EldritchForgeWorks/dtk.git",
+    "directory": "packages/types"
+  },
+  "homepage": "https://github.com/EldritchForgeWorks/dtk#readme",
+  "bugs": { "url": "https://github.com/EldritchForgeWorks/dtk/issues" },
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
   "files": ["dist"],
   "exports": {
-    ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" },
-    "./ritus": { "import": "./dist/ritus/index.js", "types": "./dist/ritus/index.d.ts" },
-    "./codex": { "import": "./dist/codex/index.js", "types": "./dist/codex/index.d.ts" },
-    "./forma": { "import": "./dist/forma/index.js", "types": "./dist/forma/index.d.ts" },
-    "./modus": { "import": "./dist/modus/index.js", "types": "./dist/modus/index.d.ts" },
-    "./exemplar": { "import": "./dist/exemplar/index.js", "types": "./dist/exemplar/index.d.ts" },
-    "./apis": { "import": "./dist/apis/index.js", "types": "./dist/apis/index.d.ts" }
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./ritus": { "types": "./dist/ritus/index.d.ts", "import": "./dist/ritus/index.js" },
+    "./codex": { "types": "./dist/codex/index.d.ts", "import": "./dist/codex/index.js" },
+    "./forma": { "types": "./dist/forma/index.d.ts", "import": "./dist/forma/index.js" },
+    "./modus": { "types": "./dist/modus/index.d.ts", "import": "./dist/modus/index.js" },
+    "./exemplar": { "types": "./dist/exemplar/index.d.ts", "import": "./dist/exemplar/index.js" },
+    "./apis": { "types": "./dist/apis/index.d.ts", "import": "./dist/apis/index.js" },
+    "./sequence": { "types": "./dist/sequence/index.d.ts", "import": "./dist/sequence/index.js" },
+    "./codex-entry": { "types": "./dist/codex-entry/index.d.ts", "import": "./dist/codex-entry/index.js" }
   },
   "scripts": {
     "build": "tsc --project tsconfig.build.json",

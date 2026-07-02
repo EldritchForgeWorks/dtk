@@ -3,6 +3,9 @@
   "title": "Demiurge's Toolkit — Opus (Character Wizard)",
   "description": "Character creation and advancement wizard engine: forma-driven multi-step wizard and paradigm tracking.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-opus-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-opus-v0.1.0/dtk-opus.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

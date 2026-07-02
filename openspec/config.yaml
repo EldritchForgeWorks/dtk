@@ -21,12 +21,12 @@ context: |
   - Individual modules are separate repos, independently publishable/gatable
 
   Module naming convention: dtk-{name} (Foundry module IDs)
-  npm package convention: @dtk/{name} (scoped, private registry)
+  npm package convention: @dtk/{name} (scoped, public npm registry — registry.npmjs.org)
 
   Ecosystem modules and tiers:
     FREE:
     - dtk             Foundry hub/installer module (this repo)
-    - @dtk/types      Private npm package — shared contracts + runtime validators
+    - @dtk/types      Public npm package — shared contracts + runtime validators
     - dtk-systema     Integration layer; provides defineSystem()
     - dtk-alea        Cross-system dice resolution engine (six-stage pipeline)
     - dtk-promptuarium Compendium compiler — YAML Exemplars → LevelDB packs

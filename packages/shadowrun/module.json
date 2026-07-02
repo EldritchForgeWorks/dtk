@@ -3,6 +3,9 @@
   "title": "DTK Shadowrun — Example System",
   "description": "Shadowrun 6th Edition example built on the Demiurge's Toolkit: dice engine integration, character sheets, and a cyberpunk theme.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-shadowrun-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-shadowrun-v0.1.0/dtk-shadowrun.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

@@ -1,0 +1,136 @@
+# Module release workflow — one Foundry module per tag.
+#
+# Trigger: push a tag of the form <module-id>-v<semver>, e.g. dtk-alea-v0.2.0.
+# Publishes:
+#   Release <module-id>-v<semver>  (immutable)  — <module-id>.zip + module.json
+#   Release <module-id>-latest     (moving)     — same two assets, recreated
+#                                                 so the stable manifest URL
+#                                                 always serves the newest manifest
+# Then updates the module's entry in registry.json on the default branch.
+#
+# Stable manifest URL shape:
+#   https://github.com/EldritchForgeWorks/dtk/releases/download/<module-id>-latest/module.json
+
+name: Module Release
+
+on:
+  push:
+    tags:
+      - '*-v*'
+
+permissions:
+  contents: write
+
+# Serialize releases so concurrent tags cannot race on the registry commit.
+concurrency:
+  group: module-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out tag
+        uses: actions/checkout@v6
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Parse and validate tag
+        id: parse
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          if [[ "${TAG}" =~ ^(.+)-v([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?)$ ]]; then
+            MODULE_ID="${BASH_REMATCH[1]}"
+            VERSION="${BASH_REMATCH[2]}"
+          else
+            echo "::error::Tag '${TAG}' does not match <module-id>-v<semver>"
+            exit 1
+          fi
+          # Fails fast on unknown module ids (allowlist lives in the script).
+          MODULE_DIR="$(node scripts/package-module.mjs "${MODULE_ID}" --print-dir)"
+          echo "module_id=${MODULE_ID}"   >> "${GITHUB_OUTPUT}"
+          echo "version=${VERSION}"       >> "${GITHUB_OUTPUT}"
+          echo "module_dir=${MODULE_DIR}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate tag version matches module.json
+        env:
+          MODULE_DIR: ${{ steps.parse.outputs.module_dir }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          MANIFEST_VERSION="$(node -p "JSON.parse(require('fs').readFileSync(process.env.MODULE_DIR + '/module.json','utf8')).version")"
+          if [ "${MANIFEST_VERSION}" != "${VERSION}" ]; then
+            echo "::error::Tag version ${VERSION} does not match ${MODULE_DIR}/module.json version ${MANIFEST_VERSION}"
+            exit 1
+          fi
+
+      - name: Build @dtk/types (shared kernel)
+        working-directory: packages/types
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          npm run build
+
+      - name: Build module
+        working-directory: ${{ steps.parse.outputs.module_dir }}
+        env:
+          MODULE_ID: ${{ steps.parse.outputs.module_id }}
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          npm run build
+          if [ "${MODULE_ID}" = "dtk-shadowrun" ]; then
+            npm run build:packs
+          fi
+
+      - name: Package release assets
+        env:
+          MODULE_ID: ${{ steps.parse.outputs.module_id }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: node scripts/package-module.mjs "${MODULE_ID}" "${VERSION}"
+
+      - name: Create versioned release
+        env:
+          MODULE_ID: ${{ steps.parse.outputs.module_id }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --verify-tag \
+            --title "${MODULE_ID} v${VERSION}" \
+            --notes "Foundry module release ${MODULE_ID} v${VERSION}. Install via manifest URL: https://github.com/EldritchForgeWorks/dtk/releases/download/${MODULE_ID}-latest/module.json" \
+            ".release/${MODULE_ID}.zip" \
+            ".release/${MODULE_ID}/module.json"
+
+      - name: Update moving <module-id>-latest release
+        env:
+          MODULE_ID: ${{ steps.parse.outputs.module_id }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          gh release delete "${MODULE_ID}-latest" --cleanup-tag --yes || true
+          gh release create "${MODULE_ID}-latest" \
+            --target "${GITHUB_SHA}" \
+            --latest=false \
+            --title "${MODULE_ID} latest (currently v${VERSION})" \
+            --notes "Moving release backing the stable manifest URL for ${MODULE_ID}. Recreated on every ${MODULE_ID} release; currently serves v${VERSION}." \
+            ".release/${MODULE_ID}.zip" \
+            ".release/${MODULE_ID}/module.json"
+
+      - name: Update registry.json on default branch
+        env:
+          MODULE_ID: ${{ steps.parse.outputs.module_id }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
+          node scripts/update-registry.mjs "${MODULE_ID}" "${VERSION}"
+          if git diff --quiet -- registry.json; then
+            echo "registry.json unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registry.json
+          git commit -m "chore(registry): ${MODULE_ID} ${VERSION}"
+          git push origin main

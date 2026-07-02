@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "id": "dtk",
+      "name": "Demiurge's Toolkit — Hub",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-latest/module.json",
+      "description": "Central hub for the DTK ecosystem: module discovery, coordination, and installer.",
+      "dependencies": []
+    },
+    {
+      "id": "dtk-alea",
+      "name": "Demiurge's Toolkit — Alea (Dice Engine)",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-alea-latest/module.json",
+      "description": "Cross-system dice resolution engine: expression parsing, tier classification, and sequence execution.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-lex",
+      "name": "Demiurge's Toolkit — Lex (Rules DSL)",
+      "tier": "premium",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-lex-latest/module.json",
+      "description": "Rules DSL engine: expression evaluator, condition evaluator, codex registry, and visual expression editor.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-systema",
+      "name": "Demiurge's Toolkit — Systema (Foundry Integration)",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-systema-latest/module.json",
+      "description": "Foundry integration layer: targeting, await coordination, condition evaluation, and actor management.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-opus",
+      "name": "Demiurge's Toolkit — Opus (Character Wizard)",
+      "tier": "premium",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-opus-latest/module.json",
+      "description": "Character creation and advancement wizard engine: forma-driven multi-step wizard and paradigm tracking.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-fascia",
+      "name": "DTK Fascia — UI Foundation",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-fascia-latest/module.json",
+      "description": "UI foundation layer for the Demiurge's Toolkit ecosystem: CSS reset, design tokens, FasciaApp base class, withFascia mixin, and Handlebars partials.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-promptuarium",
+      "name": "Demiurge's Toolkit — Promptuarium (Compendium Compiler)",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-promptuarium-latest/module.json",
+      "description": "Compendium compiler: YAML Exemplar source to Foundry LevelDB packs with NL description generation.",
+      "dependencies": [
+        "dtk"
+      ]
+    },
+    {
+      "id": "dtk-shadowrun",
+      "name": "DTK Shadowrun — Example System",
+      "tier": "free",
+      "latestVersion": "0.1.0",
+      "manifestUrl": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-shadowrun-latest/module.json",
+      "description": "Shadowrun 6th Edition example built on the Demiurge's Toolkit: dice engine integration, character sheets, and a cyberpunk theme.",
+      "dependencies": [
+        "dtk",
+        "dtk-fascia"
+      ]
+    }
+  ]
+}

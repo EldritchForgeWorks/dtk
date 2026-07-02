@@ -49,6 +49,47 @@ node scripts/build-packs.mjs
 
 ---
 
+## Releases
+
+Each module releases independently from this repo via a per-module tag: `<module-id>-v<semver>` (e.g. `dtk-alea-v0.2.0`). Pushing the tag triggers `.github/workflows/release.yml`, which builds that module, packages it with `scripts/package-module.mjs`, and publishes two releases:
+
+- `<module-id>-v<semver>` (immutable) — assets `<module-id>.zip` + `module.json`
+- `<module-id>-latest` (moving, recreated every release) — same assets; backs the stable manifest URL `https://github.com/EldritchForgeWorks/dtk/releases/download/<module-id>-latest/module.json`
+
+**module.json release fields**: `url` is static. `manifest` and `download` are **stamped by CI at release time** (`scripts/package-module.mjs`) — the values checked into each `module.json` are defaults only; do not hand-maintain them. The tag version must match the module's `module.json` `version` or the workflow fails.
+
+The hub registry (`registry.json`, repo root) is updated on `main` by the workflow after each release (`scripts/update-registry.mjs`); only `latestVersion`/`manifestUrl` are machine-updated.
+
+### Publishing npm packages (`@dtk/types`, `@dtk/promptuarium`)
+
+Both packages publish manually to the **public npm registry** (`registry.npmjs.org`) — no CI pipeline for v1, no auth token required by consumers.
+
+Procedure (order matters — types first):
+
+```bash
+# 1. @dtk/types
+cd packages/types
+npm run build && npm test
+npm pack --dry-run          # verify: dist/** + package.json only
+npm publish --access public
+
+# 2. @dtk/promptuarium
+cd ../promptuarium
+npm run build && npm test   # build emits dist/dtk-promptuarium.js + dist/cli/index.js
+npm pack --dry-run          # verify: dist/** + package.json only
+npm publish --access public
+```
+
+Rules:
+
+- **Version bumps**: bump `version` in the package's own `package.json` (semver). The two packages version independently; bump `@dtk/types` first if a contract changed, then `@dtk/promptuarium` in the same session if it consumed the change.
+- `--access public` is required for scoped packages (also set via `publishConfig.access` in both manifests).
+- `@dtk/promptuarium` **bundles** `@dtk/types` (and zod/commander) into `dist/cli/index.js` via `vite.config.cli.ts` — it has no runtime dependency on `@dtk/types`. Only `classic-level` and `js-yaml` are install-time dependencies.
+- `packages/types/.npmrc` pins the `@dtk` scope to `registry.npmjs.org`; never re-pin it to GitHub Packages (public reads there require a token, which generated GM repos must not need).
+- `@dtk/promptuarium` is CLI-only: no `.` export (no `.d.ts` is emitted). Programmatic import is intentionally unsupported; consumers use the `promptuarium` bin.
+
+---
+
 ## Architectural Rules
 
 - `src/domain/` — pure TypeScript, zero Foundry globals. All logic lives here.

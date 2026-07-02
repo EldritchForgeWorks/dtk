@@ -3,6 +3,9 @@
   "title": "DTK Fascia — UI Foundation",
   "description": "UI foundation layer for the Demiurge's Toolkit ecosystem: CSS reset, design tokens, FasciaApp base class, withFascia mixin, and Handlebars partials.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-fascia-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-fascia-v0.1.0/dtk-fascia.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

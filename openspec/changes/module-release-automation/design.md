@@ -20,7 +20,7 @@ Release dtk-alea-latest        (moving — recreated on every dtk-alea release)
   └── module.json              ← stable manifestUrl target
 ```
 
-Stable URL shape: `https://github.com/<owner>/dtk/releases/download/dtk-alea-latest/module.json`
+Stable URL shape: `https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-alea-latest/module.json`
 
 ### Options considered
 
@@ -59,3 +59,13 @@ release.yml (match: */-v* tag)
 - Moving tags are technically mutable history — acceptable; only `-latest` moves, versioned tags never do.
 - `dtk-shadowrun` ships `packs/` (LevelDB dirs) — the zip step must include compiled packs, not `src/packs` JSON.
 - Registry regeneration inside CI needs a commit or a release-asset home for the JSON; simplest v1 is attaching `registry.json` to the hub's `dtk-latest` release or committing to the default branch — decide in task 4.
+
+## Decision (task 4.1): registry home
+
+`registry.json` is a **committed document on the default branch** (`main`, repo root), served from the stable raw URL:
+
+```
+https://raw.githubusercontent.com/EldritchForgeWorks/dtk/main/registry.json
+```
+
+Rationale: the proposal already calls for "a stable raw URL in this repo"; a committed file is inspectable, diffable, and independent of any single module's release cadence (attaching it to the hub's `dtk-latest` release would couple registry freshness to hub releases). The release workflow's final step checks out `main`, runs `scripts/update-registry.mjs <module-id> <version>` (updates `latestVersion` + normalizes `manifestUrl`), and commits the result; a workflow-level `concurrency` group serializes releases so concurrent tags cannot race on this commit. Entry metadata (`id`, `name`, `tier`, `description`, `dependencies`) stays hand-authored in `registry.json`; only release-derived fields are machine-updated. Tiers follow `openspec/config.yaml`: `dtk-lex` and `dtk-opus` are `premium` (candidates; still released publicly — gating is a separate change), all others `free`.

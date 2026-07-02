@@ -3,6 +3,9 @@
   "title": "Demiurge's Toolkit — Systema (Foundry Integration)",
   "description": "Foundry integration layer: targeting, await coordination, condition evaluation, and actor management.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-systema-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-systema-v0.1.0/dtk-systema.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

@@ -3,6 +3,9 @@
   "title": "Demiurge's Toolkit — Hub",
   "description": "Central hub for the DTK ecosystem: module discovery, coordination, and installer.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-v0.1.0/dtk.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

@@ -3,6 +3,9 @@
   "title": "Demiurge's Toolkit — Lex (Rules DSL)",
   "description": "Rules DSL engine: expression evaluator, condition evaluator, codex registry, and visual expression editor.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-lex-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-lex-v0.1.0/dtk-lex.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

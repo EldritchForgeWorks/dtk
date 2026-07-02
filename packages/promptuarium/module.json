@@ -3,6 +3,9 @@
   "title": "Demiurge's Toolkit — Promptuarium (Compendium Compiler)",
   "description": "Compendium compiler: YAML Exemplar source to Foundry LevelDB packs with NL description generation.",
   "version": "0.1.0",
+  "url": "https://github.com/EldritchForgeWorks/dtk",
+  "manifest": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-promptuarium-latest/module.json",
+  "download": "https://github.com/EldritchForgeWorks/dtk/releases/download/dtk-promptuarium-v0.1.0/dtk-promptuarium.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "14"

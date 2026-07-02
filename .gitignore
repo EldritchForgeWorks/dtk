@@ -16,6 +16,9 @@ package-lock.json
 dist/
 coverage/
 
+# Release staging (scripts/package-module.mjs output)
+.release/
+
 # Foundry databases
 *.db
 

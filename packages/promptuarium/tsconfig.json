@@ -11,7 +11,11 @@
     "declarationMap": true,
     "outDir": "./dist",
     "rootDir": ".",
-    "lib": ["ESNext"]
+    "lib": ["ESNext"],
+    "paths": {
+      "@dtk/types": ["../types/dist/index.d.ts"],
+      "@dtk/types/*": ["../types/dist/*/index.d.ts"]
+    }
   },
   "include": ["src/**/*.ts", "cli/**/*.ts", "tests/**/*.ts"],
   "exclude": ["dist", "node_modules"]
