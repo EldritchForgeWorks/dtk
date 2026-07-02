@@ -97,12 +97,20 @@ Hooks.once('init', () => {
     if (menu?.rendered) menu.render()
   })
 
-  setInitWindowOpen(false)
   api._markReady()
   Hooks.callAll('dtk-systema.ready')
+  // NOTE: the init window intentionally stays open past this point. Foundry
+  // dispatches Hooks.callAll('init') synchronously to every registered
+  // listener in module-load order; dtk-systema's own listener runs first
+  // (consumers require it), so closing the window here would make it closed
+  // before any consumer's own Hooks.on('init') handler ever runs, i.e.
+  // defineSystem() would be unusable by every real external caller. The
+  // window is closed at 'ready' instead, once the whole init phase (systema
+  // + all consumers) has completed.
 })
 
 Hooks.once('ready', async () => {
+  setInitWindowOpen(false)
   await awaitCoordinator.recoverPending(Date.now())
 })
 

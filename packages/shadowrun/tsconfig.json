@@ -5,8 +5,12 @@
     "moduleResolution": "bundler",
     "strict": true,
     "skipLibCheck": true,
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "paths": {
+      "@eldritchforgeworks/dtk-types": ["../../packages/types/src/index.ts"],
+      "@eldritchforgeworks/dtk-types/*": ["../../packages/types/src/*/index.ts"]
+    }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }
