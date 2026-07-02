@@ -14,8 +14,8 @@
 
 ## 3. Publish and document
 
-- [ ] 3.1 `npm publish --access public` for `@eldritchforgeworks/dtk-types@0.1.0`, then `@eldritchforgeworks/dtk-promptuarium@0.1.0` (types first) — **requires npm login — handoff to principal** *(scope check resolved 2026-07-02: the `@dtk` scope is NOT owned by the principal, so the packages were renamed to the owned `@eldritchforgeworks` scope)*
-- [ ] 3.2 [smoke] In a network-clean environment: `npm install @eldritchforgeworks/dtk-types @eldritchforgeworks/dtk-promptuarium` from registry.npmjs.org succeeds without credentials — **requires 3.1 — handoff to principal**
+- [x] 3.1 `npm publish --access public` for `@eldritchforgeworks/dtk-types@0.1.0`, then `@eldritchforgeworks/dtk-promptuarium@0.1.0` (types first) — **requires npm login — handoff to principal** *(scope check resolved 2026-07-02: the `@dtk` scope is NOT owned by the principal, so the packages were renamed to the owned `@eldritchforgeworks` scope)*
+- [x] 3.2 [smoke] In a network-clean environment: `npm install @eldritchforgeworks/dtk-types @eldritchforgeworks/dtk-promptuarium` from registry.npmjs.org succeeds without credentials — **requires 3.1 — handoff to principal**
 - [x] 3.3 Document the manual publish procedure (order, version bump rules, `--access public`) in the repo — added "Publishing npm packages" section to `AGENTS.md`
 - [x] 3.4 Update `openspec/config.yaml` context: npm packages are public-registry, not private
-- [ ] 3.5 Notify Officina (init-m0-delivery-skeleton) that U2 is unblocked — after 3.1/3.2 complete
+- [x] 3.5 Notify Officina (init-m0-delivery-skeleton) that U2 is unblocked — after 3.1/3.2 complete
