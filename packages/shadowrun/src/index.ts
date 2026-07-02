@@ -18,7 +18,7 @@ Hooks.on('init', () => {
   // change add-define-system-smoke-test). Registers the shadowrunCharacter
   // data model via the shared Modus path instead of assigning
   // CONFIG.Actor.dataModels directly.
-  const systema = game.dtk?.api?.('dtk-systema') as
+  const systema = game.dtk?.getApi?.('dtk-systema') as
     | { defineSystem?: (modus: unknown) => void }
     | undefined;
   if (systema?.defineSystem) {
