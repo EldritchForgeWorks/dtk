@@ -13,7 +13,7 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
-    "@dtk/types": "file:../packages/types",
+    "@eldritchforgeworks/dtk-types": "file:../packages/types",
     "@league-of-foundry-developers/foundry-vtt-types": "^13.346.0-beta.20250812191140",
     "@vitest/coverage-v8": "^2.0.0",
     "typescript": "^5.4.0",

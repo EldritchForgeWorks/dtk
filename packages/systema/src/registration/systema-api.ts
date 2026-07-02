@@ -1,5 +1,5 @@
-import type { SystemaApi } from '@dtk/types'
-import type { Modus } from '@dtk/types'
+import type { SystemaApi } from '@eldritchforgeworks/dtk-types'
+import type { Modus } from '@eldritchforgeworks/dtk-types'
 
 export function createSystemaApi(
   version: string,

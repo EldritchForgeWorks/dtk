@@ -2,7 +2,7 @@
 
 Requested by: DTK Officina change init-m0-delivery-skeleton (M0).
 
-Officina imports the `@dtk/types` Zod schemas for contract validation (constitution: never redefine DTK schemas), and every generated GM project repo must run `promptuarium validate` in CI with **zero credentials**. Both packages are currently unpublishable and unfetchable:
+Officina imports the `@eldritchforgeworks/dtk-types` Zod schemas for contract validation (constitution: never redefine DTK schemas), and every generated GM project repo must run `promptuarium validate` in CI with **zero credentials**. Both packages are currently unpublishable and unfetchable:
 
 - `packages/types/package.json` and `packages/promptuarium/package.json` both declare `"private": true`.
 - `packages/types/.npmrc` pins the scope to GitHub Packages (`@dtk:registry=https://npm.pkg.github.com`). GitHub Packages requires an auth token even for public reads, which would force a secret into every generated GM repo's CI — rejected.
@@ -11,10 +11,12 @@ Publishing both packages to the **public npm registry** removes the credential r
 
 ## What Changes
 
-Module/package: `@dtk/types` (shared kernel, FREE tier) and `@dtk/promptuarium` (CLI for dtk-promptuarium, FREE tier). Contracts affected: Ritus, Codex, Forma, Modus, Exemplar — all defined in `@dtk/types`; `@dtk/promptuarium` consumes Exemplar and Modus.
+> **Rename decision (2026-07-02):** the packages were originally named `@dtk/types` and `@dtk/promptuarium`, but the `@dtk` npm scope is not owned by the principal. They are renamed to `@eldritchforgeworks/dtk-types` and `@eldritchforgeworks/dtk-promptuarium` (npm identity only — Foundry module ids, `module.json`, `registry.json`, and release tags are unchanged).
 
-- **`@dtk/types`**: remove `"private": true`; add `./sequence` and `./codex-entry` subpaths to the `exports` map — both exist in `dist/` and are re-exported by the root barrel (`src/index.ts`) but are missing from `exports`, so deep imports currently fail under Node resolution; remove or override the `.npmrc` GitHub-Packages scope pin (`@dtk:registry=https://npm.pkg.github.com`) so publish targets `registry.npmjs.org`.
-- **`@dtk/promptuarium`**: remove `"private": true`; add a `files` allowlist and an `exports` map — the package currently has only a `bin` entry (`./dist/cli/index.js`), no `files`, no `main`/`exports`; resolve the `@dtk/types` `file:../../packages/types` devDependency for publish (bundle via the existing Vite build, or promote to a regular semver dependency on the published `@dtk/types`).
+Module/package: `@eldritchforgeworks/dtk-types` (shared kernel, FREE tier) and `@eldritchforgeworks/dtk-promptuarium` (CLI for dtk-promptuarium, FREE tier). Contracts affected: Ritus, Codex, Forma, Modus, Exemplar — all defined in `@eldritchforgeworks/dtk-types`; `@eldritchforgeworks/dtk-promptuarium` consumes Exemplar and Modus.
+
+- **`@eldritchforgeworks/dtk-types`**: remove `"private": true`; add `./sequence` and `./codex-entry` subpaths to the `exports` map — both exist in `dist/` and are re-exported by the root barrel (`src/index.ts`) but are missing from `exports`, so deep imports currently fail under Node resolution; remove or override the `.npmrc` GitHub-Packages scope pin (`@dtk:registry=https://npm.pkg.github.com`) so publish targets `registry.npmjs.org`.
+- **`@eldritchforgeworks/dtk-promptuarium`**: remove `"private": true`; add a `files` allowlist and an `exports` map — the package currently has only a `bin` entry (`./dist/cli/index.js`), no `files`, no `main`/`exports`; resolve the `@eldritchforgeworks/dtk-types` `file:../../packages/types` devDependency for publish (bundle via the existing Vite build, or promote to a regular semver dependency on the published `@eldritchforgeworks/dtk-types`).
 - **Versioning/publish procedure**: manual `npm publish --access public` from each package directory is acceptable for v1; document the order (types first, then promptuarium) and version-bump rules. A GitHub Actions publish workflow is optional follow-up, not a blocker.
 - Update the `openspec/config.yaml` context line "npm package convention: @dtk/{name} (scoped, private registry)" to reflect the public registry.
 
@@ -28,7 +30,7 @@ Module/package: `@dtk/types` (shared kernel, FREE tier) and `@dtk/promptuarium` 
 
 ### New Capabilities
 
-- `package-publishing`: requirements for public-registry availability, credential-free install, and subpath export resolution of `@dtk/types` and `@dtk/promptuarium`.
+- `package-publishing`: requirements for public-registry availability, credential-free install, and subpath export resolution of `@eldritchforgeworks/dtk-types` and `@eldritchforgeworks/dtk-promptuarium`.
 
 ### Modified Capabilities
 
@@ -38,6 +40,6 @@ Module/package: `@dtk/types` (shared kernel, FREE tier) and `@dtk/promptuarium` 
 
 - `packages/types/package.json` — remove `private`, extend `exports`.
 - `packages/types/.npmrc` — remove or override the GitHub Packages scope pin.
-- `packages/promptuarium/package.json` — remove `private`, add `files`/`exports`, fix `@dtk/types` dependency form.
+- `packages/promptuarium/package.json` — remove `private`, add `files`/`exports`, fix `@eldritchforgeworks/dtk-types` dependency form.
 - `openspec/config.yaml` — context wording update (private → public registry).
-- **Downstream**: Officina and generated GM repos can `npm install @dtk/types @dtk/promptuarium` with no `.npmrc` and no token; the M0 blocker (U2) clears.
+- **Downstream**: Officina and generated GM repos can `npm install @eldritchforgeworks/dtk-types @eldritchforgeworks/dtk-promptuarium` with no `.npmrc` and no token; the M0 blocker (U2) clears.

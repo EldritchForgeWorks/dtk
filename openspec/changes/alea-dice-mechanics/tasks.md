@@ -1,4 +1,4 @@
-## 1. @dtk/types — Schema alignment
+## 1. @eldritchforgeworks/dtk-types — Schema alignment
 
 - [x] 1.1 Replace `RitusMechanicSchema` enum with the 9-value set: `standard`, `pool-count`, `pool-sum`, `exploding`, `step-die`, `roll-under`, `advantage-disadvantage`, `target-number`, `drama-die`, `custom`
 - [x] 1.2 Add `sides: z.number().int().min(2)` to `RitusSchema`

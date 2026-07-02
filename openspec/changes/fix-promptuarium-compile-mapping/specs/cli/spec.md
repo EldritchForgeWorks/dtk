@@ -4,7 +4,7 @@
 
 `promptuarium compile` SHALL run the full build pipeline: read YAML Exemplars →
 validate → (optionally describe) → compile → write LevelDB packs. It SHALL load the
-Modus declared by the `modus` config key, validate it against the `@dtk/types` Modus
+Modus declared by the `modus` config key, validate it against the `@eldritchforgeworks/dtk-types` Modus
 schema, and derive the output mappers passed to the compiler from the Modus
 compendium declarations. It SHALL exit with code `0` on success and code `1` on
 validation failure, printing all errors to stderr. Compile SHALL exit `1` with a

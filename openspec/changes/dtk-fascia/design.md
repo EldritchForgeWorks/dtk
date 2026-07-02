@@ -18,7 +18,7 @@ Foundry VTT V12 ships with global CSS that leaks into every application window v
 - Providing a full component library (buttons, selects, grids) — tokens and structure only.
 - Replacing Foundry's default application chrome (window header, close button, drag handle).
 - Managing application state or data binding.
-- Shipping an npm package (`@dtk/fascia`) — no domain logic to share.
+- Shipping an npm package (`@eldritchforgeworks/dtk-fascia`) — no domain logic to share.
 
 ## Decisions
 

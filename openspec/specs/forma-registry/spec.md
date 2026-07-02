@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-opus. Update Purpose after archive.
 ### Requirement: Forma registration via OpusApi
 
 `OpusApi.registerForma(systemId: string, forma: Forma)` SHALL validate the provided
-Forma via `FormaSchema` from `@dtk/types/forma` and store it keyed by `systemId`. A
+Forma via `FormaSchema` from `@eldritchforgeworks/dtk-types/forma` and store it keyed by `systemId`. A
 duplicate registration (same systemId) overwrites the prior entry and logs a console
 warning. An invalid Forma (fails schema validation) SHALL throw a descriptive error.
 

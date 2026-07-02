@@ -113,7 +113,7 @@ is absent) is a miss. No explicit `miss` threshold is declared.
 
 ### Requirement: Ritus Zod validator
 
-`@dtk/types/ritus` SHALL export a `RitusSchema` Zod schema and a derived
+`@eldritchforgeworks/dtk-types/ritus` SHALL export a `RitusSchema` Zod schema and a derived
 `Ritus` TypeScript type via `z.infer`. Calling `RitusSchema.parse(value)` SHALL
 throw a `ZodError` on invalid input and return a typed `Ritus` on valid input.
 `RitusSchema.safeParse(value)` SHALL return a discriminated union result.
@@ -135,7 +135,7 @@ formulas, and no consequence logic. Those belong in `kind: rule` Exemplars.
 
 ### Requirement: Ritus type guard
 
-`@dtk/types/ritus` SHALL export an `isRitus(value: unknown): value is Ritus`
+`@eldritchforgeworks/dtk-types/ritus` SHALL export an `isRitus(value: unknown): value is Ritus`
 type guard backed by `RitusSchema.safeParse`. No error is thrown for invalid input.
 
 #### Scenario: Guard returns true for valid Ritus

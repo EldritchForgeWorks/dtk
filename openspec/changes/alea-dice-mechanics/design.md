@@ -1,6 +1,6 @@
 ## Context
 
-`RollResolver` currently evaluates all rules identically — roll `pool` dice, count faces ≥ threshold, classify. The `RitusConfig.mechanic` string is stored and passed through but never branched on. The `RitusMechanicSchema` enum in `@dtk/types` carries four names (`pool-count`, `pool-sum`, `single-die`, `roll-under`) that conflict with the nine names in the ritus spec (`standard`, `pool-count`, `step-die`, `exploding`, `advantage-disadvantage`, `opposed`, `target-number`, `drama-die`, `custom`). Foundry's dice engine supports most of these natively via formula modifiers (`x` for exploding, `kh` for keep-highest, etc.).
+`RollResolver` currently evaluates all rules identically — roll `pool` dice, count faces ≥ threshold, classify. The `RitusConfig.mechanic` string is stored and passed through but never branched on. The `RitusMechanicSchema` enum in `@eldritchforgeworks/dtk-types` carries four names (`pool-count`, `pool-sum`, `single-die`, `roll-under`) that conflict with the nine names in the ritus spec (`standard`, `pool-count`, `step-die`, `exploding`, `advantage-disadvantage`, `opposed`, `target-number`, `drama-die`, `custom`). Foundry's dice engine supports most of these natively via formula modifiers (`x` for exploding, `kh` for keep-highest, etc.).
 
 ## Goals / Non-Goals
 
@@ -51,7 +51,7 @@ For pool-sum, `tiers.hit`, `tiers.critical`, and `tiers.glancing` are treated as
 
 ## Migration Plan
 
-1. Update `@dtk/types`: align `RitusMechanicSchema` enum; add `sides`, `explodes`, `keepMode` to `RitusSchema` and `RitusConfig`
+1. Update `@eldritchforgeworks/dtk-types`: align `RitusMechanicSchema` enum; add `sides`, `explodes`, `keepMode` to `RitusSchema` and `RitusConfig`
 2. Update `dtk-alea`: `IDiceRoller`, `RollOpts`, `FoundryDiceRoller`, `RollResolver` dispatch, `CompendiumScanner` defaults, `SequenceExecutor` emit
 3. Update `dtk-runeforge` packs: add `sides`, `explodes` fields to all ritus JSON; recompile packs
 4. Existing third-party ritus packs without `sides`/`explodes` continue to work at runtime (scanner defaults) but fail strict TypeScript validation

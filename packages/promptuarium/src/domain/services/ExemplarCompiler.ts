@@ -1,4 +1,4 @@
-import type { Exemplar } from '@dtk/types/exemplar';
+import type { Exemplar } from '@eldritchforgeworks/dtk-types/exemplar';
 import type { ICompendiumTarget } from '../../ports/ICompendiumTarget.js';
 import type { ExemplarCorpus } from '../entities/ExemplarCorpus.js';
 import { type CompiledEntry, makeStableId } from '../value-objects/CompiledEntry.js';

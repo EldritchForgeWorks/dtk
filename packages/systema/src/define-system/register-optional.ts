@@ -1,4 +1,4 @@
-import type { Modus } from '@dtk/types'
+import type { Modus } from '@eldritchforgeworks/dtk-types'
 
 export function registerOptionalModules(modus: Modus): void {
   if (modus.ritus) {

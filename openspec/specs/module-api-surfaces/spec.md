@@ -5,7 +5,7 @@ TBD - created by archiving change dtk-types. Update Purpose after archive.
 ## Requirements
 ### Requirement: AleaApi interface
 
-`@dtk/types/apis` SHALL export an `AleaApi` interface describing the public
+`@eldritchforgeworks/dtk-types/apis` SHALL export an `AleaApi` interface describing the public
 API surface of dtk-alea. The interface SHALL include:
 
 - `registerRitus(ritus: Ritus): void` — registers a game system's Ritus
@@ -18,19 +18,19 @@ supporting interfaces alongside `AleaApi`.
 
 #### Scenario: AleaApi type is importable
 
-- **WHEN** consuming code imports `{ AleaApi } from "@dtk/types/apis"`
+- **WHEN** consuming code imports `{ AleaApi } from "@eldritchforgeworks/dtk-types/apis"`
 - **THEN** TypeScript resolves the import with full method signatures
 
 #### Scenario: AleaApi has no runtime coupling
 
-- **WHEN** `@dtk/types` is bundled for Node.js (no Foundry globals)
+- **WHEN** `@eldritchforgeworks/dtk-types` is bundled for Node.js (no Foundry globals)
 - **THEN** the bundle compiles without reference to `game`, `Hooks`, or other Foundry globals
 
 ---
 
 ### Requirement: LexApi interface
 
-`@dtk/types/apis` SHALL export a `LexApi` interface describing the public
+`@eldritchforgeworks/dtk-types/apis` SHALL export a `LexApi` interface describing the public
 API surface of dtk-lex. The interface SHALL include:
 
 - `registerPlugin(codex: Codex): void` — registers a system's Codex vocabulary
@@ -43,14 +43,14 @@ supporting interfaces.
 
 #### Scenario: LexApi type is importable
 
-- **WHEN** consuming code imports `{ LexApi } from "@dtk/types/apis"`
+- **WHEN** consuming code imports `{ LexApi } from "@eldritchforgeworks/dtk-types/apis"`
 - **THEN** TypeScript resolves the import with full method signatures
 
 ---
 
 ### Requirement: OpusApi interface
 
-`@dtk/types/apis` SHALL export an `OpusApi` interface describing the public
+`@eldritchforgeworks/dtk-types/apis` SHALL export an `OpusApi` interface describing the public
 API surface of dtk-opus. The interface SHALL include:
 
 - `register(systemId: string, forma: Forma): void` — registers a system's Forma
@@ -65,7 +65,7 @@ API surface of dtk-opus. The interface SHALL include:
 
 #### Scenario: OpusApi type is importable
 
-- **WHEN** consuming code imports `{ OpusApi } from "@dtk/types/apis"`
+- **WHEN** consuming code imports `{ OpusApi } from "@eldritchforgeworks/dtk-types/apis"`
 - **THEN** TypeScript resolves the import with full method signatures
 
 #### Scenario: OpusOpenOptions mode is a union
@@ -77,7 +77,7 @@ API surface of dtk-opus. The interface SHALL include:
 
 ### Requirement: SystemaApi interface
 
-`@dtk/types/apis` SHALL export a `SystemaApi` interface describing the public
+`@eldritchforgeworks/dtk-types/apis` SHALL export a `SystemaApi` interface describing the public
 API surface of dtk-systema. The interface SHALL include:
 
 - `defineSystem(modus: Modus): void` — the primary entry point
@@ -86,14 +86,14 @@ API surface of dtk-systema. The interface SHALL include:
 
 #### Scenario: SystemaApi type is importable
 
-- **WHEN** consuming code imports `{ SystemaApi } from "@dtk/types/apis"`
+- **WHEN** consuming code imports `{ SystemaApi } from "@eldritchforgeworks/dtk-types/apis"`
 - **THEN** TypeScript resolves the import
 
 ---
 
 ### Requirement: PromptariumApi interface
 
-`@dtk/types/apis` SHALL export a `PromptariumApi` interface describing the
+`@eldritchforgeworks/dtk-types/apis` SHALL export a `PromptariumApi` interface describing the
 public API surface of dtk-promptuarium (both its Foundry runtime face, if any,
 and its Node.js CLI face). The interface SHALL include:
 
@@ -106,14 +106,14 @@ and its Node.js CLI face). The interface SHALL include:
 
 #### Scenario: PromptariumApi type is importable
 
-- **WHEN** consuming code imports `{ PromptariumApi } from "@dtk/types/apis"`
+- **WHEN** consuming code imports `{ PromptariumApi } from "@eldritchforgeworks/dtk-types/apis"`
 - **THEN** TypeScript resolves the import
 
 ---
 
 ### Requirement: DTK module presence helpers
 
-`@dtk/types/apis` SHALL export helper functions for safely accessing DTK module
+`@eldritchforgeworks/dtk-types/apis` SHALL export helper functions for safely accessing DTK module
 APIs at runtime without direct Foundry coupling in the types layer.
 
 - `getDtkModuleApi<T>(moduleId: string): T | undefined` — returns `game.modules.get(moduleId)?.api as T | undefined`; returns `undefined` if the module is not installed or its API is not yet exposed
@@ -142,16 +142,16 @@ is provided by dtk-systema.
 
 ### Requirement: Package subpath export
 
-All API interfaces and helpers SHALL be accessible via the `@dtk/types/apis`
-subpath export. They SHALL also be re-exported from the root `@dtk/types` entry.
+All API interfaces and helpers SHALL be accessible via the `@eldritchforgeworks/dtk-types/apis`
+subpath export. They SHALL also be re-exported from the root `@eldritchforgeworks/dtk-types` entry.
 
 #### Scenario: Subpath import resolves
 
-- **WHEN** consuming code imports from `"@dtk/types/apis"`
+- **WHEN** consuming code imports from `"@eldritchforgeworks/dtk-types/apis"`
 - **THEN** the TypeScript compiler resolves it via the package.json `exports` map
 
 #### Scenario: Root import also resolves API types
 
-- **WHEN** consuming code imports `{ AleaApi, LexApi }` from `"@dtk/types"`
+- **WHEN** consuming code imports `{ AleaApi, LexApi }` from `"@eldritchforgeworks/dtk-types"`
 - **THEN** the TypeScript compiler resolves both types
 

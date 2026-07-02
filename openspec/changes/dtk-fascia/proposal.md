@@ -28,5 +28,5 @@ Every DTK module that renders UI (character sheets, chat cards, modals, dialog b
 - **New module**: `dtk-fascia` — independent repo, free tier, loaded before other DTK UI modules via Foundry module dependency declaration.
 - **Downstream modules** (dtk-opus, dtk-runeforge, and any future UI-bearing module): should extend `FasciaApp` and use the provided partials; not a hard breaking requirement at launch, but expected adoption path.
 - **dtk-systema**: may reference fascia as an optional dependency for consistent sheet rendering once dtk-opus lands.
-- **`@dtk/types`**: no changes needed — fascia has no shared contract types (it is purely a UI concern).
+- **`@eldritchforgeworks/dtk-types`**: no changes needed — fascia has no shared contract types (it is purely a UI concern).
 - **Build**: fascia ships its own Vite build producing a single JS entry + a CSS bundle; no npm package required.

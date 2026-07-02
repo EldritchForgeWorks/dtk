@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-systema. Update Purpose after archive.
 ### Requirement: defineSystem validates Modus on receipt
 
 `defineSystem` SHALL validate the provided Modus object against `ModusSchema` from
-`@dtk/types/modus` before performing any Foundry registration. If validation fails,
+`@eldritchforgeworks/dtk-types/modus` before performing any Foundry registration. If validation fails,
 it SHALL throw a descriptive error identifying the invalid fields. Execution stops;
 no partial registration occurs.
 

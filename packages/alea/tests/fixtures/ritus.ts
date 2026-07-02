@@ -1,5 +1,5 @@
-// Local Ritus type definition matching the @dtk/types Ritus contract.
-// This avoids a hard dep on @dtk/types in fixtures.
+// Local Ritus type definition matching the @eldritchforgeworks/dtk-types Ritus contract.
+// This avoids a hard dep on @eldritchforgeworks/dtk-types in fixtures.
 export interface Ritus {
   id: string;
   mechanic: string;

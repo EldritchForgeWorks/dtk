@@ -61,7 +61,7 @@ entries (mid-sequence awaits) SHALL NOT be cleared — the player may still be d
 ### Requirement: AleaApi registration with game.dtk
 
 On `init`, dtk-alea SHALL call `game.dtk.register({ id: 'dtk-alea', version, api })`.
-The `api` object SHALL implement `AleaApi` from `@dtk/types/apis` (`registerRitus`,
+The `api` object SHALL implement `AleaApi` from `@eldritchforgeworks/dtk-types/apis` (`registerRitus`,
 `execute`, `resume`, `isReady`). On async init completion, dtk-alea SHALL fire
 `Hooks.callAll('dtk-alea.ready')`.
 

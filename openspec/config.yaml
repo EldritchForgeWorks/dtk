@@ -17,16 +17,16 @@ context: |
 
   Architecture:
   - NOT a monorepo — each module is an independent repo
-  - This repo (dtk) ships: the hub Foundry module + @dtk/types npm package
+  - This repo (dtk) ships: the hub Foundry module + @eldritchforgeworks/dtk-types npm package
   - Individual modules are separate repos, independently publishable/gatable
 
   Module naming convention: dtk-{name} (Foundry module IDs)
-  npm package convention: @dtk/{name} (scoped, public npm registry — registry.npmjs.org)
+  npm package convention: @eldritchforgeworks/dtk-{name} (scoped, public npm registry — registry.npmjs.org; renamed from @dtk/{name} on 2026-07-02 — @dtk scope not owned)
 
   Ecosystem modules and tiers:
     FREE:
     - dtk             Foundry hub/installer module (this repo)
-    - @dtk/types      Public npm package — shared contracts + runtime validators
+    - @eldritchforgeworks/dtk-types      Public npm package — shared contracts + runtime validators
     - dtk-systema     Integration layer; provides defineSystem()
     - dtk-alea        Cross-system dice resolution engine (six-stage pipeline)
     - dtk-promptuarium Compendium compiler — YAML Exemplars → LevelDB packs
@@ -42,7 +42,7 @@ context: |
     Modus    → dtk-systema    (system wiring: actors, items, schemas, settings)
     Exemplar → dtk-promptuarium (YAML compendium content: species, classes, items)
 
-  All contracts are defined in @dtk/types. Every DTK module imports its
+  All contracts are defined in @eldritchforgeworks/dtk-types. Every DTK module imports its
   contract types from there — no cross-module circular dependencies.
 
   Tech stack:
@@ -50,7 +50,7 @@ context: |
   - Vite (module builds)
   - FoundryVTT v12–v14; ApplicationV2 + HandlebarsApplicationMixin only
   - Vitest (unit tests)
-  - Zod (runtime validation in @dtk/types; tree-shaken from module bundles)
+  - Zod (runtime validation in @eldritchforgeworks/dtk-types; tree-shaken from module bundles)
 
   Reference implementations (DO NOT copy code — use as design reference only):
   - alea-core    → dtk-alea
@@ -60,12 +60,12 @@ context: |
   - promptuarium → dtk-promptuarium
 
   All specs live in this repo under openspec/. Individual module repos
-  implement the specs and import contract types from @dtk/types.
+  implement the specs and import contract types from @eldritchforgeworks/dtk-types.
 
   ── ARCHITECTURE STANDARDS (apply to all modules) ──────────────────────────
 
   Hexagonal Architecture (Ports & Adapters):
-  Every DTK module (except @dtk/types) uses the following source layout:
+  Every DTK module (except @eldritchforgeworks/dtk-types) uses the following source layout:
 
     src/
     ├── domain/           Pure TypeScript — no Foundry globals, fully unit-testable
@@ -82,13 +82,13 @@ context: |
   Rule: adapters/foundry/ files are excluded from vitest coverage (require live Foundry).
   Rule: adapters/in-memory/ files are the stubs used in unit tests.
 
-  @dtk/types is the DDD Shared Kernel — the ubiquitous language for all bounded
+  @eldritchforgeworks/dtk-types is the DDD Shared Kernel — the ubiquitous language for all bounded
   contexts. It has no hexagonal split; it is schemas, types, and guards only.
 
   Domain-Driven Design conventions:
   - Each DTK module is a Bounded Context with its own ubiquitous language
   - The five contracts (Ritus, Codex, Forma, Modus, Exemplar) are the shared
-    ubiquitous language defined in the Shared Kernel (@dtk/types)
+    ubiquitous language defined in the Shared Kernel (@eldritchforgeworks/dtk-types)
   - Domain Events are named after the Foundry hooks they emit:
       dtk-alea.await, dtk-alea.complete, dtk-systema.ready, dtk.ready
   - Aggregates have a single root with identity; all state mutations go through it
@@ -135,7 +135,7 @@ rules:
     - Foundry adapter behaviour is described as smoke-test scenarios, not unit scenarios
   tasks:
     - Scope tasks to a single module boundary
-    - "Mark tasks that touch @dtk/types as [types] so they are done first"
+    - "Mark tasks that touch @eldritchforgeworks/dtk-types as [types] so they are done first"
     - "Follow Red-Green-Refactor ordering: [test] task before its paired [impl] task"
     - "Label tasks by layer: [test] [impl] [port] [stub] [adapt] [wire] [smoke]"
     - Group 0 scaffolds domain/ports/adapters directory structure before any feature work

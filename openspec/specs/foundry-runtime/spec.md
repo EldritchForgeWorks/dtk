@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-promptuarium. Update Purpose after archive
 ### Requirement: PromptariumApi.validate() via game.dtk
 
 The Foundry module SHALL register with `game.dtk` on `init` and expose a
-`PromptariumApi` implementing the interface from `@dtk/types/apis`:
+`PromptariumApi` implementing the interface from `@eldritchforgeworks/dtk-types/apis`:
 - `validate(value: unknown): ValidationResult` — runs `ExemplarSchema.safeParse()`
   and returns `{ valid: boolean, errors: ValidationError[] }`
 - `isReady: boolean`
@@ -43,7 +43,7 @@ After `game.dtk.register()` completes on `init`, the module SHALL fire
 ### Requirement: Foundry module has no Node.js-only imports
 
 The Foundry module (`module/src/`) SHALL NOT import from the CLI package
-(`packages/promptuarium/`). It uses `ExemplarSchema` directly from `@dtk/types/exemplar`.
+(`packages/promptuarium/`). It uses `ExemplarSchema` directly from `@eldritchforgeworks/dtk-types/exemplar`.
 No `fs`, `path`, `level`, or other Node.js built-in modules are imported.
 
 #### Scenario: Foundry module loads without Node.js errors in browser context

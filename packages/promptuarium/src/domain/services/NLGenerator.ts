@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { Exemplar, RuleExemplar, SequenceExemplar, ActionExemplar } from '@dtk/types/exemplar';
+import type { Exemplar, RuleExemplar, SequenceExemplar, ActionExemplar } from '@eldritchforgeworks/dtk-types/exemplar';
 import type { ICodexProvider } from '../../ports/ICodexProvider.js';
 import type { ILLMClient } from '../../ports/ILLMClient.js';
 import type { ExemplarCorpus } from '../entities/ExemplarCorpus.js';

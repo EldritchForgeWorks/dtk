@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-opus. Update Purpose after archive.
 ### Requirement: OpusApi registered with game.dtk on init
 
 On `init`, dtk-opus SHALL call `game.dtk.register({ id: 'dtk-opus', version, api: opusApi })`.
-The `api` object SHALL implement `OpusApi` from `@dtk/types/apis`. After registration,
+The `api` object SHALL implement `OpusApi` from `@eldritchforgeworks/dtk-types/apis`. After registration,
 dtk-opus SHALL fire `Hooks.callAll('dtk-opus.ready')`.
 
 #### Scenario: OpusApi accessible via game.dtk after init

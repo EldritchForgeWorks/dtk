@@ -5,7 +5,7 @@ import type {
   SpeciesExemplar,
   DisciplineExemplar,
   ArchetypeExemplar,
-} from '@dtk/types/exemplar';
+} from '@eldritchforgeworks/dtk-types/exemplar';
 
 export function makeRuleExemplar(overrides?: Partial<RuleExemplar>): RuleExemplar {
   return {

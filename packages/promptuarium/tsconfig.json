@@ -13,8 +13,8 @@
     "rootDir": ".",
     "lib": ["ESNext"],
     "paths": {
-      "@dtk/types": ["../types/dist/index.d.ts"],
-      "@dtk/types/*": ["../types/dist/*/index.d.ts"]
+      "@eldritchforgeworks/dtk-types": ["../types/dist/index.d.ts"],
+      "@eldritchforgeworks/dtk-types/*": ["../types/dist/*/index.d.ts"]
     }
   },
   "include": ["src/**/*.ts", "cli/**/*.ts", "tests/**/*.ts"],

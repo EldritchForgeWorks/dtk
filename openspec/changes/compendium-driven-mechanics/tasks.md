@@ -1,9 +1,9 @@
-## 1. @dtk/types — Schema exports
+## 1. @eldritchforgeworks/dtk-types — Schema exports
 
-- [x] 1.1 [types] Export `SequenceExemplarSchema` and `SequenceExemplar` type from `@dtk/types` (Zod schema covering `id`, `systemId`, `steps[]` with optional `ritus` UUID field on rule steps)
-- [x] 1.2 [types] Export `CodexEntryItemSchema` and `CodexEntryItem` type from `@dtk/types` (single-entry shape: `slug`, `description`; distinct from the existing array-based `CodexEntry`)
+- [x] 1.1 [types] Export `SequenceExemplarSchema` and `SequenceExemplar` type from `@eldritchforgeworks/dtk-types` (Zod schema covering `id`, `systemId`, `steps[]` with optional `ritus` UUID field on rule steps)
+- [x] 1.2 [types] Export `CodexEntryItemSchema` and `CodexEntryItem` type from `@eldritchforgeworks/dtk-types` (single-entry shape: `slug`, `description`; distinct from the existing array-based `CodexEntry`)
 - [x] 1.3 [types] Add optional `category` string field to `CodexEntryItemSchema` for grouping (attribute, skill, damage-type, currency)
-- [x] 1.4 [types] Run `@dtk/types` build and verify all new exports compile cleanly
+- [x] 1.4 [types] Run `@eldritchforgeworks/dtk-types` build and verify all new exports compile cleanly
 
 ## 2. dtk-alea — SequenceExemplarRegistry (domain)
 

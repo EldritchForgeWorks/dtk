@@ -84,13 +84,13 @@ successful fetch.
 
 ### Requirement: Registry TypeScript types
 
-`@dtk/types` SHALL NOT carry registry types — registry types are internal to the hub
+`@eldritchforgeworks/dtk-types` SHALL NOT carry registry types — registry types are internal to the hub
 module. The hub SHALL define `RegistryEntry`, `RegistryDocument`, and `RegistryCache`
 as module-private TypeScript interfaces in `src/registry/types.ts`. Zod schemas SHALL
 validate incoming JSON from the remote source and from the world settings cache.
 
 #### Scenario: Registry types are hub-private
 
-- **WHEN** consuming code imports from `@dtk/types`
+- **WHEN** consuming code imports from `@eldritchforgeworks/dtk-types`
 - **THEN** no registry types are exported — they are not part of the public DTK contract
 

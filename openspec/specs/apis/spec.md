@@ -148,7 +148,7 @@ type ParadigmState =
   | { paradigm: "session";   sessionsCompleted: number; advancementsRemaining: number }
 
 // FoundryActor is the Foundry Document type — typed as `unknown` here to avoid
-// a Foundry global dependency in @dtk/types. Implementations narrow it.
+// a Foundry global dependency in @eldritchforgeworks/dtk-types. Implementations narrow it.
 type FoundryActor = unknown
 ```
 
@@ -213,19 +213,19 @@ interface SystemDefinition {
 
 ---
 
-### Requirement: All interfaces re-exported from @dtk/types/apis
+### Requirement: All interfaces re-exported from @eldritchforgeworks/dtk-types/apis
 
-`@dtk/types/apis` SHALL export all of the above interfaces and supporting types.
+`@eldritchforgeworks/dtk-types/apis` SHALL export all of the above interfaces and supporting types.
 This module contains **no runtime code** — only TypeScript type declarations.
 It SHALL have zero imports from Zod or any runtime library.
 
 #### Scenario: Import resolves to type-only exports
 
-- **WHEN** `import type { AleaApi, LexApi, OpusApi } from "@dtk/types/apis"` is used
+- **WHEN** `import type { AleaApi, LexApi, OpusApi } from "@eldritchforgeworks/dtk-types/apis"` is used
 - **THEN** no runtime bundle is emitted for this import (types erased at compile time)
 
 #### Scenario: Module has zero runtime dependencies
 
-- **WHEN** the compiled `@dtk/types/apis` package is inspected
+- **WHEN** the compiled `@eldritchforgeworks/dtk-types/apis` package is inspected
 - **THEN** no `require()` or `import` calls remain in the emitted JavaScript
 

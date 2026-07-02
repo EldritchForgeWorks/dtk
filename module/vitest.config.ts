@@ -11,7 +11,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@dtk/types': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/index.ts',
+      '@eldritchforgeworks/dtk-types': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/index.ts',
     },
   },
 })

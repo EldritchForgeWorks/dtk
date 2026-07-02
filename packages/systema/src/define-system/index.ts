@@ -1,7 +1,7 @@
 import { SystemRegistrar } from '../domain/services/SystemRegistrar.js'
 import { FoundrySystemRegistrar } from './foundry-registrar.js'
 import { SystemaError } from '../errors.js'
-import type { Modus } from '@dtk/types'
+import type { Modus } from '@eldritchforgeworks/dtk-types'
 
 let initWindowOpen = false
 

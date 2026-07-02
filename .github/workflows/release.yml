@@ -71,7 +71,7 @@ jobs:
             exit 1
           fi
 
-      - name: Build @dtk/types (shared kernel)
+      - name: Build @eldritchforgeworks/dtk-types (shared kernel)
         working-directory: packages/types
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install; fi

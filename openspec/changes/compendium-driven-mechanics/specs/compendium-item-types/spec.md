@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: dtk.ritus Item subtype registration
-dtk-alea SHALL register `dtk.ritus` in `CONFIG.Item.dataModels` during the Foundry `init` hook using a `TypeDataModel` subclass that delegates validation to `RitusSchema` from `@dtk/types`. The type SHALL appear in Foundry's item type selector only within the compendium browser (not the world item creation dialog).
+dtk-alea SHALL register `dtk.ritus` in `CONFIG.Item.dataModels` during the Foundry `init` hook using a `TypeDataModel` subclass that delegates validation to `RitusSchema` from `@eldritchforgeworks/dtk-types`. The type SHALL appear in Foundry's item type selector only within the compendium browser (not the world item creation dialog).
 
 #### Scenario: Valid ritus item accepted by DataModel
 - **WHEN** a Foundry Item of type `dtk.ritus` is created with `system: { mechanic: "pool-count", threshold: 4, tiers: { hit: 1 } }`

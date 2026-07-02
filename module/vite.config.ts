@@ -32,7 +32,7 @@ function typeOnlyDeclarationPlugin(): Plugin {
 export default defineConfig({
   resolve: {
     alias: {
-      '@dtk/types': resolve(__dirname, '../packages/types/src/index.ts'),
+      '@eldritchforgeworks/dtk-types': resolve(__dirname, '../packages/types/src/index.ts'),
     },
   },
   plugins: [typeOnlyDeclarationPlugin()],

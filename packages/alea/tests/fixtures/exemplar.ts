@@ -1,4 +1,4 @@
-// Local type definitions matching @dtk/types contracts.
+// Local type definitions matching @eldritchforgeworks/dtk-types contracts.
 // Duplicated here to keep test fixtures independent of the package.
 
 export interface ActorSnapshot {

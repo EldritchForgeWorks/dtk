@@ -1,4 +1,4 @@
-// Shared fixture factories for @dtk/types tests
+// Shared fixture factories for @eldritchforgeworks/dtk-types tests
 
 export function makeValidRitus() {
   return {

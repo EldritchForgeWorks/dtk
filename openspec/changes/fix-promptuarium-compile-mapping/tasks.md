@@ -3,7 +3,7 @@
 - [ ] 1.1 [test] Failing test: `runCompile` with a config whose `modus` points at a valid Modus YAML produces mappers and writes packs (in-memory target)
 - [ ] 1.2 [port] Declare `IModusSource` port (load + validate Modus, return `ModusOutputMapper[]`)
 - [ ] 1.3 [stub] In-memory Modus source test double
-- [ ] 1.4 [impl] `YamlModusSource` node adapter: read `config.modus`, validate via `@dtk/types` Modus schema, map compendium/outputMapper declarations to `ModusOutputMapper[]`
+- [ ] 1.4 [impl] `YamlModusSource` node adapter: read `config.modus`, validate via `@eldritchforgeworks/dtk-types` Modus schema, map compendium/outputMapper declarations to `ModusOutputMapper[]`
 - [ ] 1.5 [impl] Wire into `runCompile`: replace the hard-coded `[]`; error (exit 1, stderr message) when `modus` is unset or yields zero mappers
 - [ ] 1.6 [test] Failing-path tests: missing `modus` key, unreadable file, invalid Modus, zero mappers — all exit 1 with diagnostics
 

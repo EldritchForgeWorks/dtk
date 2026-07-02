@@ -1,5 +1,5 @@
 {
-  "name": "@dtk/types",
+  "name": "@eldritchforgeworks/dtk-types",
   "version": "0.1.0",
   "type": "module",
   "description": "DTK shared kernel — Zod schemas, TypeScript types, and type guards for all DTK contracts",

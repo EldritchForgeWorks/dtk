@@ -470,7 +470,7 @@ For `mode: "area"` only:
 
 ### Requirement: Exemplar Zod validator
 
-`@dtk/types/exemplar` SHALL export an `ExemplarSchema` Zod discriminated union schema
+`@eldritchforgeworks/dtk-types/exemplar` SHALL export an `ExemplarSchema` Zod discriminated union schema
 and a derived `Exemplar` TypeScript type. Sub-schemas for each kind SHALL be exported
 individually (`SpeciesSchema`, `ArchetypeSchema`, `RuleSchema`, `SequenceSchema`,
 `ActionSchema`, etc.) for use by the compiler's per-kind validation passes.
@@ -508,7 +508,7 @@ Recursive types SHALL use `z.lazy()`:
 
 ### Requirement: Exemplar type guard
 
-`@dtk/types/exemplar` SHALL export an `isExemplar(value: unknown): value is Exemplar`
+`@eldritchforgeworks/dtk-types/exemplar` SHALL export an `isExemplar(value: unknown): value is Exemplar`
 type guard and per-kind guards for all eleven kinds:
 
 `isSpecies`, `isArchetype`, `isDiscipline`, `isVocation`, `isItem`, `isBackground`,

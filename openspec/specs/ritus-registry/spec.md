@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-alea. Update Purpose after archive.
 ### Requirement: Ritus registration via AleaApi
 
 `AleaApi.registerRitus(ritus: Ritus)` SHALL validate the provided Ritus via
-`RitusSchema` from `@dtk/types/ritus` and store it keyed by `ritus.id`. Duplicate
+`RitusSchema` from `@eldritchforgeworks/dtk-types/ritus` and store it keyed by `ritus.id`. Duplicate
 registrations (same id) SHALL overwrite the previous entry and log a console warning.
 An invalid Ritus (fails schema validation) SHALL throw a descriptive error.
 

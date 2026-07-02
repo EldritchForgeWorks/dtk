@@ -37,7 +37,7 @@ packs/codex/strength.json        ← Item { type: "dtk.codex-entry", system: {..
 
 ### D1: DataModel registration — TypeDataModel subclasses, not bare objects
 
-Foundry v12+ requires `CONFIG.Item.dataModels[type]` to be a `TypeDataModel` subclass. Each DTK module registers a thin wrapper class whose `prepareBaseData()` and `validate()` delegate to the existing Zod schemas from `@dtk/types`. This keeps validation logic in the shared kernel and Foundry wiring in `adapters/foundry/`.
+Foundry v12+ requires `CONFIG.Item.dataModels[type]` to be a `TypeDataModel` subclass. Each DTK module registers a thin wrapper class whose `prepareBaseData()` and `validate()` delegate to the existing Zod schemas from `@eldritchforgeworks/dtk-types`. This keeps validation logic in the shared kernel and Foundry wiring in `adapters/foundry/`.
 
 Alternative considered: register raw schema objects (v11 style). Rejected — not supported in v12+.
 

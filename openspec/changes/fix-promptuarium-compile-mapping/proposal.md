@@ -10,9 +10,9 @@ Requested by: DTK Officina change init-m0-delivery-skeleton (M0; this fix is nee
 
 ## What Changes
 
-Module: `dtk-promptuarium` / npm package `@dtk/promptuarium` (FREE tier); plus `dtk-shadowrun` (example system). Contracts: Exemplar (compiled content) and Modus (pack + outputMapper declarations).
+Module: `dtk-promptuarium` / npm package `@eldritchforgeworks/dtk-promptuarium` (FREE tier); plus `dtk-shadowrun` (example system). Contracts: Exemplar (compiled content) and Modus (pack + outputMapper declarations).
 
-- **Load Modus in compile**: add a Modus loader to the CLI (read the YAML at `config.modus`, validate with `@dtk/types` Modus schema, derive `ModusOutputMapper[]` from its compendium/outputMapper declarations) and pass real mappers to `ExemplarCompiler.compile`. Compiling with a configured Modus that yields zero mappers, or with no `modus` configured, SHALL be a hard error — never a silent empty success.
+- **Load Modus in compile**: add a Modus loader to the CLI (read the YAML at `config.modus`, validate with `@eldritchforgeworks/dtk-types` Modus schema, derive `ModusOutputMapper[]` from its compendium/outputMapper declarations) and pass real mappers to `ExemplarCompiler.compile`. Compiling with a configured Modus that yields zero mappers, or with no `modus` configured, SHALL be a hard error — never a silent empty success.
 - **Canonical pack encoding**: adopt Foundry's own convention — key `` `!{collection}!{_id}` `` where collection derives from the pack's document class (Item → `items`, Actor → `actors`), JSON-serialized values. Fix `LevelDBCompendiumTarget` to key by collection instead of `entry.type`; converge `scripts/build-packs.mjs` on the same target (or replace it with a promptuarium invocation) so one encoding exists in the ecosystem.
 - **Fix shadowrun manifest**: correct or remove the stale `"system": "veilrunner"` on both pack entries in `packages/shadowrun/module.json`.
 

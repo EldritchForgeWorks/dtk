@@ -6,7 +6,7 @@ import type {
 import type { StepOutput } from '../value-objects/StepOutput.js';
 
 // ---------------------------------------------------------------------------
-// Domain types for RollContext (mirrors @dtk/types contracts)
+// Domain types for RollContext (mirrors @eldritchforgeworks/dtk-types contracts)
 // ---------------------------------------------------------------------------
 
 export interface TierConsequence {

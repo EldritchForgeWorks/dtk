@@ -31,6 +31,6 @@ DTK's promise is that game designers author game systems without writing JavaScr
 
 - **dtk-alea** (`src/`): new `adapters/foundry/RitusDataModel.ts`, `SequenceDataModel.ts`, `SequenceExemplarRegistry.ts`, `CompendiumScanner.ts`, `ItemSheets.ts`; modified `AleaApi.ts`, `RitusRegistry.ts`, `index.ts`
 - **dtk-lex** (`src/`): new `adapters/foundry/CodexEntryDataModel.ts`, `CompendiumScanner.ts`, `CodexEntrySheet.ts`; modified `index.ts`
-- **@dtk/types**: `RitusSchema`, `SequenceExemplarSchema`, `CodexEntrySchema` exported for DataModel validation
+- **@eldritchforgeworks/dtk-types**: `RitusSchema`, `SequenceExemplarSchema`, `CodexEntrySchema` exported for DataModel validation
 - **System module authors**: no breaking changes — existing JS registration calls continue to work; compendium-based registration is additive
 - **dtk-runeforge demo**: once compendium items exist, all JS registration code can be removed

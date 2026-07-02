@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-lex. Update Purpose after archive.
 ### Requirement: LexApi registered with game.dtk on init
 
 On `init`, dtk-lex SHALL call `game.dtk.register({ id: 'dtk-lex', version, api: lexApi })`.
-The `api` object SHALL implement `LexApi` from `@dtk/types/apis`. After registration
+The `api` object SHALL implement `LexApi` from `@eldritchforgeworks/dtk-types/apis`. After registration
 completes, dtk-lex SHALL fire `Hooks.callAll('dtk-lex.ready')`.
 
 #### Scenario: LexApi accessible via game.dtk after init

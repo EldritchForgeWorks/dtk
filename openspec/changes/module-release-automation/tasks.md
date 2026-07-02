@@ -6,7 +6,7 @@
 ## 2. Release workflow
 
 - [x] 2.1 Create `.github/workflows/release.yml` triggered on tag push matching `*-v*`; parse `<module-id>` and `<semver>` from the tag; fail fast on unknown module id *(also fails if tag version ≠ module.json version)*
-- [x] 2.2 Build step: `npm ci && npm run build` in the module directory (plus `npm run build:packs` for `dtk-shadowrun`) *(lockfiles are currently gitignored, so the workflow falls back to `npm install` when no `package-lock.json` is present; `packages/types` is built first since module builds bundle `@dtk/types` from its `dist/`. Shadowrun packs are rebuilt from `src/packs` in CI per this task — committed packs are not trusted for release artifacts.)*
+- [x] 2.2 Build step: `npm ci && npm run build` in the module directory (plus `npm run build:packs` for `dtk-shadowrun`) *(lockfiles are currently gitignored, so the workflow falls back to `npm install` when no `package-lock.json` is present; `packages/types` is built first since module builds bundle `@eldritchforgeworks/dtk-types` from its `dist/`. Shadowrun packs are rebuilt from `src/packs` in CI per this task — committed packs are not trusted for release artifacts.)*
 - [x] 2.3 Publish step: `gh release create <module-id>-v<semver>` with `<module-id>.zip` + `module.json`
 - [x] 2.4 Moving-tag step: recreate `<module-id>-latest` release with the same two assets *(delete `--cleanup-tag` + recreate at `$GITHUB_SHA`, `--latest=false`)*
 - [x] 2.5 [smoke] Tag `dtk-fascia-v0.1.0`; confirm both releases exist and `releases/download/dtk-fascia-latest/module.json` returns the stamped manifest *(blocked: requires first push to github.com/EldritchForgeWorks/dtk)* *(verified 2026-07-02: all 8 module runs green; manifests+zips 200; registry updated)*

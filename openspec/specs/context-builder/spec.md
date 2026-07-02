@@ -6,7 +6,7 @@ TBD - created by archiving change dtk-systema. Update Purpose after archive.
 ### Requirement: RollContext assembled from Foundry documents
 
 The context builder SHALL produce a `RollContext` conforming to the `RollContext`
-interface declared in `@dtk/types/apis`. The object SHALL include:
+interface declared in `@eldritchforgeworks/dtk-types/apis`. The object SHALL include:
 
 - `initiator` — `{ actorId, tokenId, system: actor.system }` for the actor who
   triggered the action
@@ -42,7 +42,7 @@ interface declared in `@dtk/types/apis`. The object SHALL include:
 ### Requirement: Context validation before dtk-alea handoff
 
 The assembled `RollContext` SHALL be validated against the `RollContext` Zod schema
-(or interface check) from `@dtk/types/apis` before `AleaApi.execute()` is called.
+(or interface check) from `@eldritchforgeworks/dtk-types/apis` before `AleaApi.execute()` is called.
 If validation fails, systema SHALL surface a Foundry error notification with the
 validation message and halt execution without calling dtk-alea.
 

@@ -1,5 +1,5 @@
-import { ModusSchema } from '@dtk/types'
-import type { Modus, SettingConfig } from '@dtk/types'
+import { ModusSchema } from '@eldritchforgeworks/dtk-types'
+import type { Modus, SettingConfig } from '@eldritchforgeworks/dtk-types'
 import { SystemaError } from '../../errors.js'
 
 export interface ActorDeclaration {

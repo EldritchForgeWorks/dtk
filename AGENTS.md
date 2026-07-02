@@ -10,7 +10,7 @@ Foundry VTT modular toolkit. Hexagonal architecture throughout. This file is the
 /
 ├── module/             dtk (Hub) — central registry, exposes game.dtk
 ├── packages/
-│   ├── types/          @dtk/types — shared kernel, zero runtime
+│   ├── types/          @eldritchforgeworks/dtk-types — shared kernel, zero runtime
 │   ├── alea/           dtk-alea — dice engine + sequence executor
 │   ├── lex/            dtk-lex — rules DSL, expression evaluator
 │   ├── systema/        dtk-systema — Foundry integration layer
@@ -60,20 +60,20 @@ Each module releases independently from this repo via a per-module tag: `<module
 
 The hub registry (`registry.json`, repo root) is updated on `main` by the workflow after each release (`scripts/update-registry.mjs`); only `latestVersion`/`manifestUrl` are machine-updated.
 
-### Publishing npm packages (`@dtk/types`, `@dtk/promptuarium`)
+### Publishing npm packages (`@eldritchforgeworks/dtk-types`, `@eldritchforgeworks/dtk-promptuarium`)
 
 Both packages publish manually to the **public npm registry** (`registry.npmjs.org`) — no CI pipeline for v1, no auth token required by consumers.
 
 Procedure (order matters — types first):
 
 ```bash
-# 1. @dtk/types
+# 1. @eldritchforgeworks/dtk-types
 cd packages/types
 npm run build && npm test
 npm pack --dry-run          # verify: dist/** + package.json only
 npm publish --access public
 
-# 2. @dtk/promptuarium
+# 2. @eldritchforgeworks/dtk-promptuarium
 cd ../promptuarium
 npm run build && npm test   # build emits dist/dtk-promptuarium.js + dist/cli/index.js
 npm pack --dry-run          # verify: dist/** + package.json only
@@ -82,11 +82,11 @@ npm publish --access public
 
 Rules:
 
-- **Version bumps**: bump `version` in the package's own `package.json` (semver). The two packages version independently; bump `@dtk/types` first if a contract changed, then `@dtk/promptuarium` in the same session if it consumed the change.
+- **Version bumps**: bump `version` in the package's own `package.json` (semver). The two packages version independently; bump `@eldritchforgeworks/dtk-types` first if a contract changed, then `@eldritchforgeworks/dtk-promptuarium` in the same session if it consumed the change.
 - `--access public` is required for scoped packages (also set via `publishConfig.access` in both manifests).
-- `@dtk/promptuarium` **bundles** `@dtk/types` (and zod/commander) into `dist/cli/index.js` via `vite.config.cli.ts` — it has no runtime dependency on `@dtk/types`. Only `classic-level` and `js-yaml` are install-time dependencies.
-- `packages/types/.npmrc` pins the `@dtk` scope to `registry.npmjs.org`; never re-pin it to GitHub Packages (public reads there require a token, which generated GM repos must not need).
-- `@dtk/promptuarium` is CLI-only: no `.` export (no `.d.ts` is emitted). Programmatic import is intentionally unsupported; consumers use the `promptuarium` bin.
+- `@eldritchforgeworks/dtk-promptuarium` **bundles** `@eldritchforgeworks/dtk-types` (and zod/commander) into `dist/cli/index.js` via `vite.config.cli.ts` — it has no runtime dependency on `@eldritchforgeworks/dtk-types`. Only `classic-level` and `js-yaml` are install-time dependencies.
+- `packages/types/.npmrc` pins the `@eldritchforgeworks` scope to `registry.npmjs.org`; never re-pin it to GitHub Packages (public reads there require a token, which generated GM repos must not need).
+- `@eldritchforgeworks/dtk-promptuarium` is CLI-only: no `.` export (no `.d.ts` is emitted). Programmatic import is intentionally unsupported; consumers use the `promptuarium` bin.
 
 ---
 
@@ -139,9 +139,9 @@ game.dtk.pendingModules(): string[]
 
 ---
 
-### `@dtk/types` — Shared Kernel (`packages/types/`)
+### `@eldritchforgeworks/dtk-types` — Shared Kernel (`packages/types/`)
 
-Zero runtime. Pure TypeScript types, Zod schemas, guards. Imported by all other packages via `devDependencies: { "@dtk/types": "file:../../packages/types" }`.
+Zero runtime. Pure TypeScript types, Zod schemas, guards. Imported by all other packages via `devDependencies: { "@eldritchforgeworks/dtk-types": "file:../../packages/types" }`.
 
 **Five domain contracts** (all re-exported from `src/index.ts`):
 
@@ -336,7 +336,7 @@ No `game.dtk` registration (UI-only module). No item types.
 
 ### `dtk-promptuarium` — Compendium Compiler (`packages/promptuarium/`)
 
-CLI tool. Reads YAML Exemplar sources, validates against `@dtk/types`, optionally generates NL descriptions, writes to Foundry LevelDB packs.
+CLI tool. Reads YAML Exemplar sources, validates against `@eldritchforgeworks/dtk-types`, optionally generates NL descriptions, writes to Foundry LevelDB packs.
 
 **CLI** (`src/cli/index.ts`):
 ```bash

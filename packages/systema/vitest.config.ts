@@ -17,7 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@dtk/types': new URL('../../packages/types/src/index.ts', import.meta.url).pathname,
+      '@eldritchforgeworks/dtk-types': new URL('../../packages/types/src/index.ts', import.meta.url).pathname,
     },
   },
 })

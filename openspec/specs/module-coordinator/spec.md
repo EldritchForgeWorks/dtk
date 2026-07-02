@@ -86,7 +86,7 @@ naming the timed-out module(s) and fire `dtk.ready` anyway.
 `game.dtk.api<T>(moduleId: string): T | undefined` SHALL return
 `game.dtk.modules.get(moduleId)?.api as T | undefined`. It returns `undefined` if the
 module is not registered. This is the runtime implementation of the `getDtkModuleApi`
-stub declared in `@dtk/types/apis`.
+stub declared in `@eldritchforgeworks/dtk-types/apis`.
 
 #### Scenario: api returns typed api when module registered
 
@@ -104,7 +104,7 @@ stub declared in `@dtk/types/apis`.
 
 `game.dtk.isInstalled(moduleId: string): boolean` SHALL return `true` if
 `game.modules.get(moduleId)?.active` is truthy. This is the runtime implementation of
-the `isDtkModuleInstalled` stub declared in `@dtk/types/apis`.
+the `isDtkModuleInstalled` stub declared in `@eldritchforgeworks/dtk-types/apis`.
 
 #### Scenario: isInstalled returns true for active module
 

@@ -5,7 +5,7 @@
 
 ## 2. Convert dtk-shadowrun to defineSystem
 
-- [ ] 2.1 [impl] Author shadowrun's Modus declaration covering `shadowrunCharacter` (data model + `ShadowrunCharacterSheet` + default flag) — validate it against the `@dtk/types` Modus schema in a unit test
+- [ ] 2.1 [impl] Author shadowrun's Modus declaration covering `shadowrunCharacter` (data model + `ShadowrunCharacterSheet` + default flag) — validate it against the `@eldritchforgeworks/dtk-types` Modus schema in a unit test
 - [ ] 2.2 [impl] Replace direct `CONFIG.Actor.dataModels` / `Actors.registerSheet` calls in `packages/shadowrun/src/index.ts` with `game.modules.get('dtk-systema').api.defineSystem(modus)` in the `init` hook; keep `registerTheme()` and `listenForDiceStep()` unchanged
 - [ ] 2.3 [wire] Move `dtk-systema` into `relationships.requires` in `packages/shadowrun/module.json`
 - [ ] 2.4 If Modus cannot express something shadowrun needs, record the gap and file a follow-up change (do not extend Modus here)

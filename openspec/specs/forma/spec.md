@@ -216,7 +216,7 @@ object written to the Foundry Actor. The output mapper is NOT inlined in the For
 
 ### Requirement: Forma Zod validator
 
-`@dtk/types/forma` SHALL export a `FormaSchema` Zod schema and a derived `Forma`
+`@eldritchforgeworks/dtk-types/forma` SHALL export a `FormaSchema` Zod schema and a derived `Forma`
 TypeScript type. The `Condition` recursive type SHALL use `z.lazy()` at the
 `and`/`or`/`not` recursion points to avoid infinite schema expansion.
 
@@ -234,7 +234,7 @@ TypeScript type. The `Condition` recursive type SHALL use `z.lazy()` at the
 
 ### Requirement: Forma type guard
 
-`@dtk/types/forma` SHALL export an `isForma(value: unknown): value is Forma`
+`@eldritchforgeworks/dtk-types/forma` SHALL export an `isForma(value: unknown): value is Forma`
 type guard backed by `FormaSchema.safeParse`.
 
 #### Scenario: Valid Forma narrows type

@@ -8,8 +8,8 @@
     "lib": ["ESNext", "DOM"],
     "types": ["@league-of-foundry-developers/foundry-vtt-types"],
     "paths": {
-      "@dtk/types": ["../packages/types/src/index.ts"],
-      "@dtk/types/*": ["../packages/types/src/*/index.ts"]
+      "@eldritchforgeworks/dtk-types": ["../packages/types/src/index.ts"],
+      "@eldritchforgeworks/dtk-types/*": ["../packages/types/src/*/index.ts"]
     }
   },
   "include": ["src/**/*.ts", "tests/**/*.ts"],

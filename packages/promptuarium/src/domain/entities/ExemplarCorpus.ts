@@ -1,4 +1,4 @@
-import type { Exemplar, ExemplarKind } from '@dtk/types/exemplar';
+import type { Exemplar, ExemplarKind } from '@eldritchforgeworks/dtk-types/exemplar';
 
 export class ExemplarCorpus {
   private readonly store = new Map<string, Exemplar>();

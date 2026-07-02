@@ -1,5 +1,5 @@
-import { ExemplarSchema } from '@dtk/types/exemplar';
-import type { Exemplar } from '@dtk/types/exemplar';
+import { ExemplarSchema } from '@eldritchforgeworks/dtk-types/exemplar';
+import type { Exemplar } from '@eldritchforgeworks/dtk-types/exemplar';
 import type { IExemplarSource } from '../../ports/IExemplarSource.js';
 import type { ValidationError, ValidationResult } from '../value-objects/ValidationError.js';
 import { ExemplarCorpus } from '../entities/ExemplarCorpus.js';

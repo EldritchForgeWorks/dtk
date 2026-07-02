@@ -61,7 +61,7 @@ The `items` record, when declared, SHALL follow the same shape as `actors` and m
 
 ### Requirement: DTK module plugin references
 
-The `ritus`, `codex`, and `forma` fields, when declared, SHALL be typed as the corresponding contract types imported from `@dtk/types`. All three are optional — a system that uses only dtk-systema and dtk-promptuarium need not declare them.
+The `ritus`, `codex`, and `forma` fields, when declared, SHALL be typed as the corresponding contract types imported from `@eldritchforgeworks/dtk-types`. All three are optional — a system that uses only dtk-systema and dtk-promptuarium need not declare them.
 
 #### Scenario: All three omitted
 
@@ -198,7 +198,7 @@ The `schemaVersion` field, when declared, SHALL be a semver string used for worl
 
 ### Requirement: Modus Zod validator
 
-`@dtk/types/modus` SHALL export a `ModusSchema` Zod schema and a derived `Modus`
+`@eldritchforgeworks/dtk-types/modus` SHALL export a `ModusSchema` Zod schema and a derived `Modus`
 TypeScript type. The schema uses `.passthrough()` on Foundry-class fields
 (`dataModel`, `sheet`) to avoid runtime failures on non-serialisable constructors.
 
@@ -216,7 +216,7 @@ TypeScript type. The schema uses `.passthrough()` on Foundry-class fields
 
 ### Requirement: Modus type guard
 
-`@dtk/types/modus` SHALL export an `isModus(value: unknown): value is Modus`
+`@eldritchforgeworks/dtk-types/modus` SHALL export an `isModus(value: unknown): value is Modus`
 type guard backed by `ModusSchema.safeParse`.
 
 #### Scenario: Valid Modus narrows type

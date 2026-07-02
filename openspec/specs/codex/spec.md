@@ -124,7 +124,7 @@ Both MAY be empty.
 
 ### Requirement: Codex Zod validator
 
-`@dtk/types/codex` SHALL export a `CodexSchema` Zod schema and a derived
+`@eldritchforgeworks/dtk-types/codex` SHALL export a `CodexSchema` Zod schema and a derived
 `Codex` TypeScript type. The schema SHALL enforce cross-field uniqueness rules
 (no slug collision across attribute/skill/derived arrays) via Zod's `.superRefine()`.
 
@@ -142,7 +142,7 @@ Both MAY be empty.
 
 ### Requirement: Codex type guard
 
-`@dtk/types/codex` SHALL export an `isCodex(value: unknown): value is Codex`
+`@eldritchforgeworks/dtk-types/codex` SHALL export an `isCodex(value: unknown): value is Codex`
 type guard backed by `CodexSchema.safeParse`.
 
 #### Scenario: Guard returns true for valid Codex

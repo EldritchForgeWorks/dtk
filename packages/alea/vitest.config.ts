@@ -11,9 +11,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@dtk/types': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/index.ts',
-      '@dtk/types/ritus': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/ritus/index.ts',
-      '@dtk/types/apis': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/apis/index.ts',
+      '@eldritchforgeworks/dtk-types': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/index.ts',
+      '@eldritchforgeworks/dtk-types/ritus': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/ritus/index.ts',
+      '@eldritchforgeworks/dtk-types/apis': '/Users/jcmurray/projects/games/foundry/dtk/packages/types/src/apis/index.ts',
     },
   },
 })

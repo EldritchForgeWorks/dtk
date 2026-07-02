@@ -8,7 +8,7 @@ the OpenSpec CLI surfaces them automatically.
 
 ## Hexagonal Architecture (Ports & Adapters)
 
-Every DTK module except `@dtk/types` uses this source layout:
+Every DTK module except `@eldritchforgeworks/dtk-types` uses this source layout:
 
 ```
 src/
@@ -31,7 +31,7 @@ src/
 - `adapters/in-memory/` implement the same port interfaces as `adapters/foundry/`
   and are the stubs used in every unit test
 
-**`@dtk/types` exception:** Types-only package, no hexagonal split. It is the
+**`@eldritchforgeworks/dtk-types` exception:** Types-only package, no hexagonal split. It is the
 **Shared Kernel** — schemas, types, and guards. No adapters, no domain services.
 
 ---
@@ -44,7 +44,7 @@ Each DTK module is a Bounded Context:
 
 | Module | Bounded Context | Core Aggregate |
 |---|---|---|
-| `@dtk/types` | Shared Kernel (ubiquitous language) | — |
+| `@eldritchforgeworks/dtk-types` | Shared Kernel (ubiquitous language) | — |
 | `dtk-hub` | Module Coordination | `ModuleRegistry` |
 | `dtk-systema` | System Integration | `ActionContext`, `PendingDecision` |
 | `dtk-alea` | Dice Execution | `SequenceExecution` |
@@ -54,7 +54,7 @@ Each DTK module is a Bounded Context:
 
 ### Ubiquitous Language
 
-The five contracts in `@dtk/types` define the shared ubiquitous language across
+The five contracts in `@eldritchforgeworks/dtk-types` define the shared ubiquitous language across
 all bounded contexts. Use these terms as-is in code, docs, and conversations:
 
 - **Ritus** — dice engine configuration (mechanic, threshold, tiers)
