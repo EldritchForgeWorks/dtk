@@ -99,21 +99,34 @@ jobs:
           MODULE_ID: ${{ steps.parse.outputs.module_id }}
           VERSION: ${{ steps.parse.outputs.version }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
-            --verify-tag \
-            --title "${MODULE_ID} v${VERSION}" \
-            --notes "Foundry module release ${MODULE_ID} v${VERSION}. Install via manifest URL: https://github.com/EldritchForgeWorks/dtk/releases/download/${MODULE_ID}-latest/module.json" \
-            ".release/${MODULE_ID}.zip" \
-            ".release/${MODULE_ID}/module.json"
+          # Idempotent: retriggered tags upload over an existing release.
+          if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" --clobber \
+              ".release/${MODULE_ID}.zip" \
+              ".release/${MODULE_ID}/module.json"
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              --verify-tag \
+              --title "${MODULE_ID} v${VERSION}" \
+              --notes "Foundry module release ${MODULE_ID} v${VERSION}. Install via manifest URL: https://github.com/EldritchForgeWorks/dtk/releases/download/${MODULE_ID}-latest/module.json" \
+              ".release/${MODULE_ID}.zip" \
+              ".release/${MODULE_ID}/module.json"
+          fi
 
       - name: Update moving <module-id>-latest release
         env:
           MODULE_ID: ${{ steps.parse.outputs.module_id }}
           VERSION: ${{ steps.parse.outputs.version }}
         run: |
-          gh release delete "${MODULE_ID}-latest" --cleanup-tag --yes || true
+          # GITHUB_TOKEN cannot create a release whose tag does not exist yet
+          # (403 Resource not accessible by integration) — push the moving tag
+          # via git first, then create the release with --verify-tag.
+          # "*-latest" does not match the "*-v*" trigger, so no re-trigger.
+          git tag -f "${MODULE_ID}-latest" "${GITHUB_SHA}"
+          git push origin -f "refs/tags/${MODULE_ID}-latest"
+          gh release delete "${MODULE_ID}-latest" --yes || true
           gh release create "${MODULE_ID}-latest" \
-            --target "${GITHUB_SHA}" \
+            --verify-tag \
             --latest=false \
             --title "${MODULE_ID} latest (currently v${VERSION})" \
             --notes "Moving release backing the stable manifest URL for ${MODULE_ID}. Recreated on every ${MODULE_ID} release; currently serves v${VERSION}." \
