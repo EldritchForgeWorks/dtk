@@ -25,6 +25,16 @@ const MechanicRuleStepSchema = z.object({
   on_tier: z.record(z.string(), MechanicTierConsequenceSchema).optional(),
 })
 
+// on_skip: non-standard field on await steps (AGENTS.md, dtk-alea's
+// SequenceExecutor.ts) — when the await is skipped (its condition is false),
+// on_skip.message is injected as the preceding rule card's message field.
+// Real runtime behavior with no prior schema representation (SequenceExecutor
+// read it via an untyped cast); added here so it round-trips through
+// validation instead of being silently stripped by non-strict z.object().
+const MechanicOnSkipSchema = z.object({
+  message: z.string(),
+})
+
 const MechanicAwaitStepSchema = z.object({
   type: z.literal('await'),
   id: z.string().min(1),
@@ -32,6 +42,7 @@ const MechanicAwaitStepSchema = z.object({
   timeout: z.number().optional(),
   default: z.string().nullable().optional(),
   condition: StepConditionSchema.optional(),
+  on_skip: MechanicOnSkipSchema.optional(),
 })
 
 export const MechanicSequenceStepSchema = z.discriminatedUnion('type', [

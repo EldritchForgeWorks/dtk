@@ -1,12 +1,51 @@
 {
-  "name": "dtk-alea",
+  "name": "@eldritchforgeworks/dtk-alea",
   "version": "0.1.0",
   "type": "module",
-  "private": true,
+  "description": "DTK sequence-execution engine — Foundry-free domain, ports, and in-memory test doubles for dice-pool resolution and sequence orchestration",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EldritchForgeWorks/dtk.git",
+    "directory": "packages/alea"
+  },
+  "homepage": "https://github.com/EldritchForgeWorks/dtk#readme",
+  "bugs": {
+    "url": "https://github.com/EldritchForgeWorks/dtk/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/AleaApi.d.ts",
+      "import": "./dist/AleaApi.js"
+    },
+    "./domain": {
+      "types": "./dist/domain/index.d.ts",
+      "import": "./dist/domain/index.js"
+    },
+    "./ports": {
+      "types": "./dist/ports/index.d.ts",
+      "import": "./dist/ports/index.js"
+    },
+    "./adapters/in-memory": {
+      "types": "./dist/adapters/in-memory/index.d.ts",
+      "import": "./dist/adapters/in-memory/index.js"
+    }
+  },
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && tsc --project tsconfig.build.json",
+    "postbuild": "node scripts/verify-dist-exclusions.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:smoke": "node scripts/smoke-node-clean.mjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -15,5 +54,6 @@
     "typescript": "^5.4.0",
     "vite": "^5.0.0",
     "vitest": "^2.0.0"
-  }
+  },
+  "license": "MIT"
 }
