@@ -1,10 +1,15 @@
-import type { RollContext } from './domain/entities/SequenceExecution.js';
+import type { RollContext, SequenceExemplar } from './domain/entities/SequenceExecution.js';
 import type { Ritus } from './domain/services/RitusRegistry.js';
 import { RitusRegistry } from './domain/services/RitusRegistry.js';
 import { SequenceExecutor } from './domain/services/SequenceExecutor.js';
 import { SequenceExemplarRegistry } from './domain/services/SequenceExemplarRegistry.js';
 import type { IActorRepository } from './ports/IActorRepository.js';
 import type { ActorSnapshot } from './ports/IExpressionDelegate.js';
+
+// Re-exported so the top-level ("." export) is a self-contained facade —
+// consumers composing `createAleaApi` directly do not need to also resolve
+// `@eldritchforgeworks/dtk-alea/domain` just for these two shapes.
+export type { RollContext, SequenceExemplar, Ritus };
 
 export interface AleaApi {
   registerRitus(ritus: Ritus): void;

@@ -60,9 +60,9 @@ Each module releases independently from this repo via a per-module tag: `<module
 
 The hub registry (`registry.json`, repo root) is updated on `main` by the workflow after each release (`scripts/update-registry.mjs`); only `latestVersion`/`manifestUrl` are machine-updated.
 
-### Publishing npm packages (`@eldritchforgeworks/dtk-types`, `@eldritchforgeworks/dtk-promptuarium`)
+### Publishing npm packages (`@eldritchforgeworks/dtk-types`, `@eldritchforgeworks/dtk-promptuarium`, `@eldritchforgeworks/dtk-alea`)
 
-Both packages publish manually to the **public npm registry** (`registry.npmjs.org`) — no CI pipeline for v1, no auth token required by consumers.
+All three packages publish manually to the **public npm registry** (`registry.npmjs.org`) — no CI pipeline for v1, no auth token required by consumers.
 
 Procedure (order matters — types first):
 
@@ -78,15 +78,22 @@ cd ../promptuarium
 npm run build && npm test   # build emits dist/dtk-promptuarium.js + dist/cli/index.js
 npm pack --dry-run          # verify: dist/** + package.json only
 npm publish --access public
+
+# 3. @eldritchforgeworks/dtk-alea
+cd ../alea
+npm run build && npm test   # build emits dist/dtk-alea.js (Foundry module) + dist/**/*.js+.d.ts (domain/ports/in-memory-adapters/AleaApi, tsc)
+npm pack --dry-run          # verify: dist/** + package.json only
+npm publish --access public
 ```
 
 Rules:
 
-- **Version bumps**: bump `version` in the package's own `package.json` (semver). The two packages version independently; bump `@eldritchforgeworks/dtk-types` first if a contract changed, then `@eldritchforgeworks/dtk-promptuarium` in the same session if it consumed the change.
-- `--access public` is required for scoped packages (also set via `publishConfig.access` in both manifests).
+- **Version bumps**: bump `version` in the package's own `package.json` (semver). The packages version independently; bump `@eldritchforgeworks/dtk-types` first if a contract changed, then whichever of `@eldritchforgeworks/dtk-promptuarium` / `@eldritchforgeworks/dtk-alea` consumed the change, in the same session.
+- `--access public` is required for scoped packages (also set via `publishConfig.access` in all three manifests).
 - `@eldritchforgeworks/dtk-promptuarium` **bundles** `@eldritchforgeworks/dtk-types` (and zod/commander) into `dist/cli/index.js` via `vite.config.cli.ts` — it has no runtime dependency on `@eldritchforgeworks/dtk-types`. Only `classic-level` and `js-yaml` are install-time dependencies.
-- `packages/types/.npmrc` pins the `@eldritchforgeworks` scope to `registry.npmjs.org`; never re-pin it to GitHub Packages (public reads there require a token, which generated GM repos must not need).
+- `packages/types/.npmrc` pins the `@eldritchforgeworks` scope to `registry.npmjs.org`; never re-pin it to GitHub Packages (public reads there require a token, which generated GM repos must not need). `packages/alea/.npmrc` carries the same pin.
 - `@eldritchforgeworks/dtk-promptuarium` is CLI-only: no `.` export (no `.d.ts` is emitted). Programmatic import is intentionally unsupported; consumers use the `promptuarium` bin.
+- `@eldritchforgeworks/dtk-alea` publishes a **domain-only partial surface**, not the whole package: `npm run build` is a dual build — `vite build` still emits the unchanged Foundry module bundle (`dist/dtk-alea.js`, entry `src/index.ts`), and `tsc --project tsconfig.build.json` (additive, runs second) separately compiles `src/domain/**`, `src/ports/**`, `src/adapters/in-memory/**`, and `src/AleaApi.ts` to per-file `dist/**/*.js` + `.d.ts`. `src/adapters/foundry/**` (the ten Foundry-adapter/sheet/data-model files) and `src/index.ts` (the Foundry module entry) are explicitly excluded from `tsconfig.build.json` and never emitted or exported — publishing them would throw `ReferenceError: game is not defined` (etc.) the moment anything imported them outside Foundry. `exports` covers `.` (the `AleaApi` facade), `./domain`, `./ports`, `./adapters/in-memory`. A `postbuild` script (`scripts/verify-dist-exclusions.mjs`) fails the build if `dist/adapters/foundry/` or a tsc-built `dist/index.js` ever appears; `scripts/smoke-node-clean.mjs` (`npm run test:smoke`, after `npm run build`) proves the built surface runs a fixture sequence to completion in a plain Node process with zero Foundry globals defined.
 
 ---
 
