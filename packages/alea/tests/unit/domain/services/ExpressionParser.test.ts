@@ -121,6 +121,25 @@ describe('ExpressionParser — Scope resolution', () => {
     expect(parser.evaluate('@steps.cover.netHits', ctx)).toBeNull();
   });
 
+  it('@steps reference to a hyphenated (kebab-case) step id resolves correctly (2026-07-04 regression: `-` used to split the token, silently nulling the whole expression)', () => {
+    const parser = new ExpressionParser();
+    const stepOutputs = new Map<string, unknown>([
+      ['take-the-shot', { hits: 4, opposedHits: null, netHits: 3, tier: 'hit', faces: [5, 6, 5, 5], pool: 6 }],
+    ]);
+    const ctx = makeCtx({ stepOutputs });
+    expect(parser.evaluate('@steps.take-the-shot.netHits', ctx)).toBe(3);
+  });
+
+  it('arithmetic between two hyphenated-step references still tokenizes both sides correctly', () => {
+    const parser = new ExpressionParser();
+    const stepOutputs = new Map<string, unknown>([
+      ['take-the-shot', { hits: 4, opposedHits: null, netHits: 3, tier: 'hit', faces: [], pool: 6 }],
+      ['duck-for-cover', { hits: 1, opposedHits: null, netHits: 1, tier: 'hit', faces: [], pool: 2 }],
+    ]);
+    const ctx = makeCtx({ stepOutputs });
+    expect(parser.evaluate('@steps.take-the-shot.netHits - @steps.duck-for-cover.netHits', ctx)).toBe(2);
+  });
+
   it('unknown scope returns null', () => {
     const parser = new ExpressionParser();
     expect(parser.evaluate('@alien.field', makeCtx())).toBeNull();

@@ -5,6 +5,20 @@ import type {
 
 const COMPLEX_PATTERN = /if\s*\(|&&|\|\||!|['"`]|\w+\s*\(/;
 
+// `@`-reference tokens below use `[\w.-]+` (not `[\w.]+`): scope + dot-path
+// segments may themselves be kebab-case (e.g. `@steps.take-the-shot.hits` —
+// authored step/ritus/actor-type ids are commonly kebab-case throughout this
+// system). `\w` alone excludes `-`, which used to split a single reference
+// into a truncated reference plus one or more stray `-` operator tokens —
+// `applyArithmetic`'s gap-check then rejected the WHOLE expression (silently
+// evaluating to `null`, and therefore to a zero-dice roll) any time a
+// referenced segment id contained a hyphen. Fixed 2026-07-04, found via a
+// live Officina dry-run with a step literally named `take-the-shot`.
+// Convention (and this codebase's own real content) always spaces binary
+// operators, so a hyphen with no surrounding whitespace is swallowed into
+// the reference rather than read as subtraction — matching every shipped
+// example (e.g. `@steps.attack.hits - @steps.defense.hits`).
+
 function resolvePath(obj: unknown, path: string): unknown {
   const parts = path.split('.');
   let cur: unknown = obj;
@@ -50,7 +64,7 @@ function applyArithmetic(
   ctx: EvaluationContext,
 ): number | null {
   // Tokenise into values and operators with precedence
-  const re = /@[\w.]+|[+\-*/]|[\d]+(?:\.[\d]+)?/g;
+  const re = /@[\w.-]+|[+\-*/]|[\d]+(?:\.[\d]+)?/g;
   const values: (number | null)[] = [];
   const ops: string[] = [];
   let lastEnd = 0;
@@ -135,7 +149,7 @@ export class ExpressionParser {
     }
 
     // Single @scope.path reference
-    if (/^@[\w.]+$/.test(trimmed)) {
+    if (/^@[\w.-]+$/.test(trimmed)) {
       const v = resolveScope(trimmed.slice(1), context);
       return typeof v === 'number' ? v : null;
     }
@@ -154,7 +168,7 @@ export class ExpressionParser {
     const trimmed = expression.trim();
     const literal = parseFloat(trimmed);
     if (!isNaN(literal) && String(literal) === trimmed) return literal;
-    if (/^@[\w.]+$/.test(trimmed)) {
+    if (/^@[\w.-]+$/.test(trimmed)) {
       return resolveScope(trimmed.slice(1), context);
     }
     return this.evaluate(expression, context);

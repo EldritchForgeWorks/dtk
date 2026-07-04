@@ -1,6 +1,6 @@
 {
   "name": "@eldritchforgeworks/dtk-alea",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "DTK sequence-execution engine — Foundry-free domain, ports, and in-memory test doubles for dice-pool resolution and sequence orchestration",
   "repository": {
