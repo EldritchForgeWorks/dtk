@@ -24,3 +24,27 @@ pack build) SHALL emit this single encoding.
 
 - **WHEN** the same source documents are packed by promptuarium and by the shadowrun pack build
 - **THEN** both databases contain identical keys and equivalent JSON document values
+
+### Requirement: Sequence pack envelope
+
+Sequence source documents SHALL be compiled into Item pack entries — each
+document validated against `MechanicSequenceExemplarSchema` from
+`@eldritchforgeworks/dtk-types` — with the fixed envelope
+`{_id, name, type: 'dtk.sequence', system, flags}` where `system` is the bare
+`MechanicSequenceExemplar` document unchanged — no `fieldMap` remapping — matching
+the shape `dtk-shadowrun` ships in
+`packages/shadowrun/src/packs/sr-sequences/01-RangedAttack.json` and `dtk-alea`'s
+`CompendiumScanner` consumes. `_id` SHALL be a stable id derived from the
+sequence's `id` (same derivation as exemplar compilation); `name` SHALL come from
+an optional top-level `name` in the source document, falling back to the
+sequence `id`.
+
+#### Scenario: Sequence document wrapped in fixed envelope
+
+- **WHEN** the compiler packs a sequence document with `id: "sr.ranged-attack"`
+- **THEN** the pack entry has `type: 'dtk.sequence'`, `system.id === "sr.ranged-attack"`, `system.steps` identical to the source, and a stable `_id` derived from `"sr.ranged-attack"`
+
+#### Scenario: Sequence pack loads through alea's scanner
+
+- **WHEN** a compiled sequence pack is enabled in a world where `dtk-alea` is active
+- **THEN** the scanner discovers the entries as `dtk.sequence` items with executable `system` payloads

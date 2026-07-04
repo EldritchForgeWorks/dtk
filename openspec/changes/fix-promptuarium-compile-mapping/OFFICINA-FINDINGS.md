@@ -28,3 +28,14 @@ tests in the Officina repo (`packages/core/src/source-format/dtk-types-golden.te
    bumped to 0.2.0.
 
 These were split into their own change at triage: `ritus-tier-vocabulary`.
+
+---
+
+**Addendum (2026-07-04) — mapper mechanism superseded.** This change's original
+draft derived compile mappers from the configured Modus. That was rejected jointly
+with Officina's `m3-compendium-studio` design (decisions 2–3): `ModusSchema` has no
+pack/mapper fields, and compendium packaging is a build-output concern that doesn't
+belong in the runtime Modus contract. Mappers now come from a new `outputs` section
+in `promptuarium.config.yaml` (plus an optional `sequences` source key), which
+Officina regenerates deterministically on export. The change artifacts here were
+rewritten accordingly on the same date.
