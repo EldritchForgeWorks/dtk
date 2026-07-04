@@ -1,6 +1,6 @@
 {
   "name": "@eldritchforgeworks/dtk-promptuarium",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "DTK compendium compiler CLI — validates YAML Exemplar corpora against @eldritchforgeworks/dtk-types and compiles them to Foundry VTT LevelDB packs",
   "repository": {
