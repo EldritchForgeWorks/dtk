@@ -21,7 +21,12 @@ for (const { src, out } of PACKS) {
   try { rmSync(outDir, { recursive: true, force: true }); } catch {}
   mkdirSync(outDir, { recursive: true });
 
-  // Foundry V12+ LevelDB format: key = "!items!{_id}", value = utf8 JSON string
+  // Foundry V12+ LevelDB format: key = "!items!{_id}", value = utf8 JSON string.
+  // This is the CANONICAL encoding — promptuarium's own LevelDBCompendiumTarget
+  // was fixed 2026-07-04 to converge on the same `!{collection}!{_id}` keying
+  // (DTK change `fix-promptuarium-compile-mapping`, F5). Both packs here are
+  // Item-class, hence `items`; keep this script's keying in sync with
+  // ICompendiumTarget's `PackDocumentClass` mapping if that ever changes.
   const db = new ClassicLevel(outDir, { keyEncoding: 'utf8', valueEncoding: 'utf8' });
   await db.open();
 

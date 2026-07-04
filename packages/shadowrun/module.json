@@ -33,7 +33,6 @@
       "label": "SR: Dice Mechanics",
       "path": "packs/sr-ritus",
       "type": "Item",
-      "system": "veilrunner",
       "flags": {}
     },
     {
@@ -41,7 +40,6 @@
       "label": "SR: Sequences",
       "path": "packs/sr-sequences",
       "type": "Item",
-      "system": "veilrunner",
       "flags": {}
     }
   ],

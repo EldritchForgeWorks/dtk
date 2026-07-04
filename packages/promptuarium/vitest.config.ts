@@ -10,6 +10,7 @@ export default defineConfig({
       '@eldritchforgeworks/dtk-types/forma': resolve(__dirname, '../../packages/types/src/forma/index.ts'),
       '@eldritchforgeworks/dtk-types/modus': resolve(__dirname, '../../packages/types/src/modus/index.ts'),
       '@eldritchforgeworks/dtk-types/ritus': resolve(__dirname, '../../packages/types/src/ritus/index.ts'),
+      '@eldritchforgeworks/dtk-types/sequence': resolve(__dirname, '../../packages/types/src/sequence/index.ts'),
       '@eldritchforgeworks/dtk-types': resolve(__dirname, '../../packages/types/src/index.ts'),
     },
   },

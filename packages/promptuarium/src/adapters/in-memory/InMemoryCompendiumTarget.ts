@@ -1,11 +1,11 @@
-import type { ICompendiumTarget } from '../../ports/ICompendiumTarget.js';
+import type { ICompendiumTarget, PackDocumentClass } from '../../ports/ICompendiumTarget.js';
 import type { CompiledEntry } from '../../domain/value-objects/CompiledEntry.js';
 
 export class InMemoryCompendiumTarget implements ICompendiumTarget {
-  readonly written: Array<{ packId: string; entries: CompiledEntry[] }> = [];
+  readonly written: Array<{ packId: string; entries: CompiledEntry[]; documentClass: PackDocumentClass }> = [];
 
-  write(packId: string, entries: CompiledEntry[]): Promise<void> {
-    this.written.push({ packId, entries: [...entries] });
+  write(packId: string, entries: CompiledEntry[], documentClass: PackDocumentClass = 'Item'): Promise<void> {
+    this.written.push({ packId, entries: [...entries], documentClass });
     return Promise.resolve();
   }
 

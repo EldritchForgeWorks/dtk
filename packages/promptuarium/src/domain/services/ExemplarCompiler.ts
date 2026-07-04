@@ -1,5 +1,5 @@
 import type { Exemplar } from '@eldritchforgeworks/dtk-types/exemplar';
-import type { ICompendiumTarget } from '../../ports/ICompendiumTarget.js';
+import type { ICompendiumTarget, PackDocumentClass } from '../../ports/ICompendiumTarget.js';
 import type { ExemplarCorpus } from '../entities/ExemplarCorpus.js';
 import { type CompiledEntry, makeStableId } from '../value-objects/CompiledEntry.js';
 
@@ -8,6 +8,9 @@ export interface ModusOutputMapper {
   readonly documentType: string;
   readonly kinds: readonly string[];
   readonly fieldMap: Readonly<Record<string, string>>;
+  /** Foundry collection the pack writes under. Defaults to `'Item'` — every
+   *  exemplar kind compiled today is an Item subtype. */
+  readonly documentClass?: PackDocumentClass;
 }
 
 function getByPath(obj: Record<string, unknown>, path: string): unknown {
@@ -72,7 +75,7 @@ export class ExemplarCompiler {
     compiledAt: string,
   ): Promise<void> {
     // Compute all entries before any writes (no partial writes)
-    const packEntries = new Map<string, CompiledEntry[]>();
+    const packEntries = new Map<string, { entries: CompiledEntry[]; documentClass: PackDocumentClass }>();
 
     for (const mapper of mappers) {
       const entries: CompiledEntry[] = [];
@@ -81,11 +84,11 @@ export class ExemplarCompiler {
           entries.push(this.toCompiledEntry(exemplar, mapper, compiledAt));
         }
       }
-      packEntries.set(mapper.packId, entries);
+      packEntries.set(mapper.packId, { entries, documentClass: mapper.documentClass ?? 'Item' });
     }
 
-    for (const [packId, entries] of packEntries) {
-      await this.target.write(packId, entries);
+    for (const [packId, { entries, documentClass }] of packEntries) {
+      await this.target.write(packId, entries, documentClass);
     }
   }
 }

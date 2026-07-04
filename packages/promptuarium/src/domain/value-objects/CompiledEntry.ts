@@ -6,7 +6,11 @@ export interface CompiledEntry {
   readonly type: string;
   readonly system: Record<string, unknown>;
   readonly flags: {
-    readonly 'dtk-promptuarium': {
+    // Optional: sequence-sourced entries (cli/commands/compile.ts) ship the
+    // fixed `dtk.sequence` envelope with empty flags, matching
+    // dtk-shadowrun's shipped `sr-sequences` pack exactly — they aren't
+    // compiled from an Exemplar, so there's no exemplar metadata to attach.
+    readonly 'dtk-promptuarium'?: {
       readonly exemplarId: string;
       readonly exemplarKind: string;
       readonly compiledAt: string;
